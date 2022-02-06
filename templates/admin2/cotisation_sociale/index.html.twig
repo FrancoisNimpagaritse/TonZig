@@ -1,0 +1,78 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Frais d'inscription!{% endblock %}
+
+{% block body %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <div class="text-center">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Frais d'inscriptions payés</h1>
+          </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <div class="row">
+                <div class="col-md-5">   
+                  <h6 class="m-0 font-weight-bold text-primary">Liste complète</h6>
+                </div>
+                  
+                <div class="col-md-5"></div>
+                <div class="col">
+                    <a href="{{ path('admin_registrationfeespayment_create') }}" class="btn btn-sm btn-success">Nouveau paiement</a>
+                </div>
+              </div>    
+            </div>
+         
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>N° inscription</th>
+                      <th>Payé le</th>
+                      <th>Montant</th>
+                      <th>Pièce</th>
+                      <th>Etudiant</th>
+                      <th>Matricule</th>
+                      <th>Saisi par</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>N° inscription</th>
+                      <th>Payé le</th>
+                      <th>Montant</th>
+                      <th>Pièce</th>
+                      <th>Etudiant</th>
+                      <th>Matricule</th>
+                      <th>Saisi par</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  {% for regpay in registrationfeespaid %}
+                    <tr>
+                      <td>{{regpay.registration.id}}</td>
+                      <td>{{regpay.datePaid | date('d/m/Y')}}</td>
+                      <td>{{regpay.paidAmount}}</td>
+                      <td>{{regpay.voucher}}</td>
+                      <td>{{regpay.registration.student.firstname}} {{regpay.registration.student.lastname}}</td>
+                      <td>{{regpay.registration.student.matricule}}</td>
+                      <td>{{regpay.user.firstname}} {{regpay.user.lastname}}</td>
+                      <td>
+                        <a href="{{ path('admin_cursus_edit', {'id':regpay.id}) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="{{ path('admin_cursus_delete', {'id':regpay.id}) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+{% endblock %}

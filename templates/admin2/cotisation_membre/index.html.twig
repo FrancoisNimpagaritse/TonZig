@@ -1,0 +1,87 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Minervals{% endblock %}
+
+{% block body %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <div class="text-center">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Minervals payés</h1>
+          </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <div class="row">
+                <div class="col-md-5">   
+                  <h6 class="m-0 font-weight-bold text-primary">Liste complète</h6>
+                </div>
+                  
+                <div class="col-md-5"></div>
+                <div class="col">
+                    <a href="{{ path('admin_minervalpayment_create') }}" class="btn btn-sm btn-success">Nouveau paiement</a>
+                </div>
+              </div>    
+            </div>
+         
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>N° inscription</th>
+                      <th>Etudiant</th>
+                      <th>Matricule</th>
+                      <th>Année académique</th>
+                      <th>Période due</th>
+                      <th>Montant dû</th>
+                      <th>Montant payé</th>
+                      <th>Reste</th>
+                      <th>Pièce</th>
+                      <th>Saisi par</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>N° inscription</th>
+                      <th>Etudiant</th>
+                      <th>Matricule</th>
+                      <th>Année académique</th>
+                      <th>Période due</th>
+                      <th>Montant dû</th>
+                      <th>Montant payé</th>
+                      <th>Reste</th>
+                      <th>Pièce</th>
+                      <th>Saisi par</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  {% for minospay in minospays %}
+                    <tr>
+                      <td>{{minospay.registration.id}}</td>
+                      <td>{{minospay.registration.student.firstname}} {{minospay.registration.student.lastname}}</td>
+                      <td>{{minospay.registration.student.matricule}}</td>
+                      <td>{{minospay.coursesperiod.academicyear.name}}</td>
+                      <td>{{minospay.coursesperiod.trimestre}}</td>
+                      <td>{{minospay.coursesperiod.dueAmount}}</td>
+                      <td>{{minospay.paidAmount}}</td>                      
+                      <td class="badge badge-danger">{{minospay.coursesperiod.dueAmount - minospay.paidAmount}}</td>
+                      <td>{{minospay.voucher}}</td>
+                      <td>{{minospay.user.firstname}} {{minospay.user.lastname}}</td>
+                      <td>
+                        <a href="{{ path('admin_cursus_edit', {'id':minospay.id}) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="{{ path('admin_cursus_delete', {'id':minospay.id}) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+{% endblock %}
