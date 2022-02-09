@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -75,6 +77,46 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cotisation::class, mappedBy="member", orphanRemoval=true)
+     */
+    private $cotisations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CaisseSociale::class, mappedBy="member", orphanRemoval=true)
+     */
+    private $caisseSociales;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MeetingAppliedSanction::class, mappedBy="member", orphanRemoval=true)
+     */
+    private $meetingAppliedSanctions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="member", orphanRemoval=true)
+     */
+    private $loans;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Meeting::class, mappedBy="hostOne")
+     */
+    private $hostedOneMeetings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Meeting::class, mappedBy="hostTwo")
+     */
+    private $hostedTwoMeetings;
+
+    public function __construct()
+    {
+        $this->cotisations = new ArrayCollection();
+        $this->caisseSociales = new ArrayCollection();
+        $this->meetingAppliedSanctions = new ArrayCollection();
+        $this->loans = new ArrayCollection();
+        $this->hostedOneMeetings = new ArrayCollection();
+        $this->hostedTwoMeetings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -249,6 +291,191 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cotisation[]
+     */
+    public function getCotisations(): Collection
+    {
+        return $this->cotisations;
+    }
+
+    public function addCotisation(Cotisation $cotisation): self
+    {
+        if (!$this->cotisations->contains($cotisation)) {
+            $this->cotisations[] = $cotisation;
+            $cotisation->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotisation(Cotisation $cotisation): self
+    {
+        if ($this->cotisations->removeElement($cotisation)) {
+            // set the owning side to null (unless already changed)
+            if ($cotisation->getMember() === $this) {
+                $cotisation->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaisseSociale[]
+     */
+    public function getCaisseSociales(): Collection
+    {
+        return $this->caisseSociales;
+    }
+
+    public function addCaisseSociale(CaisseSociale $caisseSociale): self
+    {
+        if (!$this->caisseSociales->contains($caisseSociale)) {
+            $this->caisseSociales[] = $caisseSociale;
+            $caisseSociale->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaisseSociale(CaisseSociale $caisseSociale): self
+    {
+        if ($this->caisseSociales->removeElement($caisseSociale)) {
+            // set the owning side to null (unless already changed)
+            if ($caisseSociale->getMember() === $this) {
+                $caisseSociale->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MeetingAppliedSanction[]
+     */
+    public function getMeetingAppliedSanctions(): Collection
+    {
+        return $this->meetingAppliedSanctions;
+    }
+
+    public function addMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
+    {
+        if (!$this->meetingAppliedSanctions->contains($meetingAppliedSanction)) {
+            $this->meetingAppliedSanctions[] = $meetingAppliedSanction;
+            $meetingAppliedSanction->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
+    {
+        if ($this->meetingAppliedSanctions->removeElement($meetingAppliedSanction)) {
+            // set the owning side to null (unless already changed)
+            if ($meetingAppliedSanction->getMember() === $this) {
+                $meetingAppliedSanction->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Loan[]
+     */
+    public function getLoans(): Collection
+    {
+        return $this->loans;
+    }
+
+    public function addLoan(Loan $loan): self
+    {
+        if (!$this->loans->contains($loan)) {
+            $this->loans[] = $loan;
+            $loan->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoan(Loan $loan): self
+    {
+        if ($this->loans->removeElement($loan)) {
+            // set the owning side to null (unless already changed)
+            if ($loan->getMember() === $this) {
+                $loan->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
+
+    /**
+     * @return Collection|Meeting[]
+     */
+    public function getHostedOneMeetings(): Collection
+    {
+        return $this->hostedOneMeetings;
+    }
+
+    public function addHostedOneMeeting(Meeting $hostedOneMeeting): self
+    {
+        if (!$this->hostedOneMeetings->contains($hostedOneMeeting)) {
+            $this->hostedOneMeetings[] = $hostedOneMeeting;
+            $hostedOneMeeting->setHostOne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHostedOneMeeting(Meeting $hostedOneMeeting): self
+    {
+        if ($this->hostedOneMeetings->removeElement($hostedOneMeeting)) {
+            // set the owning side to null (unless already changed)
+            if ($hostedOneMeeting->getHostOne() === $this) {
+                $hostedOneMeeting->setHostOne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meeting[]
+     */
+    public function getHostedTwoMeetings(): Collection
+    {
+        return $this->hostedTwoMeetings;
+    }
+
+    public function addHostedTwoMeeting(Meeting $hostedTwoMeeting): self
+    {
+        if (!$this->hostedTwoMeetings->contains($hostedTwoMeeting)) {
+            $this->hostedTwoMeetings[] = $hostedTwoMeeting;
+            $hostedTwoMeeting->setHostTwo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHostedTwoMeeting(Meeting $hostedTwoMeeting): self
+    {
+        if ($this->hostedTwoMeetings->removeElement($hostedTwoMeeting)) {
+            // set the owning side to null (unless already changed)
+            if ($hostedTwoMeeting->getHostTwo() === $this) {
+                $hostedTwoMeeting->setHostTwo(null);
+            }
+        }
 
         return $this;
     }
