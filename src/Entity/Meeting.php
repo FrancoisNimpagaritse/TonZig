@@ -50,12 +50,7 @@ class Meeting
      */
     private $caisseSociales;
 
-    /**
-     * @ORM\OneToMany(targetEntity=MeetingAppliedSanction::class, mappedBy="meeting", orphanRemoval=true)
-     */
-    private $meetingAppliedSanctions;
-
-    /**
+   /**
      * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="meeting", orphanRemoval=true)
      */
     private $loans;
@@ -70,12 +65,23 @@ class Meeting
      */
     private $hostTwo;
 
+    /**
+     * @ORM\OneToOne(targetEntity=MeetingLotDistribution::class, mappedBy="meeting", cascade={"persist", "remove"})
+     */
+    private $lotDistribution;
+
+    /**
+     * @ORM\OneToMany(targetEntity=AppliedSanction::class, mappedBy="meeting", orphanRemoval=true)
+     */
+    private $appliedSanctions;
+
     public function __construct()
     {
         $this->cotisations = new ArrayCollection();
         $this->caisseSociales = new ArrayCollection();
         $this->meetingAppliedSanctions = new ArrayCollection();
         $this->loans = new ArrayCollection();
+        $this->appliedSanctions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,37 +195,7 @@ class Meeting
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection|MeetingAppliedSanction[]
-     */
-    public function getMeetingAppliedSanctions(): Collection
-    {
-        return $this->meetingAppliedSanctions;
-    }
-
-    public function addMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
-    {
-        if (!$this->meetingAppliedSanctions->contains($meetingAppliedSanction)) {
-            $this->meetingAppliedSanctions[] = $meetingAppliedSanction;
-            $meetingAppliedSanction->setMeeting($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
-    {
-        if ($this->meetingAppliedSanctions->removeElement($meetingAppliedSanction)) {
-            // set the owning side to null (unless already changed)
-            if ($meetingAppliedSanction->getMeeting() === $this) {
-                $meetingAppliedSanction->setMeeting(null);
-            }
-        }
-
-        return $this;
-    }
+    }   
 
     /**
      * @return Collection|Loan[]
@@ -273,5 +249,57 @@ class Meeting
         $this->hostTwo = $hostTwo;
 
         return $this;
+    }
+
+    public function getLotDistribution(): ?MeetingLotDistribution
+    {
+        return $this->lotDistribution;
+    }
+
+    public function setLotDistribution(MeetingLotDistribution $lotDistribution): self
+    {
+        // set the owning side of the relation if necessary
+        if ($lotDistribution->getMeeting() !== $this) {
+            $lotDistribution->setMeeting($this);
+        }
+
+        $this->lotDistribution = $lotDistribution;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AppliedSanction[]
+     */
+    public function getAppliedSanctions(): Collection
+    {
+        return $this->appliedSanctions;
+    }
+
+    public function addAppliedSanction(AppliedSanction $appliedSanction): self
+    {
+        if (!$this->appliedSanctions->contains($appliedSanction)) {
+            $this->appliedSanctions[] = $appliedSanction;
+            $appliedSanction->setMeeting($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppliedSanction(AppliedSanction $appliedSanction): self
+    {
+        if ($this->appliedSanctions->removeElement($appliedSanction)) {
+            // set the owning side to null (unless already changed)
+            if ($appliedSanction->getMeeting() === $this) {
+                $appliedSanction->setMeeting(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return 'Rencontre N° ' . $this->getId();
     }
 }

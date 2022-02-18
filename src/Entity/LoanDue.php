@@ -25,17 +25,17 @@ class LoanDue
     /**
      * @ORM\Column(type="float")
      */
-    private $principalDue;
+    private $principal;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $interestDue;
+    private $interest;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $penalityDue;
+    private $penality;
 
     /**
      * @ORM\ManyToOne(targetEntity=Loan::class, inversedBy="dues")
@@ -60,38 +60,38 @@ class LoanDue
         return $this;
     }
 
-    public function getPrincipalDue(): ?float
+    public function getPrincipal(): ?float
     {
-        return $this->principalDue;
+        return $this->principal;
     }
 
-    public function setPrincipalDue(float $principalDue): self
+    public function setPrincipal(float $principal): self
     {
-        $this->principalDue = $principalDue;
+        $this->principal = $principal;
 
         return $this;
     }
 
-    public function getInterestDue(): ?float
+    public function getInterest(): ?float
     {
-        return $this->interestDue;
+        return $this->interest;
     }
 
-    public function setInterestDue(float $interestDue): self
+    public function setInterest(float $interest): self
     {
-        $this->interestDue = $interestDue;
+        $this->interest = $interest;
 
         return $this;
     }
 
-    public function getPenalityDue(): ?float
+    public function getPenality(): ?float
     {
-        return $this->penalityDue;
+        return $this->penality;
     }
 
-    public function setPenalityDue(float $penalityDue): self
+    public function setPenality(float $penality): self
     {
-        $this->penalityDue = $penalityDue;
+        $this->penality = $penality;
 
         return $this;
     }

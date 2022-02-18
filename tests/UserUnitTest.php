@@ -6,7 +6,7 @@ use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
-class UserTest extends TestCase
+class UserUnitTest extends TestCase
 {
     public function testIsTrue()
     {

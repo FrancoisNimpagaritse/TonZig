@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\MeetingAppliedSanction;
+use App\Entity\MeetingLotDistribution;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method MeetingAppliedSanction|null find($id, $lockMode = null, $lockVersion = null)
- * @method MeetingAppliedSanction|null findOneBy(array $criteria, array $orderBy = null)
- * @method MeetingAppliedSanction[]    findAll()
- * @method MeetingAppliedSanction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MeetingLotDistribution|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MeetingLotDistribution|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MeetingLotDistribution[]    findAll()
+ * @method MeetingLotDistribution[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MeetingAppliedSanctionRepository extends ServiceEntityRepository
+class MeetingLotDistributionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MeetingAppliedSanction::class);
+        parent::__construct($registry, MeetingLotDistribution::class);
     }
 
     // /**
-    //  * @return MeetingAppliedSanction[] Returns an array of MeetingAppliedSanction objects
+    //  * @return MeetingLotDistribution[] Returns an array of MeetingLotDistribution objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class MeetingAppliedSanctionRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?MeetingAppliedSanction
+    public function findOneBySomeField($value): ?MeetingLotDistribution
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

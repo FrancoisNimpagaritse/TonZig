@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MeetingAppliedSanctionRepository;
+use App\Repository\AppliedSanctionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MeetingAppliedSanctionRepository::class)
+ * @ORM\Entity(repositoryClass=AppliedSanctionRepository::class)
  */
-class MeetingAppliedSanction
+class AppliedSanction
 {
     /**
      * @ORM\Id
@@ -28,13 +28,13 @@ class MeetingAppliedSanction
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Meeting::class, inversedBy="meetingAppliedSanctions")
+     * @ORM\ManyToOne(targetEntity=Meeting::class, inversedBy="appliedSanctions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $meeting;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="meetingAppliedSanctions")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sanctions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $member;
