@@ -3,172 +3,162 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+ <main>
+    <h1>Inscription nouveau membre</h1>
+    <div class="recent-orders">
+        <div class="login_wrap center">
+            <div class="padding_eight_all bg-white">
+                
+                <div class="message-flash">
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+                </div>
 
-    {{ include("partials/_title_section.html.twig", {'name': 'Adhésion membre'}) }}   
 
-    <div class="login_register_wrap section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-md-10">
-                    <div class="login_wrap">
-                        <div class="padding_eight_all bg-white">
-                            <div class="heading_s1">
-                                <h3 class="text-center">Inscription</h3>
+                    <form action="" class="form">
+                       <h3 class="text-center">Inscription</h3> 
+                        <!--progress bar-->
+                        <div class="progressbar">
+                            <div class="progress" id="progress"></div>
+                            <div class="progress-step progress-step-active" data-title="Identité"></div>
+                            <div class="progress-step" data-title="Contact"></div>
+                            <div class="progress-step" data-title="Adresse"></div>
+                            <div class="progress-step" data-title="Code"></div>
+                        </div>
+                        <!--steps-->
+
+                        <div class="form-step form-step-active">
+                            <div class="input-group">
+                                <label for="firstname">Prénom</label>
+                                <input type="text" name="firstname" id="firstname">
                             </div>
-                            <div class="message-flash">
-                                {% for flashError in app.flashes('verify_email_error') %}
-                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-                                {% endfor %}
+                            <div class="input-group">
+                                <label for="lastname">Nom</label>
+                                <input type="text" name="lastname" id="lastname">
                             </div>
-
-
-                                <form action="" class="form">
-                                <!--    <h1 class="text-center">Inscription</h1>  -->
-                                    <!--progress bar-->
-                                    <div class="progressbar">
-                                        <div class="progress" id="progress"></div>
-                                        <div class="progress-step progress-step-active" data-title="Identité"></div>
-                                        <div class="progress-step" data-title="Contact"></div>
-                                        <div class="progress-step" data-title="Adresse"></div>
-                                        <div class="progress-step" data-title="Code"></div>
-                                    </div>
-                                    <!--steps-->
-
-                                    <div class="form-step form-step-active">
-                                        <div class="input-group">
-                                            <label for="firstname">Prénom</label>
-                                            <input type="text" name="firstname" id="firstname">
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="lastname">Nom</label>
-                                            <input type="text" name="lastname" id="lastname">
-                                        </div>
-                                        <div class="">
-                                            <a href="#" class="btn btn-next width-50 ml-auto">Suivant</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-step">
-                                        <div class="input-group">
-                                            <label for="phone">Téléphone</label>
-                                            <input type="text" name="phone" id="phone">
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="email">Email</label>
-                                            <input type="text" name="email" id="email">
-                                        </div>
-                                        <div class="btn-groups">
-                                            <a href="#" class="btn btn-prev">Précédent</a>
-                                            <a href="#" class="btn btn-next">Suivant</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-step">
-                                        <div class="input-group">
-                                            <label for="dob">Date de naissance</label>
-                                            <input type="date" name="dob" id="dob">
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="address">Adresse actuelle</label>
-                                            <input type="text" name="address" id="address">
-                                        </div>
-                                        <div class="btn-groups">
-                                            <a href="#" class="btn btn-prev">Précédent</a>
-                                            <a href="#" class="btn btn-next">Suivant</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-step">
-                                        <div class="input-group">
-                                            <label for="password">Mot de passe</label>
-                                            <input type="password" name="password" id="password">
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="confirm-password">Confirmer mot de passe</label>
-                                            <input type="text" name="confirm-password" id="confirm-password">
-                                        </div>
-                                        <div class="btn-groups">
-                                            <a href="#" class="btn btn-prev">Précédent</a>
-                                            <input type="submit" value="Valider" class="btn">
-                                        </div>
-                                    </div>
-                                </form>
-
-
-
-                            {{ form_start(registrationForm) }}
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.firstname) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.lastname) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-6">                               
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.email) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.address) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.phone) }}        
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.registeredAt) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="form-row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.suspendedAt) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{ form_row(registrationForm.status) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
-                                </div>
-                                <div class="login_footer form-group">
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            {{ form_row(registrationForm.agreeTerms) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-fill-out btn-block" name="register">Valider</button>
-                                </div>                            
-                            {{ form_end(registrationForm) }}
-                            <div class="different_login">
-                                <span> ou</span>
+                            <div class="">
+                                <a href="#" class="btn btn-next width-50 ml-auto">Suivant</a>
                             </div>
-                            <ul class="btn-login list_none text-center">
-                                <li><a href="#" class="btn btn-facebook"><i class="ion-social-facebook"></i>Facebook</a></li>
-                                <li><a href="#" class="btn btn-google"><i class="ion-social-googleplus"></i>Google</a></li>
-                            </ul>
-                            <div class="form-note text-center">Avez vous déjà un compte? <a href="{{ path('app_login') }}">Log in</a></div>
+                        </div>
+                        <div class="form-step">
+                            <div class="input-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="text" name="phone" id="phone">
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email">
+                            </div>
+                            <div class="btn-groups">
+                                <a href="#" class="btn btn-prev">Précédent</a>
+                                <a href="#" class="btn btn-next">Suivant</a>
+                            </div>
+                        </div>
+                        <div class="form-step">
+                            <div class="input-group">
+                                <label for="dob">Date de naissance</label>
+                                <input type="date" name="dob" id="dob">
+                            </div>
+                            <div class="input-group">
+                                <label for="address">Adresse actuelle</label>
+                                <input type="text" name="address" id="address">
+                            </div>
+                            <div class="btn-groups">
+                                <a href="#" class="btn btn-prev">Précédent</a>
+                                <a href="#" class="btn btn-next">Suivant</a>
+                            </div>
+                        </div>
+                        <div class="form-step">
+                            <div class="input-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="password" id="password">
+                            </div>
+                            <div class="input-group">
+                                <label for="confirm-password">Confirmer mot de passe</label>
+                                <input type="text" name="confirm-password" id="confirm-password">
+                            </div>
+                            <div class="btn-groups">
+                                <a href="#" class="btn btn-prev">Précédent</a>
+                                <input type="submit" value="Valider" class="btn">
+                            </div>
+                        </div>
+                    </form>
+
+                {{ form_start(registrationForm) }}
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.firstname) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.lastname) }}
+                            </div>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-md-6">                               
+                            <div class="form-group">
+                                {{ form_row(registrationForm.email) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.address) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.phone) }}        
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.registeredAt) }}
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.suspendedAt) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.status) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+                    </div>
+                    <div class="login_footer form-group">
+                        <div class="chek-form">
+                            <div class="custome-checkbox">
+                                {{ form_row(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-fill-out btn-block" name="register">Valider</button>
+                    </div>                            
+                {{ form_end(registrationForm) }}
+                <div class="different_login">
+                    <span> ou</span>
                 </div>
+                <ul class="btn-login list_none text-center">
+                    <li><a href="#" class="btn btn-facebook"><i class="ion-social-facebook"></i>Facebook</a></li>
+                    <li><a href="#" class="btn btn-google"><i class="ion-social-googleplus"></i>Google</a></li>
+                </ul>
+                <div class="form-note text-center">Avez vous déjà un compte? <a href="{{ path('app_login') }}">Log in</a></div>
             </div>
         </div>
     </div>
+</main>   
     
 {% endblock %}

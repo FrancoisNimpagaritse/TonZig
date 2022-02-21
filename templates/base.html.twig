@@ -1,61 +1,149 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <!-- Meta -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta content="GeTon" name="author">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="description" content="Exclusively for all! Take advantage of up to -50% on these offers during our smart days. Shop smart with discounts on electronics, phones and home goods. Up to -50% Buyer Protection. Free Shipping. Summer promo. Great Value. A multitude of sellers.">
-      <meta name="keywords" content="">
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="GeTon" name="author">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Exclusively for all! " >
+    <meta name="keywords" content="">
 
-      <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">    
 
-      <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
-      <link rel="stylesheet" href="{{ asset('assets/multisteps-form.css') }}">
-      <script src="{{ asset('assets/multisteps-form.js') }}" defer></script>
+    <title>{% block title %}<b>Ge</b>Ton{% endblock %}</title>
+    <!-- Material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('multisteps-form.css') }}">
+    <script src="{{ asset('multisteps-form.js') }}" defer></script>
 
-      <title>{% block title %}<b>Ge</b>Ton{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}        
-    </head>
+    {% block stylesheets %}{% endblock %}
+  </head>
 
-    <body>
-      {% include "partials/_header.html.twig" %}
+  <body>
+   <div class="container">
+    <!------------------------- START OF ASIDE ------------------------------>
+      <aside>
+          <div class="top">
+              <div class="logo">
+                  <img src="{{asset('images/logo.png') }}" alt="">
+                  <h2>Ge<span class="danger">Ton</span></h2>
+              </div>
+              <div class="close" id="close-btn">
+                  <span class="material-icons-sharp">close</span>
+              </div>
+          </div>
 
-      {% for label, messages in app.flashes %}
-        <div class="container">
-            <div class="alert alert-{{label}}">
-                {% for message in messages %}
-                    <p>{{ message | raw }}</p>
-                {% endfor %}
-            </div>
+          <div class="sidebar">
+              <a href="#" class="active">
+                  <span class="material-icons-sharp">grid_view</span>
+                  <h3>Dashboard</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">groups</span>
+                  <h3>Rencontres</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">account_balance</span>
+                  <h3>Mes Crédits</h3>                  
+                  <span class="loans-count">25</span>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">receipt_long</span>
+                  <h3>Echéanciers</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">person_outline</span>
+                  <h3>Mon profile</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">inventory</span>
+                  <h3>Rounds</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">report_gmailerrorred</span>
+                  <h3>Reports</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">loyalty</span>
+                  <h3>Membres</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">card_travel</span>
+                  <h3>Finances</h3>
+              </a>
+              <a href="#">
+                  <span class="material-icons-sharp">logout</span>
+                  <h3>Logout</h3>
+              </a>
+          </div>
+      </aside>
+    <!----------------------------END OF ASIDE ------------------------------ -->
+    {% block body %}{% endblock %}
+   </div>
+
+    <footer class="footer" style="background: black; color:white;">
+      <div class="top_footer">
+        <div class="footer-left">
+          <div class="widget">
+              <div class="logo">
+                  <a href="#"><img src="{{ asset('images/logo555555.png') }}" alt="logo"/></a>
+              </div>
+              <p>Exclusively for all! Take advantage <br>
+              of up to -50% on these offers during our smart days.</p>
+          </div>
+          <div class="widget">
+              <ul class="social_icons social_white">
+                  <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                  <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                  <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                  <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
+                  <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+              </ul>
+          </div>
         </div>
-      {% endfor %}
-     
-      {% block body %}{% endblock %}
+        <div class="footer-center style="background: green; color:white;"">
+          <div class="widget">
+              <ul class="social_icons social_white">
+                  <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                  <li><a href="#"><span class="material-icons-sharp">settings</span></a></li>
+                  <li><a href="#"><span class="material-icons-sharp">monetization_on</span></a></li>
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
+                  <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+              </ul>
+          </div>
+        </div>
+        <div class="footer-right">
+          <h6 class="widget_title">Me Contactez</h6>
+          <ul class="contact_info contact_info_light">
+              <li>
+                  <i class="ti-location-pin"></i>
+                  <p> 11 Rue Arthur Weeber, 67100 Strasbourg, France</p>
+              </li>
+              <li>
+                  <i class="ti-email"></i>
+                  <a href="mailto:franimpa@yahoo.fr">franimpa@yahoo.fr</a>
+              </li>
+              <li>
+                  <i class="ti-mobile"></i>
+                  <p>+ 33 6 17 24 46 06</p>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom_footer">          
+            <p class="mb-md-0 text-center text-md-center">Tous droits réservés © 2022 François nimpagaritse </p>
+      </div>
+    </footer>
+ 
+  {% block javascripts %}
+   
+  {% endblock %}
 
-      {% include "partials/_footer.html.twig" %}
-     
-      {% block javascripts %}
-        {#{{ encore_entry_script_tags('app') }}#}
-      {% endblock %}
-        <script src="{{asset('assets/js/jquery-1.12.4.min.js')}}"></script> 
-        <script src="{{asset('assets/js/popper.min.js')}}"></script>
-        <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/owlcarousel/js/owl.carousel.min.js')}}"></script>
-        <script src="{{asset('assets/js/magnific-popup.min.js')}}"></script>
-        <script src="{{asset('assets/js/waypoints.min.js')}}"></script> 
-        <script src="{{asset('assets/js/parallax.js')}}"></script> 
-        <script src="{{asset('assets/js/jquery.countdown.min.js')}}"></script> 
-        <script src="{{asset('assets/js/imagesloaded.pkgd.min.js')}}"></script>
-        <script src="{{asset('assets/js/isotope.min.js')}}"></script>
-        <script src="{{asset('assets/js/jquery.dd.min.js')}}"></script>
-        <script src="{{asset('assets/js/slick.min.js')}}"></script>
-        <script src="{{asset('assets/js/jquery.elevatezoom.js')}}"></script>
-        <script src="{{asset('assets/js/scripts.js')}}"></script>
-    </body>
+  <script src="{{ asset('index.js') }}"></script>
+  </body>
 </html>
