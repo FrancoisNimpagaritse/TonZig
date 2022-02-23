@@ -39,5 +39,9 @@ Installation
 
     7. L'application est installé, vous pouvez commencer à travailler dessus !
 
+    8. Lancer des tests
+
+        php bin/phpunit --testdox
+
 Bon travail
 -------------

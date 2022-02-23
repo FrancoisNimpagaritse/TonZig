@@ -259,6 +259,13 @@ main .insights{
     gap: 1.6rem;
 }
 
+.insights-register{
+    width:80%;
+    padding:5px;
+    margin:10px;
+    border-radius:20px;
+}
+
 main .insights > div {
     background: var(--color-white);
     padding: var(--card-padding);
