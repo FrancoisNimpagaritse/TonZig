@@ -1,0 +1,243 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Accueil{% endblock %}
+
+{% block body %}
+{{ include("partials/_title_section.html.twig", {'name': 'Espace Membre'}) }}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="myhome"> <!-- col-lg-2 col-md-3 -->
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Mes crédits</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="meetings-tab" data-toggle="tab" href="#meetings" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Rencontres</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="dues-tab" data-toggle="tab" href="#dues" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Echéanciers</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mon adresse</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Mon compte</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="ti-lock"></i>Logout</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+
+                <div class="tab-content dashboard_content">
+                    
+                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                        <div class="card bg-light text-center">
+                            <div class="card-header">
+                                <h5>{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+                            </div>
+                            <div class="card-body">
+
+                                <p>La prochaine réunion aura lieu le <b>xx-xx-xxxx</b> à <b>xxxx</b> chez <b>xxxxxx</b></p>
+                            </div>
+                        </div>
+                    </div>                    
+                      
+                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Mes crédits</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Pris lé</th>
+                                                <th>Montant</th>
+                                                <th>Solde Crédit</th>
+                                                <th>Solde Intérêts</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#1234</td>
+                                                <td>#1234</td>
+                                                <td>#1234</td>
+                                                <td>March 15, 2020</td>
+                                                <td>Processing</td>
+                                                <td>$78.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>#2366</td>
+                                                <td>#2366</td>
+                                                <td>#2366</td>
+                                                <td>June 20, 2020</td>
+                                                <td>Completed</td>
+                                                <td>$81.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">Détail</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="meetings" role="tabpanel" aria-labelledby="meetings-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Rencontres</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Date</th>
+                                                <th>Hôtes</th>
+                                                <th>Adresse</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for m in meetings %}
+                                            <tr>
+                                                <td>{{ m.id }}</td>
+                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
+                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
+                                                <td>
+                                                {% if  m.hostOne %}
+                                                    {{ m.hostOne.address }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                                </td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">
+                                                {{ m.status }}
+                                                </a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr>
+                                                <td>#2366</td>
+                                                <td>June 20, 2020</td>
+                                                <td>Completed</td>
+                                                <td>$81.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="dues" role="tabpanel" aria-labelledby="dues-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Mon calendrier de remboursement</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Date</th>
+                                                <th>Hôtes</th>
+                                                <th>Adresse</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for m in meetings %}
+                                            <tr>
+                                                <td>{{ m.id }}</td>
+                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
+                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
+                                                <td>
+                                                {% if  m.hostOne %}
+                                                    {{ m.hostOne.address }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                                </td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">
+                                                {{ m.status }}
+                                                </a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr>
+                                                <td>#2366</td>
+                                                <td>June 20, 2020</td>
+                                                <td>Completed</td>
+                                                <td>$81.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Account Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Already have an account? <a href="#">Log in instead!</a></p>
+                                <form method="post" name="enq">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>First Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="name" type="text">
+                                         </div>
+                                         <div class="form-group col-md-6">
+                                            <label>Last Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="phone">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Display Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="dname" type="text">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Email Address <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="email" type="email">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Current Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="password" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>New Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="npassword" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Confirm Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="cpassword" type="password">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

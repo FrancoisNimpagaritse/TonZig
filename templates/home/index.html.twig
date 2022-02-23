@@ -2,244 +2,221 @@
 
 {% block title %}GeTon - Accueil{% endblock %}
 
+{% block body %}   
 
-{% block body %}
+        <!-- ----------------------START OF MAIN --------------------------------- -->
+        <main>
+            <h1>Dashboard</h1>
+            <div class="date">
+                <input type="date" name="" id="">
+            </div>
+            <div class="insights">
+                <div class="sales">
+                     <span class="material-icons-sharp">analytics</span>
+                     <div class="middle">
+                        <div class="left">
+                            <h3>Total Sales</h3>
+                            <h1>2,500&euro;</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx='38' cy='38' r='36'></circle>
+                            </svg>
+                            <div class="number">
+                                <p>81%</p>
+                            </div>
+                        </div>
+                     </div>
+                     <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!-- END OF SALES -->
+                <div class="expenses">
+                     <span class="material-icons-sharp">bar_chart</span>
+                     <div class="middle">
+                        <div class="left">
+                            <h3>Total Expenses</h3>
+                            <h1>1,200&euro;</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx='38' cy='38' r='36'></circle>
+                            </svg>
+                            <div class="number">
+                                <p>62%</p>
+                            </div>
+                        </div>
+                     </div>
+                     <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!-- END OF EXPENSES -->
+                <div class="income">
+                     <span class="material-icons-sharp">stacked_line_chart</span>
+                     <div class="middle">
+                        <div class="left">
+                            <h3>Total Income</h3>
+                            <h1>1,025&euro;</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx='38' cy='38' r='36'></circle>
+                            </svg>
+                            <div class="number">
+                                <p>44%</p>
+                            </div>
+                        </div>
+                     </div>
+                     <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <!-- END OF INCOME -->
+            </div>
+            <!-- END OF INSIGHTS -->
 
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-3">
-                <div class="dashboard_menu">
-                    <ul class="nav nav-tabs flex-column" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Mes crédits</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="meetings-tab" data-toggle="tab" href="#meetings" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Rencontres</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="dues-tab" data-toggle="tab" href="#dues" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Echéanciers</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mon adresse</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Mon compte</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="ti-lock"></i>Logout</a>
-                      </li>
-                    </ul>
+            <div class="recent-orders">
+                <h2>Recent Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Number</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bread popped</td>
+                            <td>5746</td>
+                            <td>Due</td>
+                            <td class="warning">Pending</td>
+                            <td class="primary">Details</td>
+                        </tr>
+                         <tr>
+                            <td>Long trousers for winter</td>
+                            <td>65746</td>
+                            <td>Due</td>
+                            <td class="success">Paid</td>
+                            <td class="primary">Details</td>
+                        </tr>
+                        <tr>
+                            <td>Bread popped</td>
+                            <td>5746</td>
+                            <td>Due</td>
+                            <td class="warning">Pending</td>
+                            <td class="primary">Details</td>
+                        </tr>
+                         <tr>
+                            <td>Long trousers for winter</td>
+                            <td>65746</td>
+                            <td>Due</td>
+                            <td class="success">Paid</td>
+                            <td class="primary">Details</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#">Show All</a>
+            </div>
+        </main>
+        <!-- ----------------------END OF MAIN ---------------------------------- -->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Bonjour, <b>{{ app.user.firstname }}</b></p>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-8">
-
-                <div class="tab-content dashboard_content">
-                    
-                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                        <div class="card bg-light text-center">
-                            <div class="card-header">
-                                <h5>{{ app.user.firstname }} {{ app.user.lastname }}</h5>
-                            </div>
-                            <div class="card-body">
-
-                                <p>La prochaine réunion aura lieu le <b>xx-xx-xxxx</b> à <b>xxxx</b> chez <b>xxxxxx</b></p>
-                            </div>
+            <!-- ------------------END OF TOP---------------------- -->
+            <div class="recent-updates">
+                <h2>Recents Updates</h2>
+                <div class="updates">
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="./images/profile-2.jpg" alt="">
                         </div>
-                    </div>                    
-                      
-                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Mes crédits</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Pris lé</th>
-                                                <th>Montant</th>
-                                                <th>Solde Crédit</th>
-                                                <th>Solde Intérêts</th>
-                                                <th>Total</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>#1234</td>
-                                                <td>#1234</td>
-                                                <td>#1234</td>
-                                                <td>March 15, 2020</td>
-                                                <td>Processing</td>
-                                                <td>$78.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>#2366</td>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">Détail</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="message">
+                            <p><b>Myke Tyson</b> received his order of Night lion tech GPS drone.</p>
+                            <small class="text-muted">2 Minutes Ago</small>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="meetings" role="tabpanel" aria-labelledby="meetings-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Rencontres</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Date</th>
-                                                <th>Hôtes</th>
-                                                <th>Adresse</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="./images/profile-3.jpg" alt="">
+                        </div>
+                        <div class="message">
+                            <p><b>Myke Tyson</b> received his order of Night lion tech GPS drone.</p>
+                            <small class="text-muted">2 Minutes Ago</small>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="dues" role="tabpanel" aria-labelledby="dues-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Mon calendrier de remboursement</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Date</th>
-                                                <th>Hôtes</th>
-                                                <th>Adresse</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="./images/profile-4.jpg" alt="">
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Account Details</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                <form method="post" name="enq">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>First Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="name" type="text">
-                                         </div>
-                                         <div class="form-group col-md-6">
-                                            <label>Last Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="phone">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Display Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="dname" type="text">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Email Address <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="email" type="email">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Current Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="password" type="password">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>New Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="npassword" type="password">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Confirm Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="cpassword" type="password">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="message">
+                            <p><b>Myke Tyson</b> received his order of Night lion tech GPS drone.</p>
+                            <small class="text-muted">2 Minutes Ago</small>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-   
+                <!-- ----------------------END RECENT UPDATES ---------------------------------- -->
+            <div class="sales-analytics">
+                <h2>Sales Analytics</h2>
+                <div class="item online">
+                    <div class="icon">
+                        <span class="material-icons-sharp">shopping_cart</span>                    
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>ONLINE ORDERS</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+39%</h5>
+                        <h3>2451&euro;</h3>
+                    </div>
+                </div>
+                <div class="item offline">
+                    <div class="icon">
+                        <span class="material-icons-sharp">local_mall</span>                    
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>OFFLINE ORDERS</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="danger">-17%</h5>
+                        <h3>1110&euro;</h3>
+                    </div>
+                </div>
+                <div class="item customers">
+                    <div class="icon">
+                        <span class="material-icons-sharp">person</span>     
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>NEW CUSTOMERS</h3>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+                        <h5 class="success">+25%</h5>
+                        <h3>14</h3>
+                    </div>
+                </div>
+                <div class="item add-product">
+                    <div>
+                        <span class="material-icons-sharp">add</span>
+                        <h3>Add Product</h3>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <!-- ----------------------END OF RIGHT SIDE ---------------------------------- -->   
+
 {% endblock %}
+   

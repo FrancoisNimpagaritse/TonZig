@@ -27,9 +27,9 @@ class RegistrationFormType extends AbstractType
             ->add('registeredAt', DateType::class, [                
                 'widget' => 'single_text'
             ])
-            ->add('suspendedAt', DateType::class, [                
-                'widget' => 'single_text'
-            ])
+            // ->add('suspendedAt', DateType::class, [                
+            //     'widget' => 'single_text'
+            // ])
             ->add('status')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

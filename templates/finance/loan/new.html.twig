@@ -1,0 +1,346 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Finances{% endblock %}
+
+
+{% block body %}
+{{ include("partials/_title_section.html.twig", {'name': 'Gestion Finances'}) }}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-3"> 
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="false"><i class="ti-shopping-cart-full"></i>Membres</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="loans-tab" data-toggle="tab" href="#loans" role="tab" aria-controls="loans" aria-selected="false"><i class="ti-shopping-cart-full"></i>Crédits</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="meetings-tab" data-toggle="tab" href="#meetings" role="tab" aria-controls="meetings" aria-selected="false"><i class="ti-shopping-cart-full"></i>Rencontres</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="dues-tab" data-toggle="tab" href="#repays" role="tab" aria-controls="repays" aria-selected="false"><i class="ti-shopping-cart-full"></i>Remboursés</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="address-tab" data-toggle="tab" href="#lots" role="tab" aria-controls="lots" aria-selected="true"><i class="ti-location-pin"></i>Lots</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#assists" role="tab" aria-controls="assists" aria-selected="true"><i class="ti-id-badge"></i>Assistances</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#sanctions" role="tab" aria-controls="sanctions" aria-selected="true"><i class="ti-id-badge"></i>Sanctions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="ti-lock"></i>Logout</a>
+                      </li>
+                    </ul>
+                </div> 
+            </div>
+            <div class="col-lg-9 col-md-8">
+
+                <div class="tab-content dashboard_content">
+                    
+                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                        <div class="card bg-light text-center">
+                            <div class="card-header">
+                                <h5>{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+                                <a href="" class="btn btn-secondary"  data-toggle="modal" data-target="#modal-default">Octroyer crédit</a>
+                                
+                            </div>
+                            <div class="card-body">
+                                <p>La prochaine réunion aura lieu le <b>xx-xx-xxxx</b> à <b>xxxx</b> chez <b>xxxxxx</b></p>
+                            </div>
+                        </div>
+                    </div>                    
+                      
+                    <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Liste des membres</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom & Prénom</th>
+                                                <th>Depuis le</th>
+                                                <th>Adresse</th>
+                                                <th>Téléphone</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for mem in members %}                                            
+                                            <tr>
+                                                <td>{{ mem.lastname }} {{ mem.firstname }}</td>
+                                                <td>{{ mem.registeredAt | date('d-m-Y') }}</td>
+                                                <td>{{ mem.address }}</td>
+                                                <td>{{ mem.phone }}</td>
+                                                <td>{{ mem.status }}</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
+                                            </tr>                                        
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="loans" role="tabpanel" aria-labelledby="loans-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Liste des crédits</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Round</th>
+                                                <th>Pris lé</th>
+                                                <th>Bénéficiaire</th>
+                                                <th>Montant</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for l in loans %}                                            
+                                            <tr>
+                                                <td>{{ l.meeting.round.roundNumber }}</td>
+                                                <td>{{ l.disbursedDate }}</td>
+                                                <td>{{ l.user.firstname }}</td>
+                                                <td>{{ l.amount }}</td>
+                                                <td>{{ l.status }}</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="meetings" role="tabpanel" aria-labelledby="meetings-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Rencontres</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Date</th>
+                                                <th>Hôtes</th>
+                                                <th>Adresse</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for m in meetings %}
+                                            <tr>
+                                                <td>{{ m.id }}</td>
+                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
+                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
+                                                <td>
+                                                {% if  m.hostOne %}
+                                                    {{ m.hostOne.address }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                                </td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">
+                                                {{ m.status }}
+                                                </a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr>
+                                                <td>#2366</td>
+                                                <td>June 20, 2020</td>
+                                                <td>Completed</td>
+                                                <td>$81.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="dues" role="tabpanel" aria-labelledby="dues-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center text-white bg-secondary">Mon calendrier de remboursement</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Date</th>
+                                                <th>Hôtes</th>
+                                                <th>Adresse</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for m in meetings %}
+                                            <tr>
+                                                <td>{{ m.id }}</td>
+                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
+                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
+                                                <td>
+                                                {% if  m.hostOne %}
+                                                    {{ m.hostOne.address }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                                </td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">
+                                                {{ m.status }}
+                                                </a></td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr>
+                                                <td>#2366</td>
+                                                <td>June 20, 2020</td>
+                                                <td>Completed</td>
+                                                <td>$81.00 for 1 item</td>
+                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Account Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Already have an account? <a href="#">Log in instead!</a></p>
+                                <form method="post" name="enq">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>First Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="name" type="text">
+                                         </div>
+                                         <div class="form-group col-md-6">
+                                            <label>Last Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="phone">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Display Name <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="dname" type="text">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Email Address <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="email" type="email">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Current Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="password" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>New Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="npassword" type="password">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Confirm Password <span class="required">*</span></label>
+                                            <input required="" class="form-control" name="cpassword" type="password">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Fiche d'octroi du crédit</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="login_register_wrap section">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <div class="login_wrap">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h5 class="text-center">Détails crédit</h5>
+                                        </div>
+                                        <div class="message-flash">
+                                            {% for flashError in app.flashes('verify_email_error') %}
+                                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        {#{ form_start(form) } #}
+                                        <form action="{{ path('finance_loan_create') }}" method="post">
+                                            <div class="form-row">
+                                                <div class="col-md-10">
+                                                    <div class="form-group">
+                                                        <label for="member">Membre</label>
+                                                        <input class="form-control" type="text" name="member">
+                                                        {#{ form_row(form.roundNumber) }#}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="amount">Montant crédit</label>
+                                                        <input class="form-control" type="text" name="amount">
+                                                        {#{ form_row(form.status) }#}
+                                                    </div>
+                                                </div>                                                                                                                          
+                                            </div>                                                              
+                                            
+                                            <div class="form-group">
+                                                   <!-- <button type="submit" class="btn btn-fill-out btn-block" name="register">Valider</button> -->
+                                                    <a href="{{ path('finance_loan_create') }}" class="btn btn-info d-block">Valider</a>
+                                            </div>
+                                        {#{ form_end(form) }#}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<!-- /.modal -->
+   
+{% endblock %}

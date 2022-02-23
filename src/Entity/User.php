@@ -89,11 +89,6 @@ class User implements UserInterface
     private $caisseSociales;
 
     /**
-     * @ORM\OneToMany(targetEntity=MeetingAppliedSanction::class, mappedBy="member", orphanRemoval=true)
-     */
-    private $meetingAppliedSanctions;
-
-    /**
      * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="member", orphanRemoval=true)
      */
     private $loans;
@@ -108,6 +103,16 @@ class User implements UserInterface
      */
     private $hostedTwoMeetings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Assistance::class, mappedBy="beneficiary", orphanRemoval=true)
+     */
+    private $assistances;
+
+    /**
+     * @ORM\OneToMany(targetEntity=AppliedSanction::class, mappedBy="member", orphanRemoval=true)
+     */
+    private $sanctions;
+
     public function __construct()
     {
         $this->cotisations = new ArrayCollection();
@@ -116,6 +121,8 @@ class User implements UserInterface
         $this->loans = new ArrayCollection();
         $this->hostedOneMeetings = new ArrayCollection();
         $this->hostedTwoMeetings = new ArrayCollection();
+        $this->assistances = new ArrayCollection();
+        $this->sanctions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -356,36 +363,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|MeetingAppliedSanction[]
-     */
-    public function getMeetingAppliedSanctions(): Collection
-    {
-        return $this->meetingAppliedSanctions;
-    }
-
-    public function addMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
-    {
-        if (!$this->meetingAppliedSanctions->contains($meetingAppliedSanction)) {
-            $this->meetingAppliedSanctions[] = $meetingAppliedSanction;
-            $meetingAppliedSanction->setMember($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeetingAppliedSanction(MeetingAppliedSanction $meetingAppliedSanction): self
-    {
-        if ($this->meetingAppliedSanctions->removeElement($meetingAppliedSanction)) {
-            // set the owning side to null (unless already changed)
-            if ($meetingAppliedSanction->getMember() === $this) {
-                $meetingAppliedSanction->setMember(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Loan[]
      */
     public function getLoans(): Collection
@@ -474,6 +451,66 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($hostedTwoMeeting->getHostTwo() === $this) {
                 $hostedTwoMeeting->setHostTwo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Assistance[]
+     */
+    public function getAssistances(): Collection
+    {
+        return $this->assistances;
+    }
+
+    public function addAssistance(Assistance $assistance): self
+    {
+        if (!$this->assistances->contains($assistance)) {
+            $this->assistances[] = $assistance;
+            $assistance->setBeneficiary($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssistance(Assistance $assistance): self
+    {
+        if ($this->assistances->removeElement($assistance)) {
+            // set the owning side to null (unless already changed)
+            if ($assistance->getBeneficiary() === $this) {
+                $assistance->setBeneficiary(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AppliedSanction[]
+     */
+    public function getSanctions(): Collection
+    {
+        return $this->sanctions;
+    }
+
+    public function addSanction(AppliedSanction $sanction): self
+    {
+        if (!$this->sanctions->contains($sanction)) {
+            $this->sanctions[] = $sanction;
+            $sanction->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSanction(AppliedSanction $sanction): self
+    {
+        if ($this->sanctions->removeElement($sanction)) {
+            // set the owning side to null (unless already changed)
+            if ($sanction->getMember() === $this) {
+                $sanction->setMember(null);
             }
         }
 
