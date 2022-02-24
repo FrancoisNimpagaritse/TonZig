@@ -14,7 +14,7 @@
 html,
 body {
 	height: 100%;
-	font-family: "Montserrat", sans-serif;
+	font-family: "Poppins", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -104,8 +104,8 @@ Helper CSS
 }
 
 .spad {
-	padding-top: 105px;
-	padding-bottom: 105px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .text-white h1,
@@ -458,39 +458,12 @@ Hero section
 	background: #fc0254;
 }
 
-/* --------Home User Cards ---------- */
-.home-user{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	margin-top: 10px;
-	gap: 15px;
-}
-
-.card{
-	border: 3px solid #0a183d;
-}
-.top-side{
-	display: flex;
-	justify-content: space-between;
-	gap: 15px;
-}
-
-.middle-side{
-	width: 80%;
-}
-
-.bottom-side{
-	
-}
-
 /* ----------------
 Intro section
  -------------------*/
 
 .intro-section p {
-	margin-bottom: 35px;
+	margin-bottom: 10px;
 	padding-top: 10px;
 }
 
@@ -676,7 +649,7 @@ Playlist page
  -------------------*/
 
 .playlist-section {
-	padding: 105px 42px;
+	padding: 10px 42px;
 }
 
 .playlist-section .section-title {
@@ -865,7 +838,7 @@ Category page
  -------------------*/
 
 .category-section {
-	padding: 105px 36px;
+	padding: 30px 36px;
 }
 
 .category-section .section-title {
@@ -1748,7 +1721,7 @@ Responsive
 		max-width: 100%;
 	}
 	.category-section {
-		padding: 105px 0;
+		padding: 35px 0;
 	}
 	.category-section .container {
 		max-width: 100%;

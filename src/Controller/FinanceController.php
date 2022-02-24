@@ -32,9 +32,10 @@ class FinanceController extends AbstractController
     public function index(Stats $statService, MeetingRepository $meetingRepo,LoanRepository $loanRepo,
         CotisationRepository $cotisationRepo, CaisseSocialeRepository $caissesocioRepo,
         MeetingLotDistributionRepository $lotdistRepo, AppliedSanctionRepository $sanctionRepo, AssistanceRepository $assistanceRepo,
-         LoanPaymentRepository $repayRepo, UserRepository $memRepo): Response
+         LoanPaymentRepository $repayRepo, UserRepository $memRepo, MeetingRepository $meetRepo): Response
     {
         $stats = $statService->getReportData();
+        $meetings = $meetingRepo->findAll();
         
         $newloan = new Loan();
         $form = $this->createForm(LoanType::class, $newloan, [
@@ -44,6 +45,7 @@ class FinanceController extends AbstractController
 
         return $this->render('finance/index.html.twig', [
             'stats' =>  $stats,
+            'meetings'  =>  $meetings,
             'form'  =>  $form->createView()
         ]);
     }

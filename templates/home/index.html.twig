@@ -4,126 +4,156 @@
 
 {% block body %}
     
-    <!-- Hero section -->
-	<section class="hero-section">
-        <div class="container home-user">	
-            <div class="top-side">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Jimmy Cliff</h5>
-                        <p class="card-text">Adresse: Somewhere and every whereas needed.</p>
-                        <p class="card-text">Téléphones: Some numbers.</p>
-                        <a href="#" class="btn btn-danger">Modifier</a>
+<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title text-center"><span class="material-icons-sharp bg-info rounded-circle text-white">person_outline</span> Mes infos</h6>
+                            <small>Nom & Prénom:</small> <span class="badge rounded-pill bg-primary text-white">Ciza Jean Paul</span><br>
+                            <small>Adresse:</small> <span class="badge rounded-pill bg-success text-white">Somewhere and every whereas needed.</span><br>
+                            <small>Téléphones:</small> <span class="badge rounded-pill bg-dark text-white">Some numbers.</span><br>
+                            <small>Email:</small> <span class="badge rounded-pill bg-secondary text-white">email@gmail.com</span><br>
+                            <a href="#" class="btn btn-warning btn-sm m-3 text-white"><i class="fa fa-edit"> Editer</i></a>
+                        </div>
+                    </div>
+				</div>
+                <div class="col-lg-4">
+					<div class="card" >
+                    <div class="card-body text-justify">
+                        <h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Sommes attendues le xx/xx/xxxx</h6>
+                        <small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">100 000</span><br>
+                        <small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">2 000</span><br>
+                        <small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">325 700</span><br>
+                        <small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">45 200</span><br>
+                        <small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">5 000</span><br>
+                        <div class="bg-light rounded text-center p-2">
+                            <small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white">472 200</span><br>
+                        </div>
                     </div>
                 </div>
-                <div class="card" >
-                    <div class="card-body">
-                        <h5 class="card-title">Sommes attendues</h5>
-                        <p class="card-text">Cotisation: 100 000</p>
-                        <p class="card-text">Caisse sociale: 2 000</p>
-                        <p class="card-text">Princripal: 325 700 FBU</p>
-                        <p class="card-text">Intérêts: 45 000 FBU</p>
-                        
+				</div>
+				<div class="col-lg-4">
+					<div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title text-center"><span class="material-icons-sharp bg-warning rounded-circle text-white">local_mall</span> Prochaine rencontre </h6>
+                            <small>Le:</small> <span class="badge rounded-pill bg-primary text-white">xx/xx/xxxx</span><br>
+                            <small>Heure:</small> <span class="badge rounded-pill bg-danger text-white">xx:xx</span><br>
+                            <small>Chez:</small> <span class="badge rounded-pill bg-dark text-white">zzzzzzzzzz</span><br>
+                            <small>Adresse:</small> <span class="badge rounded-pill bg-secondary text-white">aaaaaaaaaa</span><br>
+                            <br>
+                            <div class="bg-light rounded text-center p-2">
+                                <small>Rencontres restantes: </small> <span class="badge rounded-pill bg-info text-white">8</span><br>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">Prochaine rencontre </h6>
-                        <p><b>Le : xx/xx/xxxx</b></p>
-                        <p class="card-text">Chez yyyyyyyyy, adresse.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="middle_side">                
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Mes crédits</h5>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope="row">1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>
-                                    <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-                                        Launch demo modal
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>
-                                    <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fa fa-eye"></i>Launch demo modal
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>
-                                    <!-- Button trigger modal -->
-                                        <a class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fa fa-eye"></i> Launch demo Modal
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>                
-            </div>
-            <div class="bottom-side mb-3">                
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Calendrier rencontres</h5>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td scope="row">1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>               
-            </div>
-        </div>
+				</div>
+			</div>
+		</div>
 	</section>
-	<!-- Hero section end -->
+	<!-- Intro section end -->
+    	<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<h6 class="card-title text-center">Mes crédits</h6>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <div class="card">
+						<div class="card-body">
+                            <h6 class="card-title text-center">Calendrier rencontres</h6>
+                            <table class="table table-bordered table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                    <th scope="col"><small>N°</small></th>
+                                    <th scope="col"><small>Date</small></th>
+                                    <th scope="col"><small>Hôtes</small></th>
+                                    <th scope="col"><small>Status</small></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for m in meetings %}
+                                    <tr>
+                                        <td><small>{{ m.id }}</td>
+                                        <td><small>{{ m.meetingAt | date('d-m-Y') }}</small></td>
+                                        <td><small>{{ m.hostOne }} & {{ m.hostTwo }}</small></td>                                    
+                                        <td><a href="#" class="btn btn-fill-out btn-sm">
+                                        <span class="badge rounded-pill bg-success text-white"><small>{{ m.status }}</small></span>
+                                        </a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>                            
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Intro section end -->
+
 {% endblock %}
