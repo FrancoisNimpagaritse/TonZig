@@ -70,12 +70,12 @@ class Stats
 
     public function getTotalRepays()
     {
-        return $this->manager->createQuery('SELECT SUM(r.principalPaid) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
+        return $this->manager->createQuery('SELECT SUM(r.principal) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
     }
 
     public function getTotalInterestCollected()
     {
-        return $this->manager->createQuery('SELECT SUM(r.interestPaid) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
+        return $this->manager->createQuery('SELECT SUM(r.interest) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
     }
 
     public function getTotalAssistances()

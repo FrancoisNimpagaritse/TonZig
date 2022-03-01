@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RoundController extends AbstractController
 {
     /**
-     * @Route("/round", name="round")
+     * @Route("/admin/rounds", name="admin_rounds_index")
      */
     public function index(): Response
     {
@@ -30,7 +30,7 @@ class RoundController extends AbstractController
     /**
      * Permet de créer et d'initialiser un cycle
      * 
-     * @Route("/admin/round/new", name="admin_round_create")
+     * @Route("/admin/rounds/new", name="admin_round_create")
      */
     public function create(Request $request, EntityManagerInterface $manager): Response
     {

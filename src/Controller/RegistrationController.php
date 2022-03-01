@@ -26,7 +26,19 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/admin/members", name="app_members_index")
+     */
+    public function index(UserRepository $userRepo): Response
+    {
+        $members = $userRepo->findAll();
+
+        return $this->render('registration/index.html.twig', [
+            'members' => $members,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response
     {

@@ -27,16 +27,15 @@ class FinanceController extends AbstractController
     // 1.dashbord 2.cotisations 3.caisse sociale 4.octroi crédit 5.remboursement 
     //6.distribution lot 7.sanctions 8.assistance 9.OD
     /**
-     * @Route("/finance", name="finance_index")
+     * @Route("/finances", name="finances_index")
      */
-    public function index(Stats $statService, MeetingRepository $meetingRepo,LoanRepository $loanRepo,
-        CotisationRepository $cotisationRepo, CaisseSocialeRepository $caissesocioRepo,
-        MeetingLotDistributionRepository $lotdistRepo, AppliedSanctionRepository $sanctionRepo, AssistanceRepository $assistanceRepo,
-         LoanPaymentRepository $repayRepo, UserRepository $memRepo): Response
+    public function index(Stats $statService, MeetingRepository $meetingRepo, LoanRepository $loanRepo): Response
     {
         $stats = $statService->getReportData();
-        
+        $meetings = $meetingRepo->findAll();
+        $allLoans = $loanRepo->findAll();
         $newloan = new Loan();
+
         $form = $this->createForm(LoanType::class, $newloan, [
             'action' => $this->generateUrl('finance_loan_create'),
             'method' => 'GET',
@@ -44,6 +43,8 @@ class FinanceController extends AbstractController
 
         return $this->render('finance/index.html.twig', [
             'stats' =>  $stats,
+            'meetings'  =>  $meetings,
+            'allLoans'  =>  $allLoans,
             'form'  =>  $form->createView()
         ]);
     }
@@ -64,13 +65,13 @@ class FinanceController extends AbstractController
         $meetingId = $request->query->get('loan')['meeting'];
         $meeting = $manager->getReference('App\Entity\Meeting', $meetingId);
         $dateLoan =  new \DateTime($request->request->get('disbursedAt'));
-       //dd($request);
+       
         $loan->setDisbursedAt($dateLoan)
             ->setMeeting($meeting)
             ->setMember($member)
             ->setAmount($request->query->get('loan')['amount'])
             ->setStatus($request->query->get('loan')['status']);
-        //dd($loan);
+        
         $manager->persist($loan);
 
         $manager->flush();

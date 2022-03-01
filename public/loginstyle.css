@@ -17,7 +17,7 @@ body {
     font-size: 28px;
     color: white;
     padding: 10px 0 30px 25px;
-    background: #5c1769;
+    background: #0A183D;
     border-bottom: 1px solid #370e3f;
     border-radius: 5px 5px 0 0;    
     text-align: center;
@@ -64,7 +64,7 @@ form input[type="submit"]{
     height: 45px;
     color: white;
     cursor: pointer;
-    background: #5c1769;
+    background: #0A183D;
     line-height: 45px;
 }
 
@@ -75,7 +75,7 @@ form .pass-forgot{
 form a{
    text-decoration: none;
    font-size: 18px;
-   color: #7f2092;
+   color: #0A183D;
 }
 
 form input[type="submit"]:hover{

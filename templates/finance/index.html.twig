@@ -2,659 +2,533 @@
 
 {% block title %}GeTon - Finances{% endblock %}
 
-
 {% block body %}
-{{ include("partials/_title_section.html.twig", {'name': 'Gestion Finances'}) }}
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-3"> 
-                <div class="dashboard_menu">
-                    <ul class="nav nav-tabs flex-column" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="false"><i class="ti-face-smile"></i>Membres</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="loans-tab" data-toggle="tab" href="#loans" role="tab" aria-controls="loans" aria-selected="false"><i class="ti-envelope"></i>Crédits</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="meetings-tab" data-toggle="tab" href="#meetings" role="tab" aria-controls="meetings" aria-selected="false"><i class="ti-alarm-clock"></i>Rencontres</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="dues-tab" data-toggle="tab" href="#repays" role="tab" aria-controls="repays" aria-selected="false"><i class="ti-wallet"></i>Remboursés</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="lots-tab" data-toggle="tab" href="#lots" role="tab" aria-controls="lots" aria-selected="true"><i class="ti-gift"></i>Lots</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="assists-tab" data-toggle="tab" href="#assists" role="tab" aria-controls="assists" aria-selected="true"><i class="ti-support"></i>Assistances</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="sanctions-tab" data-toggle="tab" href="#sanctions" role="tab" aria-controls="sanctions" aria-selected="true"><i class="ti-face-sad"></i>Sanctions</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="ti-lock"></i>Logout</a>
-                      </li>
-                    </ul>
-                </div> 
-            </div>
-            <div class="col-lg-9 col-md-8">
+    
+<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+			<div class="insights p-3">
+				<div class="sales">
+					<span class="material-icons-sharp bg-info text-white">analytics</span>
+					<div class="middle">
+						<div class="left">
+							<h3>Total crédits encours</h3>
+							<h2>24 500 200</h2>
+						</div>						
+					</div>
+					<small class="text-muted">Crédits restants dûs</small>
+				</div>
+				<!-- END OF SALES -->
+				<div class="expenses">
+					<span class="material-icons-sharp  bg-danger text-white">bar_chart</span>
+					<div class="middle">
+						<div class="left">
+							<h3>Total intérêts restants dûs</h3>
+							<h2>1 880 500</h2>
+						</div>						
+					</div>
+					<small class="text-muted">Intérêts non encore payés sur crédits encours</small>
+				</div>
+				<!-- END OF EXPENSES -->
+				<div class="expenses">
+					<span class="material-icons-sharp  bg-primary text-white">bar_chart</span>
+					<div class="middle">
+						<div class="left">
+							<h3>Total crédits du cycle</h3>
+							<h2>75 742 500</h2>
+						</div>						
+					</div>
+					<small class="text-muted">Crédits depuis début round</small>
+				</div>
+				<!-- END OF EXPENSES -->
+				<div class="income">
+					<span class="material-icons-sharp bg-success text-white">stacked_line_chart</span>
+					<div class="middle">
+						<div class="left">
+							<h3>Total Intérêts du cycle</h3>
+							<h2>7 845 000</h2>
+						</div>						
+					</div>
+					<small class="text-muted">Intérêts encaissés (issue de mvt caisse)</small>
+				</div>
+				<!-- END OF INCOME -->
+			</div>
+		</div>
+	</section>
+	<!-- Intro section end -->
+    	<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+			<div class="row mb-2">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Crédits octroyés</h6>
+								<a href="" class="bg-light text-danger" data-toggle="modal" data-target="#exampleModal"><b>+</b>Nouveau</a>
+							</div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small><b>Pris le</b></small></th>
+										<th scope="col"><small><b>Membre</b></small></th>
+										<th scope="col"><small><b>Montant</b></small></th>
+										<th scope="col"><small><b>I attendus</b></small></th>
+										<th scope="col"><small><b>P payé</b></small></th>
+										<th scope="col"><small><b>Solde P</b></small></th>
+										<th scope="col"><small><b>I payé</b></small></th>
+										<th scope="col"><small><b>Solde I</b></small></th>
+										<th scope="col"><small><b>Tot Restant</b></small></th>
+										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for loan in allLoans %}					
+									<tr>
+										<td scope="row"><small>{{ loan.disbursedAt | date('d/m/y') }}</small></td>
+										<td><small>{{ loan.member }}</small></td>
+										<td><small>{{ loan.amount }}</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>{{ loan.status }}</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-outline-info rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-plus"></i> Payer
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-pencil"></i> 
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-trash"></i> 
+											</a>
+										</td>
+									</tr>									
+								{% endfor %}                                   
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>				
+			</div>
+			<div class="row mb-2">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Cotisations mensuelles</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small><b>Pris lé</b></small></th>
+										<th scope="col"><small><b>Montant crédit</b></small></th>
+										<th scope="col"><small><b>Solde Crédit</b></small></th>
+										<th scope="col"><small><b>Solde Intérêts</b></small></th>
+										<th scope="col"><small><b>Total Restant</b></small></th>
+										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Caisses sociales mensuelles</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Distributions lots</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+							</div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Amendes</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Assistances sociales</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+							</div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Opérations diverses</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Intro section end -->
+	
+	<!-- Inclusion des modals  -->
+	{% include 'partials/_modal_loan.html.twig' %}
 
-                <div class="tab-content dashboard_content">
-                    
-                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card bg-info rounded text-white text-center">
-                                    <div class="card-header">
-                                       <span class="align-left ti-face-smile"><small> Membres actifs</small>
-                                    </div>
-                                    <div class="card-body"> 
-                                        <div class="well dash-box">
-                                            <h6 class="text-white"></span> 30 {{stats.totalLoans}}</h6>
-                                            <smal>#</smal>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-dark rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-gift"></span><small> Lots distribués</small>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="well dash-box">
-                                            <h6 class="text-white">220000000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-danger rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-face-sad"></span><small> Amendes</small>                                        
-                                    </div>
-                                    <div class="card-body">
-                                         <div class="well dash-box">
-                                            <h6 class="text-white">20000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-secondary rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-support"></span><small> Dépenses</small>                                        
-                                    </div>
-                                    <div class="card-body">   
-                                        <div class="well dash-box">
-                                            <h6 class="text-white">2000000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card bg-info rounded text-white text-center">
-                                    <div class="card-header">
-                                       <span class="align-left ti-bar-chart-alt"><small> Crédits octroyés</small>
-                                    </div>
-                                    <div class="card-body"> 
-                                        <div class="well dash-box">
-                                            <h6 class="text-white"></span> 15460000 {{stats.totalLoans}}</h6>
-                                            <smal>BIF</smal>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-primary rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-wallet"></span><small> Crédits remboursés</small>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="well dash-box">
-                                            <h6 class="text-white">2000000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-success rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-receipt"></span><small> Intérêts collectés</small>                                        
-                                    </div>
-                                    <div class="card-body">
-                                         <div class="well dash-box">
-                                            <h6 class="text-white">8500000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card bg-warning rounded text-white text-center">
-                                    <div class="card-header">
-                                        <span class="ti-support"></span><small> Assistances</small>                                        
-                                    </div>
-                                    <div class="card-body">   
-                                        <div class="well dash-box">
-                                            <h6 class="text-white">2000000 {{stats.totalLoans}}</h6>
-                                            <small>BIF</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                       
-                    </div>                    
-                      
-                    <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Liste des membres</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Nom & Prénom</th>
-                                                <th>Depuis le</th>
-                                                <th>Adresse</th>
-                                                <th>Téléphone</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for mem in stats.members %}                                            
-                                            <tr>
-                                                <td>{{ mem.lastname }} {{ mem.firstname }}</td>
-                                                <td>{{ mem.registeredAt | date('d-m-Y') }}</td>
-                                                <td>{{ mem.address }}</td>
-                                                <td>{{ mem.phone }}</td>
-                                                <td>{{ mem.status }}</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
-                                            </tr>                                        
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="loans" role="tabpanel" aria-labelledby="loans-tab">
-                        <div class="card">
-                            <div class="card-header">
-                            <div class="row">
-                                <div class="col">
-                                    <h4 class="text-center text-white bg-secondary">Liste des crédits</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <a href="" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#modal-loan"><i class="fa fa-plus-circle"></i> Crédit</a>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Round</th>
-                                                <th>Pris lé</th>
-                                                <th>Bénéficiaire</th>
-                                                <th>Montant</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for l in stats.loans %}                                            
-                                            <tr>
-                                                <td>{{ l.meeting.round.roundNumber }}</td>
-                                                <td>{{ l.disbursedAt | date('d-m-Y')}}</td>
-                                                <td>{{ l.member.firstname }}</td>
-                                                <td>{{ l.amount | number_format(2, ',', ' ') }}</td>
-                                                <td>{{ l.status }}</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">détail</a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="meetings" role="tabpanel" aria-labelledby="meetings-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Rencontres</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Date</th>
-                                                <th>Hôtes</th>
-                                                <th>Adresse</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in stats.meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="dues" role="tabpanel" aria-labelledby="dues-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Mon calendrier de remboursement</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Membre</th>
-                                                <th>Date échéance</th>
-                                                <th>P attendu</th>
-                                                <th>I attendus</th>
-                                                <th>Total attendu</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in stats.meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="repays" role="tabpanel" aria-labelledby="repays-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Remboursements</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Date</th>
-                                                <th>Hôtes</th>
-                                                <th>Adresse</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in stats.meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="lots" role="tabpanel" aria-labelledby="lots-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                <div class="col">
-                                    <h4 class="text-center text-white bg-secondary">Distributions lots</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <a href="" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#modal-loan"><i class="fa fa-plus-circle"></i>Donner</a>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Béneficiaires</th>
-                                                <th>Montant</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for d in stats.lotdistributions %}
-                                            <tr>
-                                                <td>{{ d.meeting.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ d.meeting.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {{ d.amount }}
-                                                </td>
-                                                <td>
-                                                
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="assists" role="tabpanel" aria-labelledby="assists-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col">
-                                        <h4 class="text-center text-white bg-secondary">Assistances accordeés</h4>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a href="" class="btn btn-info btn-xs"  data-toggle="modal" data-target="#modal-loan"><i class="fa fa-plus-circle"></i> Assist</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Bénéficiaires</th>
-                                                <th>Montant</th>
-                                                <th>Motif</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in stats.meetings %}
-                                            <tr>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>{{ m.hostOne }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-xs btn-fill-out btn-sm"><i class="ti-eye"></i></a>
-                                                    <a href="#" class="btn btn-xs btn-warning btn-sm"><i class="ti-marker-alt"></i></a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="sanctions" role="tabpanel" aria-labelledby="sanctions-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="text-center text-white bg-secondary">Amendes collectées</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>Date</th>
-                                                <th>Hôtes</th>
-                                                <th>Adresse</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for m in stats.meetings %}
-                                            <tr>
-                                                <td>{{ m.id }}</td>
-                                                <td>{{ m.meetingAt | date('d-m-Y') }}</td>
-                                                <td>{{ m.hostOne }} & {{ m.hostTwo }}</td>
-                                                <td>
-                                                {% if  m.hostOne %}
-                                                    {{ m.hostOne.address }}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                                </td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">
-                                                {{ m.status }}
-                                                </a></td>
-                                            </tr>
-                                        {% endfor %}
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Account Details</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                <form method="post" name="enq">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>First Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="name" type="text">
-                                         </div>
-                                         <div class="form-group col-md-6">
-                                            <label>Last Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="phone">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Display Name <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="dname" type="text">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Email Address <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="email" type="email">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Current Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="password" type="password">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>New Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="npassword" type="password">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Confirm Password <span class="required">*</span></label>
-                                            <input required="" class="form-control" name="cpassword" type="password">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-    <div class="modal fade" id="modal-loan">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Détails du crédit</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <div class="login_register_wrap section">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col">
-                                <div class="login_wrap">
-                                    <div class="padding_eight_all bg-white">
-                                        
-                                        <div class="message-flash">
-                                            {% for flashError in app.flashes('verify_email_error') %}
-                                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-                                            {% endfor %}
-                                        </div>
-                                        {{ form_start(form, {'action': path('finance_loan_create'), 'method': 'GET'}) }}
-                                       
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        {{ form_row(form.disbursedAt) }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        {{ form_row(form.meeting) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        {{ form_row(form.member) }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        {{ form_row(form.amount) }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        {{ form_row(form.status) }}
-                                                    </div>
-                                                </div>                                                                                                                          
-                                            </div>
-                                            
-                                            <div class="form-group">                                                   
-                                                    <div class="modal-footer justify-content-between">
-                                                         <button type="submit" class="btn btn-info">Valider</button> 
-                                                        <!--   <a href="{{ path('finance_loan_create') }}" class="btn btn-fill-out btn-block">Valider</a> --> 
-                                                        <button type="button" class="btn  btn-fill-out ml-auto" data-dismiss="modal">Fermer</button>
-                                                     </div>
-                                            </div>
-                                        {{ form_end(form) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-               
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-<!-- /.modal -->
-   
 {% endblock %}

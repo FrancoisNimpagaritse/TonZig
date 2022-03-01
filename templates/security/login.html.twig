@@ -27,12 +27,15 @@
         <form method="post">
             <div class="message-flash">
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div style="background: #eb2d43; color:#fff; text-align:center; padding:3px; border-radius:3px;">{{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                    <br>
                 {% endif %}
                 {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    <div style="background: yellow; ">
+                        Connecté en tant que {{ app.user.firstname }} {{ app.user.lastname }}. <a href="{{ path('app_logout') }}">Déconnexion ?</a>
                     </div>
+                        <br>
                 {% endif %}                                    
             </div>
             <div class="form-group">

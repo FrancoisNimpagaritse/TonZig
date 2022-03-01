@@ -1,149 +1,171 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="GeTon" name="author">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Exclusively for all! " >
-    <meta name="keywords" content="">
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="SolMusic HTML Template">
+	<meta name="keywords" content="music, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Favicon -->
+	<link href="{{ asset('images/favicon.png') }}" rel="shortcut icon"/>
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">    
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+	<title>{% block title %}GeTon - Accueil{% endblock %}</title>
+    
+	<!-- Material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}"/>
 
-    <title>{% block title %}<b>Ge</b>Ton{% endblock %}</title>
-    <!-- Material icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet">
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-    <link rel="stylesheet" href="{{ asset('multisteps-form.css') }}">
-    <script src="{{ asset('multisteps-form.js') }}" defer></script>
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/financecss.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/multisteps-form.css') }}">
+	{% block stylesheets %}{% endblock %}
 
-    {% block stylesheets %}{% endblock %}
-  </head>
+    <script src="{{ asset('css/multisteps-form.js') }}" defer></script>
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
-  <body>
-   <div class="container">
-    <!------------------------- START OF ASIDE ------------------------------>
-      <aside>
-          <div class="top">
-              <div class="logo">
-                  <img src="{{asset('images/logo.png') }}" alt="">
-                  <h2>Ge<span class="danger">Ton</span></h2>
-              </div>
-              <div class="close" id="close-btn">
-                  <span class="material-icons-sharp">close</span>
-              </div>
-          </div>
+</head>
+<body>
+    
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
 
-          <div class="sidebar">
-              <a href="#" class="active">
-                  <span class="material-icons-sharp">grid_view</span>
-                  <h3>Dashboard</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">groups</span>
-                  <h3>Rencontres</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">account_balance</span>
-                  <h3>Mes Crédits</h3>                  
-                  <span class="loans-count">25</span>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">receipt_long</span>
-                  <h3>Echéanciers</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">person_outline</span>
-                  <h3>Mon profile</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">inventory</span>
-                  <h3>Rounds</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">report_gmailerrorred</span>
-                  <h3>Reports</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">loyalty</span>
-                  <h3>Membres</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">card_travel</span>
-                  <h3>Finances</h3>
-              </a>
-              <a href="#">
-                  <span class="material-icons-sharp">logout</span>
-                  <h3>Logout</h3>
-              </a>
-          </div>
-      </aside>
-    <!----------------------------END OF ASIDE ------------------------------ -->
-    {% block body %}{% endblock %}
-   </div>
+	<!-- Header section -->
+	<header class="header-section clearfix">
+		<a href="{{ path('app_home') }}" class="site-logo">
+			<img src="{{ asset('images/logo.png') }}" alt="">
+		</a>
+		<div class="header-right">
+		{% if app.user %}
+			<a href="{{ path('app_logout') }}" class="login"><i class="fa fa-sign-out"></i> Logout</a>		
+			<span>|</span>
+			<div class="user-panel">
+				<a href="#" class="register"><i class="fa fa-user"></i> {{ app.user.firstname}}</a>
+			</div> 
+		{% endif %}
+		</div>
+		<ul class="main-menu">
+			<li><a href="{{ path('app_home') }}">Accueil</a></li>
+			<li><a href="#">Administration</a>
+				<ul class="sub-menu">
+					<li><a href="{{ path('admin_rounds_index') }}">Tontine</a></li>
+					<li><a href="{{ path('admin_rounds_index') }}">Round</a></li>
+					<li><a href="{{ path('admin_meetings_index') }}">Rencontres</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Membres</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Finances</a>
+				<ul class="sub-menu">
+					<li><a href="{{ path('finances_index') }}">dashboard</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Cotisations</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Caisse sociale</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Lots</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Crédits</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Remboursement</a></li>
+					<li><a href="{{ path('admin_members_index') }}"> Amendes</a></li>
+					<li><a href="{{ path('admin_members_index') }}">Mouvements Caisse</a></li>
+				</ul>
+			</li>
+			<li><a href="blog.html">News</a></li>
+			
+		</ul>
+	</header>
+	<!-- Header section end -->
 
-    <footer class="footer" style="background: black; color:white;">
-      <div class="top_footer">
-        <div class="footer-left">
-          <div class="widget">
-              <div class="logo">
-                  <a href="#"><img src="{{ asset('images/logo555555.png') }}" alt="logo"/></a>
-              </div>
-              <p>Exclusively for all! Take advantage <br>
-              of up to -50% on these offers during our smart days.</p>
-          </div>
-          <div class="widget">
-              <ul class="social_icons social_white">
-                  <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                  <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                  <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
-                  <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
-                  <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-              </ul>
-          </div>
-        </div>
-        <div class="footer-center style="background: green; color:white;"">
-          <div class="widget">
-              <ul class="social_icons social_white">
-                  <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                  <li><a href="#"><span class="material-icons-sharp">settings</span></a></li>
-                  <li><a href="#"><span class="material-icons-sharp">monetization_on</span></a></li>
-                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
-                  <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-              </ul>
-          </div>
-        </div>
-        <div class="footer-right">
-          <h6 class="widget_title">Me Contactez</h6>
-          <ul class="contact_info contact_info_light">
-              <li>
-                  <i class="ti-location-pin"></i>
-                  <p> 11 Rue Arthur Weeber, 67100 Strasbourg, France</p>
-              </li>
-              <li>
-                  <i class="ti-email"></i>
-                  <a href="mailto:franimpa@yahoo.fr">franimpa@yahoo.fr</a>
-              </li>
-              <li>
-                  <i class="ti-mobile"></i>
-                  <p>+ 33 6 17 24 46 06</p>
-              </li>
-          </ul>
-        </div>
-      </div>
-      <div class="bottom_footer">          
-            <p class="mb-md-0 text-center text-md-center">Tous droits réservés © 2022 François nimpagaritse </p>
-      </div>
-    </footer>
- 
-  {% block javascripts %}
-   
-  {% endblock %}
+	<!-- Flash message section -->
+	{% for label, messages in app.flashes %}
+		<div class="container py-3">
+			<div class="alert alert-{{label}}">
+				{% for message in messages %}
+					<p>{{ message | raw }}</p>
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+	<!-- Flash message section end -->
 
-  <script src="{{ asset('index.js') }}"></script>
-  </body>
+	{% block body %}{% endblock %}	
+
+
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6 col-lg-7 order-lg-2">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2>Accueil</h2>
+								<ul>
+									<li><a href="">Our Story</a></li>
+									<li><a href="">Sol Music Blog</a></li>
+									<li><a href="">History</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2>Administration</h2>
+								<ul>
+									<li><a href="">Music</a></li>
+									<li><a href="">Subscription</a></li>
+									<li><a href="">Custom Music</a></li>
+									<li><a href="">Footage</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2>Finances</h2>
+								<ul>
+									<li><a href="">Newsletter</a></li>
+									<li><a href="">Careers</a></li>
+									<li><a href="">Press</a></li>
+									<li><a href="">Contact</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-5 order-lg-1">
+					<img src="images/logo.png" alt="">
+					<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+					<div class="social-links">
+						<a href=""><i class="fa fa-instagram"></i></a>
+						<a href=""><i class="fa fa-pinterest"></i></a>
+						<a href=""><i class="fa fa-facebook"></i></a>
+						<a href=""><i class="fa fa-twitter"></i></a>
+						<a href=""><i class="fa fa-youtube"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+	
+	
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{{ asset('js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{ asset('js/bootstrap.min.js')}}"></script>
+	<script src="{{ asset('js/jquery.slicknav.min.js')}}"></script>
+	<script src="{{ asset('js/owl.carousel.min.js')}}"></script>
+	<script src="{{ asset('js/mixitup.min.js')}}"></script>
+	<script src="{{ asset('js/main.js')}}"></script>
+
+	</body>
 </html>

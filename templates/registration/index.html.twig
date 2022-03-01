@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Membres{% endblock %}
+
+{% block body %}
+    
+ 	<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">			
+            <div class="card">
+                <div class="card-body">
+                    <div class="register-head pb-2">
+                        <h6 class="card-title">Liste des membres de la tontine Ziganya</h6>
+                        <a href="{{ path('app_register') }}" class="text-danger"><b>+</b>Ajout membre</a>
+                    </div>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small>Nom</small></th>
+                                <th scope="col"><small>Prénom</small></th>
+                                <th scope="col"><small>Email</small></th>
+                                <th scope="col"><small>Téléphone</small></th>
+                                <th scope="col"><small>Adresse</small></th>
+                                <th scope="col"><small>Date d'adhésion</small></th>
+                                <th scope="col"><small>Date de suspension</small></th>
+                                <th scope="col"><small>Status</small></th>
+                                <th scope="col"><small>Action</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for m in members %}                        									
+                            <tr>
+                                <td scope="row"><small>{{ m.lastname }}</small></td>
+                                <td><small>{{ m.firstname }}</small></td>
+                                <td><small>{{ m.email }}</small></td>
+                                <td><small>{{ m.phone }}</small></td>
+                                <td><small>{{ m.address }}</small></td>
+                                <td><small>{{ m.registeredAt | date('d/M/Y') }}</small></td>
+                                <td><small>{% if m.suspendedAt %} {{ m.suspendedAt | date('d/M/Y') }} {% else %} N/A {% endif %}</small></td>
+                                <td><span {% if m.status == "actif" %} class="badge rounded-pill bg-success text-white" {% else %} class="badge rounded-pill bg-danger text-white" {% endif %}><small>{{ m.status }}</small></span></td>
+                                <td>
+                                <!-- Button trigger modal -->
+                                    <a href="{{ path('app_register') }}" class="btn btn-outline-secondary rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-eye"></i> 
+                                    </a>
+                                    <a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-pencil"></i> 
+                                    </a>
+                                    <a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-trash"></i> 
+                                    </a>
+                                </td>
+                            </tr>                            
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>				
+		</div>
+	</section>
+	<!-- Intro section end -->
+
+{% endblock %}
