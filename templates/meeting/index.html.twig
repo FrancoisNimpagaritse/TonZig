@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MeetingController!{% endblock %}
+{% block title %}GeTon - Rencontres{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/_ProjetsSymfony/TonZig/src/Controller/MeetingController.php'|file_link(0) }}">src/Controller/MeetingController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/_ProjetsSymfony/TonZig/templates/meeting/index.html.twig'|file_link(0) }}">templates/meeting/index.html.twig</a></code></li>
-    </ul>
-</div>
+<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Calendrier des rencontres de ce round</h6>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col"><small><b>N°</b></small></th>
+                            <th scope="col"><small><b>Date</b></small></th>
+                            <th scope="col"><small><b>Hôtes</b></small></th>
+                            <th scope="col"><small><b>Adresse</b></small></th>
+                            <th scope="col"><small><b>Status</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for m in meetings %}
+                            <tr>
+                                <td><small>{{ m.id }}</td>
+                                <td><small>{{ m.meetingAt | date('d/m/Y') }}</small></td>
+                                <td><small>{{ m.hostOne }} & {{ m.hostTwo }}</small></td>
+                                <td><small>{{ m.hostOne.address }}</small></td>
+                                <td><a href="#" class="btn btn-fill-out btn-sm">
+                                        {% if (date("now") >  date(m.meetingAt)) %}
+                                        <span class="badge rounded-pill bg-danger text-white"><small>
+                                            clôturée
+                                        {% elseif (date("now"|date_modify("+30days"))  >=  date(m.meetingAt)) %}
+                                        <span class="badge rounded-pill bg-success text-white"><small>
+                                            prochaine
+                                        {% else %}
+                                        <span class="badge rounded-pill bg-primary text-white"><small>
+                                            future
+                                        {% endif %}
+                                        </small></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>			
+		</div>
+	</section>
+	<!-- Intro section end -->
 {% endblock %}

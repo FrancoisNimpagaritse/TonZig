@@ -128,3 +128,20 @@
 }
 
 /* =====END OF INSIGHTS====== */
+
+/* ============MEDIA QUERIES TABLET=========== */
+@media screen and (max-width: 1200px){
+    .insights {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+    }
+}
+
+/* ============MEDIA QUERIES MOBILE=========== */
+@media screen and (max-width: 768px){
+    .insights {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+

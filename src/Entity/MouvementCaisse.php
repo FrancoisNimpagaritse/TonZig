@@ -33,6 +33,11 @@ class MouvementCaisse
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $Amount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class MouvementCaisse
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->Amount;
+    }
+
+    public function setAmount(float $Amount): self
+    {
+        $this->Amount = $Amount;
 
         return $this;
     }

@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -19,23 +22,31 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('address')
-            ->add('phone')
+            ->add('email', EmailType::class, ['label' => 'Email'])
+            ->add('firstname', TextType::class, ['label' => 'Prénom'])
+            ->add('lastname', TextType::class, ['label' => 'Nom'])
+            ->add('address', TextType::class, ['label' => 'Adresse'])
+            ->add('phone', TextType::class, ['label' => 'Téléphone'])
             ->add('registeredAt', DateType::class, [                
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' =>  "Date d'adhésion"
             ])
             // ->add('suspendedAt', DateType::class, [                
             //     'widget' => 'single_text'
             // ])
-            ->add('status')
+            ->add('status', ChoiceType::class, [
+                'label' => 'Status',
+                'choices' => ['Actif' => 'actif', 'Suspendu' => 'suspendu'],
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+            ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' =>  'Accepter les termes',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => "Vous devez accepter les termes d'utilisation de l'application.",
                     ]),
                 ],
             ])

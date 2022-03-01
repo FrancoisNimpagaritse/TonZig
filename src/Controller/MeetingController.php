@@ -14,12 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 class MeetingController extends AbstractController
 {
     /**
-     * @Route("/meeting", name="meeting")
+     * @Route("/admin/meetings", name="admin_meetings_index")
      */
-    public function index(): Response
-    {
-        return $this->render('meeting/index.html.twig', [
-            'controller_name' => 'MeetingController',
+    public function index(MeetingRepository $meetingRepo): Response
+    {        
+        $meetings = $meetingRepo->findAll(); //only show for open round wth findBy
+
+        return $this->render('meeting/index.html.twig', [            
+            'meetings'  =>  $meetings,
         ]);
     }
 

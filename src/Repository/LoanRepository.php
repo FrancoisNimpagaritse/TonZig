@@ -19,6 +19,37 @@ class LoanRepository extends ServiceEntityRepository
         parent::__construct($registry, Loan::class);
     }
 
+    public function getMemberLoanDues($member)
+    {
+        return $this->createQueryBuilder('l')
+                    ->select('l.id, l.disbursedAt, l.amount, l.status')
+                    ->addSelect('SUM(d.principal) as principal_due, SUM(d.interest) as interets_tot')
+                    ->addSelect('u.firstname, u.lastname')
+                    ->innerJoin('l.dues', 'd', 'WITH', 'd.loan = l')
+                    ->innerJoin('l.member', 'u', 'WITH', 'l.member = u' )
+                    ->where('l.member = :mbr')
+                    ->setParameter('mbr', $member)
+                    ->groupBy('l.id, l.disbursedAt, l.amount, l.status')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function getMemberLoanPayments($member)
+    {
+        return $this->createQueryBuilder('l')
+                    ->select('l.id, l.disbursedAt, l.amount, l.status')
+                    ->addSelect('SUM(p.principal) as principal_paye, SUM(p.interest) as interets_payes')
+                    ->addSelect('u.firstname, u.lastname')
+                    ->innerJoin('l.payments', 'p', 'WITH', 'p.loan = l')
+                    ->innerJoin('l.member', 'u', 'WITH', 'l.member = u' )
+                    ->where('l.member = :mbr')
+                    ->setParameter('mbr', $member)
+                    ->groupBy('l.id, l.disbursedAt, l.amount, l.status')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+
     // /**
     //  * @return Loan[] Returns an array of Loan objects
     //  */

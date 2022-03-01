@@ -1,0 +1,54 @@
+<!-- -------- Modal ----------- -->
+    <!-- Flash message section -->
+	{% for label, messages in app.flashes %}
+		<div class="container py-3">
+			<div class="alert alert-{{label}}">
+				{% for message in messages %}
+					<p>{{ message | raw }}</p>
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+	<!-- Flash message section end -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Octroi d'un ouveau crédit</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">                
+                {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ form_row(form.disbursedAt) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.amount) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.meeting) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.member) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.status) }}
+                            </div>
+                            <div class="form-group text-right">
+                                    <button type="submit" class="btn btn-success rounded-btn btn-sm" name="register"><i class="fa fa-check"></i>Valider</button>                            
+                            </div>
+                        </div>                                                                                                                          
+                    </div>                    
+                {{ form_end(form) }}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Fermer</button>				
+			</div>
+			</div>
+		</div>
+	</div>
+<!-- -------- Modal ----------- -->	

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Membres{% endblock %}
+
+{% block body %}
+	<!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">				
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Membres de la tontine Ziganya</h6>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small><b>Date adhésion</b></small></th>
+                                <th scope="col"><small><b>Membre</b></small></th>
+                                <th scope="col"><small><b>Email</b></small></th>
+                                <th scope="col"><small><b>Adresse</b></small></th>
+                                <th scope="col"><small><b>Téléphone</b></small></th>
+                                <th scope="col"><small><b>Status</b></small></th>
+                                <th scope="col"><small><b>Date suspension</b></small></th>
+                                <th scope="col"><small><b>Actions</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>	
+                        {% for m in members %}					
+                            <tr>
+                                <td scope="row"><small>{{ m.registeredAt | date('d/m/y') }}</small></td>
+                                <td><small>{{ m.firstname }} {{ m.lastname }}</small></td>
+                                <td><small>{{ m.email }}</small></td>
+                                <td><small>{{ m.address }}</small></td>
+                                <td><small>{{ m.phone }}</small></td>
+                                <td><small>{{ m.status }}</small></td>
+                                <td><small>{{ m.suspendedAt | date('d/m/y') }}</small></td>
+                                <td>
+                                    <a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>									
+                        {% endfor %}			
+                        </tbody>
+                    </table>
+                </div>
+            </div>            			
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}

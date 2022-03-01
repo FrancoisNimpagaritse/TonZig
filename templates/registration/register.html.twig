@@ -3,90 +3,88 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
- <main>
-    <h1>Nouveau membre</h1>
-    <div class="date">
-        <input type="date" name="" id="">
-    </div>
-    <div class="insights-register">
-            <div class="message-flash">
-                {% for flashError in app.flashes('verify_email_error') %}
-                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-                {% endfor %}
-            </div>
+<!-- Intro section -->
+<section class="intro-section spad">
+	<div class="container">	
+        <div class="message-flash">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+        </div>
+       
+        <div class="formmulti">
+            {{ form_start(registrationForm) }}
+            <!-- <div class="form">  -->
+                <h5 class="text-center">Inscription nouveau membre</h5> 
+                <!--progress bar-->
+                <div class="progressbar">
+                    <div class="progress" id="progress"></div>
+                    <div class="progress-step progress-step-active" data-title="Identité"></div>
+                    <div class="progress-step" data-title="Contact"></div>
+                    <div class="progress-step" data-title="Adresse"></div>
+                    <div class="progress-step" data-title="Code"></div>
+                </div>
+                <!--steps-->
 
-        <div class="form" style="; width:80%">
-        {{ form_start(registrationForm) }}
-        <!-- <div class="form">  -->
-            <h3 class="text-center">Inscription</h3> 
-            <!--progress bar-->
-            <div class="progressbar">
-                <div class="progress" id="progress"></div>
-                <div class="progress-step progress-step-active" data-title="Identité"></div>
-                <div class="progress-step" data-title="Contact"></div>
-                <div class="progress-step" data-title="Adresse"></div>
-                <div class="progress-step" data-title="Code"></div>
-            </div>
-            <!--steps-->
-
-            <div class="form-step form-step-active">
-                <div class="input-group">
-                    {{ form_row(registrationForm.firstname) }}
-                </div>
-                <div class="input-group">
-                    {{ form_row(registrationForm.lastname) }}
-                </div>
-                <div class="">
-                    <a href="#" class="btn btn-next width-50 ml-auto">Suivant</a>
-                </div>
-            </div>
-            <div class="form-step">
-                <div class="input-group">
-                    {{ form_row(registrationForm.phone) }}
-                </div>
-                <div class="input-group">
-                    {{ form_row(registrationForm.email) }}
-                </div>
-                <div class="btn-groups">
-                    <a href="#" class="btn btn-prev">Précédent</a>
-                    <a href="#" class="btn btn-next">Suivant</a>
-                </div>
-            </div>
-            <div class="form-step">
-                <div class="input-group">
-                    {{ form_row(registrationForm.registeredAt) }}
-                </div>
-                <div class="input-group">
-                    {{ form_row(registrationForm.address) }}
-                </div>
-                <div class="btn-groups">
-                    <a href="#" class="btn btn-prev">Précédent</a>
-                    <a href="#" class="btn btn-next">Suivant</a>
-                </div>
-            </div>
-            <div class="form-step">
-                <div class="input-group">
-                    {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
-                </div>
-                <div class="input-group">
-                    {{ form_row(registrationForm.status) }}
-                </div>
-                <div class="chek-form">
-                    <div class="custome-checkbox">
-                        {{ form_row(registrationForm.agreeTerms) }}
+                <div class="form-step form-step-active">
+                    <div class="input-group">
+                        {{ form_row(registrationForm.firstname) }}
+                    </div>
+                    <div class="input-group">
+                        {{ form_row(registrationForm.lastname) }}
+                    </div>
+                    <div class="multi">
+                        <a href="#" class="btn btn-next width-50 ml-auto">Suivant</a>
                     </div>
                 </div>
-                                    
-                <div class="btn-groups">
-                    <a href="#" class="btn btn-prev">Précédent</a>
-                    <input type="submit" value="Valider" class="btn">
+                <div class="form-step">
+                    <div class="input-group">
+                        {{ form_row(registrationForm.phone) }}
+                    </div>
+                    <div class="input-group">
+                        {{ form_row(registrationForm.email) }}
+                    </div>
+                    <div class="btn-groups multi">
+                        <a href="#" class="btn btn-prev">Précédent</a>
+                        <a href="#" class="btn btn-next">Suivant</a>
+                    </div>
                 </div>
-            </div>
-        
-        {{ form_end(registrationForm) }}                
-         </div>   
-    </div>
-</main>
-{% include("partials/_navbar_right.html.twig") %}  
+                <div class="form-step">
+                    <div class="input-group">
+                        {{ form_row(registrationForm.registeredAt) }}
+                    </div>
+                    <div class="input-group">
+                        {{ form_row(registrationForm.address) }}
+                    </div>
+                    <div class="btn-groups multi">
+                        <a href="#" class="btn btn-prev">Précédent</a>
+                        <a href="#" class="btn btn-next">Suivant</a>
+                    </div>
+                </div>
+                <div class="form-step">
+                    <div class="input-group">
+                        {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+                    </div>
+                    <div class="multi-inputs">
+                        <div class="input-group form-group-status">
+                            {{ form_row(registrationForm.status) }}
+                        </div>
+                        <div class="chek-form form-check-terms">
+                            <div class="custome-checkbox">
+                                {{ form_row(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
+                    </div>
+                                        
+                    <div class="btn-groups multi">
+                        <a href="#" class="btn btn-prev">Précédent</a>
+                        <input type="submit" value="Valider" class="btn">
+                    </div>
+                </div>        
+            {{ form_end(registrationForm) }}
+        </div>
+    </di>
+</section>
+<!-- Intro section end --> 
     
 {% endblock %}

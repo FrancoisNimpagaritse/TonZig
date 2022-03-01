@@ -12,10 +12,10 @@
 					<div class="card">
                         <div class="card-body">
                             <h6 class="card-title text-center"><span class="material-icons-sharp bg-info rounded-circle text-white">person_outline</span> Mes infos</h6>
-                            <small>Nom & Prénom:</small> <span class="badge rounded-pill bg-primary text-white">Ciza Jean Paul</span><br>
-                            <small>Adresse:</small> <span class="badge rounded-pill bg-success text-white">Somewhere and every whereas needed.</span><br>
-                            <small>Téléphones:</small> <span class="badge rounded-pill bg-dark text-white">Some numbers.</span><br>
-                            <small>Email:</small> <span class="badge rounded-pill bg-secondary text-white">email@gmail.com</span><br>
+                            <small>Nom & Prénom:</small> <span class="badge rounded-pill bg-primary text-white">{{ app.user.firstname }} {{ app.user.lastname}}</span><br>
+                            <small>Adresse:</small> <span class="badge rounded-pill bg-success text-white">{{ app.user.address }}</span><br>
+                            <small>Téléphones:</small> <span class="badge rounded-pill bg-dark text-white">{{ app.user.phone }}</span><br>
+                            <small>Email:</small> <span class="badge rounded-pill bg-secondary text-white">{{ app.user.email }}</span><br>
                             <a href="#" class="btn btn-warning btn-sm m-3 text-white"><i class="fa fa-edit"> Editer</i></a>
                         </div>
                     </div>
@@ -23,14 +23,15 @@
                 <div class="col-lg-4">
 					<div class="card" >
                     <div class="card-body text-justify">
-                        <h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Sommes attendues le xx/xx/xxxx</h6>
-                        <small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">100 000</span><br>
-                        <small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">2 000</span><br>
+                        <h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Attendu prochaine rencontre</h6>
+                        <small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">{{ activeRound.monthlyCotisation | number_format(2, ',', ' ') }}</span><br>
+                        <small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">{{ activeRound.monthlyCaisseSociale | number_format(2, ',', ' ') }}</span><br>
                         <small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">325 700</span><br>
                         <small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">45 200</span><br>
                         <small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">5 000</span><br>
                         <div class="bg-light rounded text-center p-2">
-                            <small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white">472 200</span><br>
+						{% set totalAttendu = (activeRound.monthlyCotisation + activeRound.monthlyCaisseSociale) | number_format(2, ',', ' ') %}
+                            <small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white"> {{totalAttendu}}</span><br>
                         </div>
                     </div>
                 </div>
@@ -39,14 +40,20 @@
 					<div class="card">
                         <div class="card-body">
                             <h6 class="card-title text-center"><span class="material-icons-sharp bg-warning rounded-circle text-white">local_mall</span> Prochaine rencontre </h6>
-                            <small>Le:</small> <span class="badge rounded-pill bg-primary text-white">xx/xx/xxxx</span><br>
-                            <small>Heure:</small> <span class="badge rounded-pill bg-danger text-white">xx:xx</span><br>
-                            <small>Chez:</small> <span class="badge rounded-pill bg-dark text-white">zzzzzzzzzz</span><br>
-                            <small>Adresse:</small> <span class="badge rounded-pill bg-secondary text-white">aaaaaaaaaa</span><br>
+                            <small>Le:</small> <span class="badge rounded-pill bg-primary text-white">
+							{% for m in meetings %}
+								{% if ((date("now") < date(m.meetingAt)) and (date("now"|date_modify("+30days"))  >=  date(m.meetingAt))) %}
+									{{ m.meetingAt | date('d/m/Y')  }}
+							</span><br>
+                            <small>Heure:</small> <span class="badge rounded-pill bg-danger text-white">{{ m.round.meetingStartHour }}</span><br>
+                            <small>Chez:</small> <span class="badge rounded-pill bg-dark text-white">{{ m.hostOne }} et {{ m.hostTwo }}</span><br>
+                            <small>Adresse:</small> <span class="badge rounded-pill bg-secondary text-white">{{ m.hostOne.address }}</span><br>
                             <br>
                             <div class="bg-light rounded text-center p-2">
-                                <small>Rencontres restantes: </small> <span class="badge rounded-pill bg-info text-white">8</span><br>
+                                <small>Rencontres restantes: </small> <span class="badge rounded-pill bg-info text-white">{{ m.remainingMeetings + 1 }}</span><br>
                             </div>
+								{% endif %}
+							{% endfor %}
                         </div>
                     </div>
 				</div>
@@ -61,62 +68,34 @@
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="card-body">
-							<h6 class="card-title text-center">Mes crédits</h6>
+							<h6 class="card-title">Mes crédits encours</h6>
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
-										<th scope="col"><small>Pris lé</small></th>
-										<th scope="col"><small>Montant crédit</small></th>
-										<th scope="col"><small>Solde Crédit</small></th>
-										<th scope="col"><small>Solde Intérêts</small></th>
-										<th scope="col"><small>Total Restant</small></th>
-										<th scope="col"><small>Status</small></th>
-										<th scope="col"><small>Action</small></th>
+										<th scope="col"><small><b>Pris le</b></small></th>
+										<th scope="col"><small><b>Montant crédit</b></small></th>
+										<th scope="col"><small><b>Solde Crédit</b></small></th>
+										<th scope="col"><small><b>Solde Intérêts</b></small></th>
+										<th scope="col"><small><b>Total Restant</b></small></th>
+										<th scope="col"><small><b>Actions</b></small></th>
 									</tr>
 								</thead>
-								<tbody>									
+								<tbody>	
+								{% for l in memberLoans %}					
 									<tr>
-										<td scope="row"><small>12/10/2021</small></td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
+										<td scope="row"><small>{{ l.disbursedAt | date('d/m/y') }}</small></td>
+										<td><small>{{ l.amount | number_format(2, ',', ' ') }}</small></td>
+										<td><small>{{((1 * l.amount) / (100 * 6)) | number_format(2, ',', ' ') }}</small></td>
+										<td><small>{{((1 * l.amount * 6) / 100) | number_format(2, ',', ' ') }}</small></td>
 										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
 										<td>
 										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> 
+											<a href="{{ path('app_register') }}" class="btn btn-outline-info rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i>
 											</a>
 										</td>
-									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
+									</tr>									
+								{% endfor %}			
 								</tbody>
 							</table>
 						</div>
@@ -125,29 +104,40 @@
 				<div class="col-lg-6">
                     <div class="card">
 						<div class="card-body">
-                            <h6 class="card-title text-center">Calendrier rencontres</h6>
+                            <h6 class="card-title">Calendrier rencontres</h6>
                             <table class="table table-bordered table-sm table-hover">
                                 <thead>
                                     <tr>
-                                    <th scope="col"><small>N°</small></th>
-                                    <th scope="col"><small>Date</small></th>
-                                    <th scope="col"><small>Hôtes</small></th>
-                                    <th scope="col"><small>Status</small></th>
+                                    <th scope="col"><small><b>N°</b></small></th>
+                                    <th scope="col"><small><b>Date</b></small></th>
+                                    <th scope="col"><small><b>Hôtes</b></small></th>
+                                    <th scope="col"><small><b>Status</b></small></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {% for m in meetings %}
                                     <tr>
                                         <td><small>{{ m.id }}</td>
-                                        <td><small>{{ m.meetingAt | date('d-m-Y') }}</small></td>
+                                        <td><small>{{ m.meetingAt | date('d/m/y') }}</small></td>
                                         <td><small>{{ m.hostOne }} & {{ m.hostTwo }}</small></td>                                    
                                         <td><a href="#" class="btn btn-fill-out btn-sm">
-                                        <span class="badge rounded-pill bg-success text-white"><small>{{ m.status }}</small></span>
-                                        </a></td>
+												{% if (date("now") >  date(m.meetingAt)) %}
+												<span class="badge rounded-pill bg-danger text-white"><small>
+													clôturée
+												{% elseif (date("now"|date_modify("+30days"))  >=  date(m.meetingAt)) %}
+												<span class="badge rounded-pill bg-success text-white"><small>
+													prochaine
+												{% else %}
+												<span class="badge rounded-pill bg-primary text-white"><small>
+													future
+												{% endif %}
+												</small></span>
+                                        	</a>
+										</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
-                            </table>                            
+                            </table>
                         </div>
                     </div>
 				</div>

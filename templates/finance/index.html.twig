@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GeTon - Accueil{% endblock %}
+{% block title %}GeTon - Finances{% endblock %}
 
 {% block body %}
     
@@ -12,33 +12,33 @@
 					<span class="material-icons-sharp bg-info text-white">analytics</span>
 					<div class="middle">
 						<div class="left">
-							<h3>Total crédits du cycle</h3>
-							<h2>75 742 500</h2>
+							<h3>Total crédits encours</h3>
+							<h2>24 500 200</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Crédits depuis début round</small>
+					<small class="text-muted">Crédits restants dûs</small>
 				</div>
 				<!-- END OF SALES -->
 				<div class="expenses">
 					<span class="material-icons-sharp  bg-danger text-white">bar_chart</span>
 					<div class="middle">
 						<div class="left">
-							<h3>Total crédits encours</h3>
-							<h2>24 500 200</h2>
+							<h3>Total intérêts restants dûs</h3>
+							<h2>1 880 500</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Crédits non payés</small>
+					<small class="text-muted">Intérêts non encore payés sur crédits encours</small>
 				</div>
 				<!-- END OF EXPENSES -->
 				<div class="expenses">
 					<span class="material-icons-sharp  bg-primary text-white">bar_chart</span>
 					<div class="middle">
 						<div class="left">
-							<h3>Total intérêts encours</h3>
-							<h2>1 880 500</h2>
+							<h3>Total crédits du cycle</h3>
+							<h2>75 742 500</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Intérêts dues</small>
+					<small class="text-muted">Crédits depuis début round</small>
 				</div>
 				<!-- END OF EXPENSES -->
 				<div class="income">
@@ -53,76 +53,87 @@
 				</div>
 				<!-- END OF INCOME -->
 			</div>
-			<!-- END OF INSIGHTS -->
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="card" >
-						<div class="card-body text-justify">
-							<h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Sommes attendues le xx/xx/xxxx</h6>
-							<small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">100 000</span><br>
-							<small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">2 000</span><br>
-							<small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">325 700</span><br>
-							<small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">45 200</span><br>
-							<small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">5 000</span><br>
-							<div class="bg-light rounded text-center p-2">
-								<small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white">472 200</span><br>
-							</div>
-						</div>
-                	</div>
-				</div>
-                <div class="col-lg-4">
-					<div class="card" >
-						<div class="card-body text-justify">
-							<h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Sommes attendues le xx/xx/xxxx</h6>
-							<small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">100 000</span><br>
-							<small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">2 000</span><br>
-							<small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">325 700</span><br>
-							<small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">45 200</span><br>
-							<small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">5 000</span><br>
-							<div class="bg-light rounded text-center p-2">
-								<small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white">472 200</span><br>
-							</div>
-						</div>
-                	</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="card">
-                        <div class="card-body">
-                            <h6 class="card-title text-center"><span class="material-icons-sharp bg-warning rounded-circle text-white">local_mall</span> Prochaine rencontre </h6>
-                            <small>Le:</small> <span class="badge rounded-pill bg-primary text-white">xx/xx/xxxx</span><br>
-                            <small>Heure:</small> <span class="badge rounded-pill bg-danger text-white">xx:xx</span><br>
-                            <small>Chez:</small> <span class="badge rounded-pill bg-dark text-white">zzzzzzzzzz</span><br>
-                            <small>Adresse:</small> <span class="badge rounded-pill bg-secondary text-white">aaaaaaaaaa</span><br>
-                            <br>
-                            <div class="bg-light rounded text-center p-2">
-                                <small>Rencontres restantes: </small> <span class="badge rounded-pill bg-info text-white">8</span><br>
-                            </div>
-                        </div>
-                    </div>
-				</div>
-			</div>
 		</div>
 	</section>
 	<!-- Intro section end -->
     	<!-- Intro section -->
 	<section class="intro-section spad">
-		<div class="container">			
-
-			<div class="row">
-				<div class="col-lg-6">
+		<div class="container">
+			<div class="row mb-2">
+				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<h6 class="card-title text-center">Crédits octroyés</h6>
+							<div class="register-head pb-2">
+								<h6 class="card-title">Crédits octroyés</h6>
+								<a href="" class="bg-light text-danger" data-toggle="modal" data-target="#exampleModal"><b>+</b>Nouveau</a>
+							</div>
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
-										<th scope="col"><small>Pris lé</small></th>
-										<th scope="col"><small>Montant crédit</small></th>
-										<th scope="col"><small>Solde Crédit</small></th>
-										<th scope="col"><small>Solde Intérêts</small></th>
-										<th scope="col"><small>Total Restant</small></th>
-										<th scope="col"><small>Status</small></th>
-										<th scope="col"><small>Action</small></th>
+										<th scope="col"><small><b>Pris le</b></small></th>
+										<th scope="col"><small><b>Membre</b></small></th>
+										<th scope="col"><small><b>Montant</b></small></th>
+										<th scope="col"><small><b>I attendus</b></small></th>
+										<th scope="col"><small><b>P payé</b></small></th>
+										<th scope="col"><small><b>Solde P</b></small></th>
+										<th scope="col"><small><b>I payé</b></small></th>
+										<th scope="col"><small><b>Solde I</b></small></th>
+										<th scope="col"><small><b>Tot Restant</b></small></th>
+										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for loan in allLoans %}					
+									<tr>
+										<td scope="row"><small>{{ loan.disbursedAt | date('d/m/y') }}</small></td>
+										<td><small>{{ loan.member }}</small></td>
+										<td><small>{{ loan.amount }}</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>{{ loan.status }}</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-outline-info rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-plus"></i> Payer
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-pencil"></i> 
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-trash"></i> 
+											</a>
+										</td>
+									</tr>									
+								{% endfor %}                                   
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>				
+			</div>
+			<div class="row mb-2">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Cotisations mensuelles</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small><b>Pris lé</b></small></th>
+										<th scope="col"><small><b>Montant crédit</b></small></th>
+										<th scope="col"><small><b>Solde Crédit</b></small></th>
+										<th scope="col"><small><b>Solde Intérêts</b></small></th>
+										<th scope="col"><small><b>Total Restant</b></small></th>
+										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
 									</tr>
 								</thead>
 								<tbody>									
@@ -176,8 +187,11 @@
 				<div class="col-lg-6">
                     <div class="card">
 						<div class="card-body">
-                            <h6 class="card-title text-center">Remboursements crédits</h6>
-                            <table class="table table-bordered table-sm table-hover">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Caisses sociales mensuelles</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
 										<th scope="col"><small>Pris lé</small></th>
@@ -238,11 +252,14 @@
                     </div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mb-2">
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="card-body">
-							<h6 class="card-title text-center">Frais d'amendes</h6>
+							<div class="register-head pb-2">
+								<h6 class="card-title">Distributions lots</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+							</div>
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
@@ -306,8 +323,147 @@
 				<div class="col-lg-6">
                     <div class="card">
 						<div class="card-body">
-                            <h6 class="card-title text-center">Distributions lots</h6>
-                            <table class="table table-bordered table-sm table-hover">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Amendes</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Assistances sociales</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+							</div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small>Pris lé</small></th>
+										<th scope="col"><small>Montant crédit</small></th>
+										<th scope="col"><small>Solde Crédit</small></th>
+										<th scope="col"><small>Solde Intérêts</small></th>
+										<th scope="col"><small>Total Restant</small></th>
+										<th scope="col"><small>Status</small></th>
+										<th scope="col"><small>Action</small></th>
+									</tr>
+								</thead>
+								<tbody>									
+									<tr>
+										<td scope="row"><small>12/10/2021</small></td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> 
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+                                    <tr>
+										<td scope="row"><small>12/10/202</small>1</td>
+										<td><small>5 000 000</small></td>
+										<td><small>3 500 000</small></td>
+										<td><small>160 000</small></td>
+										<td><small>4 600 000</small></td>
+										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
+										<td>
+										<!-- Button trigger modal -->
+											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-eye"></i> Modal
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+                    <div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Opérations diverses</h6>
+								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                            </div>
+							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
 										<th scope="col"><small>Pris lé</small></th>
@@ -371,5 +527,8 @@
 		</div>
 	</section>
 	<!-- Intro section end -->
+	
+	<!-- Inclusion des modals  -->
+	{% include 'partials/_modal_loan.html.twig' %}
 
 {% endblock %}
