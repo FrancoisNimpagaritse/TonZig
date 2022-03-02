@@ -35,8 +35,8 @@ class MemberController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-
-            $this->addFlash('succes', 'Le membre <strong>' . $member->getLastname() . $member->getFirstname() . '</strong> a été modifié avec succès !');
+            
+            $this->addFlash('success', "Le membre <strong> {$member->getLastname()} {$member->getFirstname()} </strong> a été modifié avec succès !");
 
             return $this->redirectToRoute('admin_members_index');
 
@@ -46,5 +46,22 @@ class MemberController extends AbstractController
             'form' =>   $form->createView(),
             'member' => $member,
         ]);
+    }
+
+    /**
+     * Permet de supprimer un membre
+     * 
+     * @Route("/admin/members/delete/{id}", name="admin_members_delete")
+     */
+    public function delete(User $member, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($member);
+            
+        $manager->flush();
+
+        $this->addFlash('success', 'Le membre <strong>' . $member->getLastname() . ' ' . $member->getFirstname() . '</strong>, supprimé avec succès !');
+
+        return $this->redirectToRoute('admin_members_index');
+       
     }
 }
