@@ -25,15 +25,30 @@
                         <tbody>	
                         {% for m in members %}					
                             <tr>
-                                <td scope="row"><small>{{ m.registeredAt | date('d/m/y') }}</small></td>
+                                <td scope="row"><small>{{ m.registeredAt | date('d/m/Y') }}</small></td>
                                 <td><small>{{ m.firstname }} {{ m.lastname }}</small></td>
                                 <td><small>{{ m.email }}</small></td>
                                 <td><small>{{ m.address }}</small></td>
                                 <td><small>{{ m.phone }}</small></td>
-                                <td><small>{{ m.status }}</small></td>
-                                <td><small>{{ m.suspendedAt | date('d/m/y') }}</small></td>
                                 <td>
-                                    <a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm">
+                                {% if m.suspendedAt %}
+                                    <span class="badge rounded-pill bg-danger text-white"><small>
+                                {% else %}
+                                    <span class="badge rounded-pill bg-primary text-white"><small>
+                                {% endif %}
+                                    {{ m.status }}
+                                    </small></span>
+                                </td>
+                                <td><small>
+                                
+                                {% if m.suspendedAt %}
+                                    {{ m.suspendedAt | date('d/m/Y') }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </small></td>
+                                <td>
+                                    <a href="{{ path('admin_members_edit', {'id': m.id}) }}" class="btn btn-outline-warning rounded-btn btn-sm">
                                     <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm">
@@ -41,11 +56,11 @@
                                     </a>
                                 </td>
                             </tr>									
-                        {% endfor %}			
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
-            </div>            			
+            </div>
 		</div>
 	</section>
 	<!-- Intro section end -->
