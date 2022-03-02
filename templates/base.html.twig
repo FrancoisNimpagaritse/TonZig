@@ -78,15 +78,14 @@
 					<li><a href="{{ path('admin_members_index') }}">Mouvements Caisse</a></li>
 				</ul>
 			</li>
-			<li><a href="blog.html">News</a></li>
-			
+			<li><a href="blog.html">Contact</a></li>			
 		</ul>
 	</header>
 	<!-- Header section end -->
 
 	<!-- Flash message section -->
 	{% for label, messages in app.flashes %}
-		<div class="container py-3">
+		<div class="container pt-3">
 			<div class="alert alert-{{label}}">
 				{% for message in messages %}
 					<p>{{ message | raw }}</p>

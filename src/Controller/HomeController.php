@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         //prochaine due -> DQL ou QueryBuilder
         $memberActiveLoan = $loanRepo->findOneBy(['member' => $this->getUser(), 'status' => 'encours'], ['disbursedAt' => 'DESC']);
         
-        $activeRound = $roundRepo->findOneBy(['status' => 'ouvert']);
+        $activeRound = $roundRepo->findOneBy(['status' => 'open']);
         
         return $this->render('home/index.html.twig', [
             'activeRound' =>  $activeRound,
