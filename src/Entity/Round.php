@@ -104,6 +104,11 @@ class Round
      */
     private $totalMeetings;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $roundClosingDate;
+
     public function __construct()
     {
         $this->meetings = new ArrayCollection();
@@ -333,6 +338,18 @@ class Round
     public function setTotalMeetings(?int $totalMeetings): self
     {
         $this->totalMeetings = $totalMeetings;
+
+        return $this;
+    }
+
+    public function getRoundClosingDate(): ?\DateTimeInterface
+    {
+        return $this->roundClosingDate;
+    }
+
+    public function setRoundClosingDate(?\DateTimeInterface $roundClosingDate): self
+    {
+        $this->roundClosingDate = $roundClosingDate;
 
         return $this;
     }

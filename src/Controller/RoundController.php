@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Meeting;
 use App\Entity\Round;
 use App\Form\RoundType;
+use App\Repository\RoundRepository;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -20,17 +21,19 @@ class RoundController extends AbstractController
     /**
      * @Route("/admin/rounds", name="admin_rounds_index")
      */
-    public function index(): Response
+    public function index(RoundRepository $roundRepo): Response
     {
+        $rounds = $roundRepo->findAll();
+
         return $this->render('round/index.html.twig', [
-            'controller_name' => 'RoundController',
+            'rounds' => $rounds,
         ]);
     }
 
     /**
      * Permet de créer et d'initialiser un cycle
      * 
-     * @Route("/admin/rounds/new", name="admin_round_create")
+     * @Route("/admin/rounds/new", name="admin_rounds_create")
      */
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
@@ -74,5 +77,49 @@ class RoundController extends AbstractController
         return $this->render('round/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Permet de modifier un cycle
+     * 
+     * @Route("/admin/rounds/edit/{id}", name="admin_rounds_edit")
+     */
+    public function edit(Request $request, Round $round, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(RoundType::class, $round);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($round); //not sure if we need to persist it
+            $manager->flush();
+
+            $this->addFlash('success', 'Round N° <strong>' . $round->getRoundNumber() . '</strong>, modifié avec succès !');
+
+            return $this->redirectToRoute('app_home');
+        }
+
+
+        return $this->render('round/edit.html.twig', [
+            'form' => $form->createView(),
+            'round' =>  $round,
+        ]);
+    }
+
+    /**
+     * Permet de supprimer un cycle
+     * 
+     * @Route("/admin/rounds/delete/{id}", name="admin_rounds_delete")
+     */
+    public function delete(Round $round, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($round);
+            
+        $manager->flush();
+
+        $this->addFlash('success', 'Round N° <strong>' . $round->getRoundNumber() . '</strong>, supprimé avec succès !');
+
+        return $this->redirectToRoute('admin_rounds_index');
+       
     }
 }

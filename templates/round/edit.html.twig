@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Modifier Round{% endblock %}
+
+{% block body %}
+
+<!-- Intro section -->
+	<section class="intro-section spad">
+        <div class="container bg-light rounded">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-md-6 col-offset-3">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="card-title"> </small>Modifier le round N° <span class="badge rounded-pill bg-danger text-white"> 
+                                {{ round.roundNumber }}</span></small>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="message-flash">
+                            {% for flashError in app.flashes('verify_email_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+                            </div>                            
+                            {{ form_start(form) }}
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            {{ form_row(form.roundNumber) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.status) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            {{ form_row(form.roundStartDate) }}
+                                        </div>
+                                    </div>                                   
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.meetingStartHour) }}
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6">                               
+                                        <div class="form-group">
+                                            {{ form_row(form.monthlyCotisation) }}
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.monthlyCaisseSociale) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.loanMonthsDuration) }}        
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.loanMonthlyInterestPercentage) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.loanPrincipalGracePeriod) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.loanInterestGracePeriod) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.principalLatePenalityPercentage) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.interestLatePenalityPercentage) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.meetingLatePenalityAmount) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.meetingAbsencePenalityAmount) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.meetingFrequency) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.totalMeetings) }}
+                                        </div>
+                                    </div>                                                      
+                                </div>                                
+                                <div class="input-group">
+                                    <input type="submit" value="Valider" class="btn btn-success d-block btn-sm ml-auto">
+                                </div>
+                            {{ form_end(form) }}                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </section>
+<!-- Intro section end -->
+{% endblock %}
