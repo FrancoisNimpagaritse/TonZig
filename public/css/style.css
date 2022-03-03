@@ -243,7 +243,7 @@ Header section
 
 .header-right {
 	float: right;
-	padding: 5px 0;
+	padding: 15px 0;
 	margin-left: 130px;
 }
 
@@ -1488,8 +1488,9 @@ Responsive
 	}
 	.slicknav_btn {
 		position: relative;
-		top: -24px;
+		top: -5px;
 		background: #1c294a;
+		padding: 15px;
 	}
 	.main-menu {
 		display: none;
@@ -1624,8 +1625,9 @@ Responsive
 	}
 	.slicknav_btn {
 		position: relative;
-		top: -24px;
+		top: -5px;
 		background: #1c294a;
+		padding: 15px;
 	}
 	.main-menu {
 		display: none;

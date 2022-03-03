@@ -300,6 +300,6 @@ class Meeting
 
     public function __toString()
     {
-        return 'Rencontre N° ' . $this->getId();
+        return 'Rencontre du: ' . $this->getMeetingAt()->format('d-m-Y');
     }
 }
