@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Geon - Les Cotisations{% endblock %}
+
+{% block body %}
+<!-- Intro section -->
+	<section class="intro-section spad">
+        <div class="container bg-light rounded">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-md-6 col-offset-3">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="card-title"> </small>Encaisser les cotisations mensuelles <span class="badge rounded-pill bg-danger text-white"> 
+                               Automatique pour tous!</span></small>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="message-flash">
+                            {% for flashError in app.flashes('verify_email_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+                            </div>
+                            {{ form_start(form) }}
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                             {{ form_row(form.amount) }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                             {{ form_row(form.meeting) }} <!-- should show date as well -->
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.note) }}
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="input-group">
+                                    <input type="submit" value="Valider" class="btn btn-success btn-sm ml-auto">
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </section>
+<!-- Intro section end -->
+{% endblock %}

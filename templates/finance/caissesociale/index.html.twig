@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Geon - Caisse sociale{% endblock %}
+
+{% block body %}
+    <!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="register-head pb-2">
+                        <h6 class="card-title">Caisse sociale mensuelle</h6>
+                        <a href="{{ path('finances_caissesociales_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                    </div>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small><b>ID</b></small></th>
+                                <th scope="col"><small><b>Date</b></small></th>
+                                <th scope="col"><small><b>Membre</b></small></th>
+                                <th scope="col"><small><b>Montant</b></small></th>
+                                <th scope="col"><small><b>Note</b></small></th>
+                                <th scope="col"><small><b>Action</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in caissesociales %}                                    									
+                            <tr>
+                                <td scope="row"><small>{{ c.id }}</small></td>
+                                <td scope="row"><small>{{ c.meeting.MeetingAt | date('d/m/Y') }}</small></td>
+                                <td><small>{{ c.member.firstname }} {{ c.member.lastname }}</small></td>
+                                <td><small>{{ c.amount }}</small></td>
+                                <td><small>{{ c.note }}</small></td>
+                                <td>
+                                <!-- Button delete -->
+                                    <a href="{{ path('finances_caissesociales_delete', {'id': c.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+                                    <i class="fa fa-trash"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>	
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}

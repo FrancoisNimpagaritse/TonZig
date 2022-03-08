@@ -62,6 +62,5 @@ class MemberController extends AbstractController
         $this->addFlash('success', 'Le membre <strong>' . $member->getLastname() . ' ' . $member->getFirstname() . '</strong>, supprimé avec succès !');
 
         return $this->redirectToRoute('admin_members_index');
-       
     }
 }

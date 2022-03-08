@@ -35,7 +35,7 @@
 					<div class="middle">
 						<div class="left">
 							<h3>Total crédits du cycle</h3>
-							<h2>75 742 500</h2>
+							<h2>{{ stats.totalLoans|number_format(0, '', ' ') }}</h2>
 						</div>						
 					</div>
 					<small class="text-muted">Crédits depuis début round</small>
@@ -122,63 +122,35 @@
 						<div class="card-body">
 							<div class="register-head pb-2">
 								<h6 class="card-title">Cotisations mensuelles</h6>
-								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+								<a href="{{ path('finances_cotisations_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
                             </div>
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
-										<th scope="col"><small><b>Pris lé</b></small></th>
-										<th scope="col"><small><b>Montant crédit</b></small></th>
-										<th scope="col"><small><b>Solde Crédit</b></small></th>
-										<th scope="col"><small><b>Solde Intérêts</b></small></th>
-										<th scope="col"><small><b>Total Restant</b></small></th>
-										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>ID</b></small></th>
+										<th scope="col"><small><b>Date</b></small></th>
+										<th scope="col"><small><b>Membre</b></small></th>
+										<th scope="col"><small><b>Montant</b></small></th>
+										<th scope="col"><small><b>Note</b></small></th>
 										<th scope="col"><small><b>Action</b></small></th>
 									</tr>
 								</thead>
-								<tbody>									
+								<tbody>
+									{% for c in stats.cotisations %}                                    									
 									<tr>
-										<td scope="row"><small>12/10/2021</small></td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td scope="row"><small>{{ c.id }}</small></td>
+										<td scope="row"><small>{{ c.meeting.MeetingAt | date('d/m/Y') }}</small></td>
+										<td><small>{{ c.member.firstname }} {{ c.member.lastname }}</small></td>
+										<td><small>{{ c.amount }}</small></td>
+										<td><small>{{ c.note }}</small></td>
 										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> 
+										<!-- Button delete -->
+											<a href="{{ path('finances_cotisations_delete', {'id': c.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+											<i class="fa fa-trash"></i> 
 											</a>
 										</td>
 									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>
@@ -188,64 +160,36 @@
                     <div class="card">
 						<div class="card-body">
 							<div class="register-head pb-2">
-								<h6 class="card-title">Caisses sociales mensuelles</h6>
-								<a href="{{ path('app_register') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+								<h6 class="card-title">Caisse sociale mensuelle</h6>
+								<a href="{{ path('finances_caissesociales_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
                             </div>
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
-										<th scope="col"><small>Pris lé</small></th>
-										<th scope="col"><small>Montant crédit</small></th>
-										<th scope="col"><small>Solde Crédit</small></th>
-										<th scope="col"><small>Solde Intérêts</small></th>
-										<th scope="col"><small>Total Restant</small></th>
-										<th scope="col"><small>Status</small></th>
-										<th scope="col"><small>Action</small></th>
+										<th scope="col"><small><b>ID</b></small></th>
+										<th scope="col"><small><b>Date</b></small></th>
+										<th scope="col"><small><b>Membre</b></small></th>
+										<th scope="col"><small><b>Montant</b></small></th>
+										<th scope="col"><small><b>Note</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
 									</tr>
 								</thead>
-								<tbody>									
+								<tbody>
+									{% for c in stats.caissesociales %}                                    									
 									<tr>
-										<td scope="row"><small>12/10/2021</small></td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td scope="row"><small>{{ c.id }}</small></td>
+										<td scope="row"><small>{{ c.meeting.MeetingAt | date('d/m/Y') }}</small></td>
+										<td><small>{{ c.member.firstname }} {{ c.member.lastname }}</small></td>
+										<td><small>{{ c.amount }}</small></td>
+										<td><small>{{ c.note }}</small></td>
 										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> 
+										<!-- Button delete -->
+											<a href="{{ path('finances_caissesociales_delete', {'id': c.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+											<i class="fa fa-trash"></i> 
 											</a>
 										</td>
 									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
+									{% endfor %}
 								</tbody>
 							</table>
                         </div>
