@@ -32,15 +32,15 @@ class FinanceController extends AbstractController
     public function index(Stats $statService, MeetingRepository $meetingRepo, LoanRepository $loanRepo): Response
     {
         $stats = $statService->getReportData();
-        $meetings = $meetingRepo->findAll();
-        $allLoans = $loanRepo->findAll();
+        $meetings = $meetingRepo->findAll(); //why not use statService?
+        $allLoans = $loanRepo->findAll(); //why not use statService?
         $newloan = new Loan();
 
         $form = $this->createForm(LoanType::class, $newloan, [
             'action' => $this->generateUrl('finance_loan_create'),
             'method' => 'GET',
         ]);
-
+        
         return $this->render('finance/index.html.twig', [
             'stats' =>  $stats,
             'meetings'  =>  $meetings,

@@ -13,6 +13,41 @@ install:
   - php bin/console doctrine:schema:update --force --env=test
   - php bin/console doctrine:fixtures:load -n --env=test
 
-script:
-   - composer install
-   - vendor/bin/phpunit
+cache:
+  - paths:
+    - vendor/
+
+stages:
+  - SecurityChecker
+  - CodingStandards
+  - Tests
+
+security-checker:
+  stage: SecurityChecker
+  script:
+    - security-checker security:check composer.lock
+  allow_failure: false
+
+phpcs:
+  stage: CodingStandards
+  script:
+    - phpcs -V --standard=PSR12 ignore=.src/Kernel.php ./src
+  allow_failure: false
+
+phpstan:
+  stage: CodingStandards
+  script:
+    - phpstan analyse ./src
+  allow_failure: false
+
+twig-lint:
+  stage: CodingStandards
+  script:
+    - twig-lint lint ./templates
+  allow_failure: false
+
+phpunit:
+  stage: Tests
+  script:
+   - php bin/phpunit
+  allow_failure: false

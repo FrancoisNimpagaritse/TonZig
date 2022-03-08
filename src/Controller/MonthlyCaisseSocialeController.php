@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaisseSociale;
 use App\Repository\UserRepository;
 use App\Form\CaisseSocialeAmountType;
+use App\Repository\CaisseSocialeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MonthlyCaisseSocialeController extends AbstractController
-{
+{    
+    /**
+     * @Route("/finances/caissesociales", name="finances_caissesociales_index")
+     */
+    public function index(CaisseSocialeRepository $caisseRepo): Response
+    {
+        $caissesociales = $caisseRepo->findAll();
+
+        return $this->render('finance/caissesociale/index.html.twig', [
+            'caissesociales' => $caissesociales,
+        ]);
+    }
+
+
     /**
      * Permet de d'nregistrer la caisse sociale pour tous les membres actifs du round
      * 
-     * @Route("/finances/caissesociale/new", name="finances_caissesociale_create")
+     * @Route("/finances/caissesociales/new", name="finances_caissesociales_create")
      */
     public function create(UserRepository $memberRepo, Request $request, EntityManagerInterface $manager): Response
     {
@@ -57,5 +71,21 @@ class MonthlyCaisseSocialeController extends AbstractController
         return $this->render('finance/caissesociale/new.html.twig', [
             'form'  =>  $form->createView()
         ]);
+    }
+
+    /**
+     * Permet de supprimer la caisse sociale d'une date donnée
+     * 
+     * @Route("/finances/caissesociales/delete/{id}", name="finances_caissesociales_delete")
+     */
+    public function delete(CaisseSociale $caisse, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($caisse);
+            
+        $manager->flush();
+
+        $this->addFlash('success', 'La cotisation de <strong>' . $caisse->getmember()->getLastname() . ' ' . $caisse->getMember()->getFirstname() . '</strong>, a été supprimée avec succès !');
+
+        return $this->redirectToRoute('finances_cotisations_index');
     }
 }

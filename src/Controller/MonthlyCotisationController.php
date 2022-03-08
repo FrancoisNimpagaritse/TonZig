@@ -5,6 +5,7 @@ namespace App\Controller;
 use Exception;
 use App\Entity\Cotisation;
 use App\Form\CotisationAmountType;
+use App\Repository\CotisationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,12 +16,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MonthlyCotisationController extends AbstractController
 {
     /**
-     * @Route("/finances/cotisation", name="monthly_cotisation")
+     * @Route("/finances/cotisations", name="finances_cotisations_index")
      */
-    public function index(): Response
+    public function index(CotisationRepository $cotisRepo): Response
     {
-        return $this->render('cotisation/index.html.twig', [
-            'controller_name' => 'MonthlyCotisationController',
+        $cotisations = $cotisRepo->findAll();
+
+        return $this->render('finance/cotisation/index.html.twig', [
+            'cotisations' => $cotisations,
         ]);
     }
 
@@ -68,5 +71,21 @@ class MonthlyCotisationController extends AbstractController
         return $this->render('finance/cotisation/new.html.twig', [
             'form'  =>  $form->createView()
         ]);
+    }
+
+    /**
+     * Permet de supprimer les cotisations d'une date donnée
+     * 
+     * @Route("/finances/cotisations/delete/{id}", name="finances_cotisations_delete")
+     */
+    public function delete(Cotisation $cotis, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($cotis);
+            
+        $manager->flush();
+
+        $this->addFlash('success', 'La cotisation de <strong>' . $cotis->getmember()->getLastname() . ' ' . $cotis->getMember()->getFirstname() . '</strong>, a été supprimée avec succès !');
+
+        return $this->redirectToRoute('finances_cotisations_index');
     }
 }

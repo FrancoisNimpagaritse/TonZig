@@ -60,7 +60,7 @@ class Stats
         $totalInterestCollected = $this->getTotalInterestCollected();
         $totalAssistances = $this->getTotalAssistances();
         
-        return compact('meetings','cotisations', '$caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
+        return compact('meetings','cotisations', 'caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
     }
 
     public function getTotalLoans()
