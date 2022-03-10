@@ -25,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *  @Assert\NotBlank(message="L'email du membre est obligatoire")
      */
     private $email;
 
@@ -65,6 +66,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="La date d'adhésion ne peutpas être vide")
      */
     private $registeredAt;
 
