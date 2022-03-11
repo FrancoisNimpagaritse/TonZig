@@ -2,16 +2,16 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\LoanRepository;
-use App\Repository\UserRepository;
-use App\Repository\MeetingRepository;
+use App\Repository\AppliedSanctionRepository;
 use App\Repository\AssistanceRepository;
+use App\Repository\CaisseSocialeRepository;
 use App\Repository\CotisationRepository;
 use App\Repository\LoanPaymentRepository;
-use App\Repository\CaisseSocialeRepository;
-use App\Repository\AppliedSanctionRepository;
+use App\Repository\LoanRepository;
 use App\Repository\MeetingLotDistributionRepository;
+use App\Repository\MeetingRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Stats
 {
@@ -25,7 +25,6 @@ class Stats
     private $assistanceRepo;
     private $repayRepo;
     private $memRepo;
-
 
     public function __construct(EntityManagerInterface $manager, MeetingRepository $meetingRepo,LoanRepository $loanRepo,
     CotisationRepository $cotisationRepo, CaisseSocialeRepository $caissesocioRepo,
@@ -59,8 +58,8 @@ class Stats
         $totalRepays = $this->getTotalRepays();
         $totalInterestCollected = $this->getTotalInterestCollected();
         $totalAssistances = $this->getTotalAssistances();
-        
-        return compact('meetings','cotisations', 'caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
+
+        return compact('meetings', 'cotisations', 'caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
     }
 
     public function getTotalLoans(): float
@@ -82,5 +81,4 @@ class Stats
     {
         return $this->manager->createQuery('SELECT SUM(a.amount) FROM App\Entity\Assistance a')->getSingleScalarResult();
     }
-
 }

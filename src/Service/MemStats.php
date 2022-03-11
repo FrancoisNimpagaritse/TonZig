@@ -2,15 +2,15 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\LoanRepository;
-use App\Repository\UserRepository;
-use App\Repository\MeetingRepository;
-use App\Repository\LoanPaymentRepository;
 use App\Repository\AppliedSanctionRepository;
 use App\Repository\AssistanceRepository;
 use App\Repository\LoanDueRepository;
+use App\Repository\LoanPaymentRepository;
+use App\Repository\LoanRepository;
+use App\Repository\MeetingRepository;
 use App\Repository\RoundRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class MemStats
 {
@@ -23,7 +23,6 @@ class MemStats
     private $memRepo;
     private $dueRepo;
     private $assistanceRepo;
-
 
     public function __construct(EntityManagerInterface $manager, RoundRepository $roundRepo, MeetingRepository $meetingRepo,LoanRepository $loanRepo,
     AppliedSanctionRepository $sanctionRepo, LoanPaymentRepository $repayRepo, LoanDueRepository $dueRepo, UserRepository $memRepo, AssistanceRepository $assisRepo)
@@ -49,13 +48,13 @@ class MemStats
         $member = $this->memRepo->findOneBy(['Id' => $id]);
         $assistances = $this->assistanceRepo->findOneBy(['beneficiaryId' => $id]);
         $sanctions = $this->sanctionRepo->findOneBy(['memberId' => $id]);
-        
-        return compact('meetings','round', 'loanRepays' ,'sanctions', 'assistances', 'currentLoan', 'member');
+
+        return compact('meetings', 'round', 'loanRepays', 'sanctions', 'assistances', 'currentLoan', 'member');
     }
 
     public function getCurrentLoanSituation($id) //loan details and due details
     {
-        return $this->manager->createQuery("SELECT l FROM App\Entity\loan l JOIN App\Entity\loandue WHERE l.status ='encours' AND l.memid ='" . $id ."' AND d.dueDate >='" . date("now") . "'")->getResult();
+        return $this->manager->createQuery("SELECT l FROM App\Entity\loan l JOIN App\Entity\loandue WHERE l.status ='encours' AND l.memid ='".$id."' AND d.dueDate >='".date('now')."'")->getResult();
     }
 
     public function getTotalRepays(): float
@@ -72,5 +71,4 @@ class MemStats
     {
         return $this->manager->createQuery('SELECT SUM(a.amount) FROM App\Entity\Assistance a')->getSingleScalarResult();
     }
-
 }

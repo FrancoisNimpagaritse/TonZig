@@ -6,10 +6,10 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MemberController extends AbstractController
 {
@@ -35,31 +35,30 @@ class MemberController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-            
+
             $this->addFlash('success', "Le membre <strong> {$member->getLastname()} {$member->getFirstname()} </strong> a été modifié avec succès !");
 
             return $this->redirectToRoute('admin_members_index');
-
         }
 
         return $this->render('member/edit.html.twig', [
-            'form' =>   $form->createView(),
+            'form' => $form->createView(),
             'member' => $member,
         ]);
     }
 
     /**
-     * Permet de supprimer un membre
-     * 
+     * Permet de supprimer un membre.
+     *
      * @Route("/admin/members/delete/{id}", name="admin_members_delete")
      */
     public function delete(User $member, EntityManagerInterface $manager): Response
     {
         $manager->remove($member);
-            
+
         $manager->flush();
 
-        $this->addFlash('success', 'Le membre <strong>' . $member->getLastname() . ' ' . $member->getFirstname() . '</strong>, supprimé avec succès !');
+        $this->addFlash('success', 'Le membre <strong>'.$member->getLastname().' '.$member->getFirstname().'</strong>, supprimé avec succès !');
 
         return $this->redirectToRoute('admin_members_index');
     }

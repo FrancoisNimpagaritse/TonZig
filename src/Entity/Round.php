@@ -31,7 +31,7 @@ class Round
      * @Assert\NotBlank(message="La date de début est obligatoire")
      */
     private $roundStartDate;
-    
+
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le montant de la cotisation mensuelle du membre est obligatoire")
@@ -129,7 +129,6 @@ class Round
     {
         $this->meetings = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
