@@ -79,7 +79,6 @@ class Meeting
     {
         $this->cotisations = new ArrayCollection();
         $this->caisseSociales = new ArrayCollection();
-        $this->meetingAppliedSanctions = new ArrayCollection();
         $this->loans = new ArrayCollection();
         $this->appliedSanctions = new ArrayCollection();
     }

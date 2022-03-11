@@ -63,22 +63,22 @@ class Stats
         return compact('meetings','cotisations', 'caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
     }
 
-    public function getTotalLoans()
+    public function getTotalLoans(): float
     {
         return $this->manager->createQuery('SELECT SUM(l.amount) FROM App\Entity\Loan l')->getSingleScalarResult();
     }
 
-    public function getTotalRepays()
+    public function getTotalRepays(): float
     {
         return $this->manager->createQuery('SELECT SUM(r.principal) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
     }
 
-    public function getTotalInterestCollected()
+    public function getTotalInterestCollected(): float
     {
         return $this->manager->createQuery('SELECT SUM(r.interest) FROM App\Entity\LoanPayment r')->getSingleScalarResult();
     }
 
-    public function getTotalAssistances()
+    public function getTotalAssistances(): float
     {
         return $this->manager->createQuery('SELECT SUM(a.amount) FROM App\Entity\Assistance a')->getSingleScalarResult();
     }

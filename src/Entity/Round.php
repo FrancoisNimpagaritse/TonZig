@@ -6,6 +6,7 @@ use App\Repository\RoundRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RoundRepository::class)
@@ -21,71 +22,85 @@ class Round
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Le numéro du round est obligatoire")
      */
     private $roundNumber;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="La date de début est obligatoire")
      */
     private $roundStartDate;
     
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant de la cotisation mensuelle du membre est obligatoire")
      */
     private $monthlyCotisation;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant de la caisse sociale mensuelle du membre est obligatoire")
      */
     private $monthlyCaisseSociale;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez indiquer la durée de remboursement du crédit")
      */
     private $loanMonthsDuration;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer lepourcentage des intérêts sur crédit")
      */
     private $loanMonthlyInterestPercentage;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez indiquer la durée avant le remboursement du crédit")
      */
     private $loanPrincipalGracePeriod;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez indiquer la durée avant le remboursement des intérêts sur crédit")
      */
     private $loanInterestGracePeriod;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de pénalité sur le crédit en retard")
      */
     private $principalLatePenalityPercentage;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de pénalité sur les intérêts en retard")
      */
     private $interestLatePenalityPercentage;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer le montant de pénalité den cas de retard à la rencontre")
      */
     private $meetingLatePenalityAmount;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer le montant de pénalité den cas d'absebce à la rencontre")
      */
     private $meetingAbsencePenalityAmount;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez indiquer les jours entre deux rencontres")
      */
     private $meetingFrequency;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez indiquer l'heure où commence la rencontre")
      */
     private $meetingStartHour;
 
@@ -101,6 +116,7 @@ class Round
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre total de rencontres pour ce cycle")
      */
     private $totalMeetings;
 

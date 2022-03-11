@@ -25,7 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     *  @Assert\NotBlank(message="L'email du membre est obligatoire")
+     * @Assert\NotBlank(message="L'email du membre est obligatoire")
      */
     private $email;
 
@@ -124,7 +124,6 @@ class User implements UserInterface
     {
         $this->cotisations = new ArrayCollection();
         $this->caisseSociales = new ArrayCollection();
-        $this->meetingAppliedSanctions = new ArrayCollection();
         $this->loans = new ArrayCollection();
         $this->hostedOneMeetings = new ArrayCollection();
         $this->hostedTwoMeetings = new ArrayCollection();
