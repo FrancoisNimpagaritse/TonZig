@@ -39,8 +39,7 @@ class SanctionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                
-            $manager->persist($sanction);            
+            $manager->persist($sanction);
 
             $manager->flush();
 

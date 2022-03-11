@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Lots{% endblock %}
+
+{% block body %}
+    <!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="register-head pb-2">
+                        <h6 class="card-title">Attribution de lot de rencontre</h6>
+                        <a href="{{ path('finances_lot-distributions_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                    </div>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small><b>ID</b></small></th>
+                                <th scope="col"><small><b>Date</b></small></th>
+                                <th scope="col"><small><b>Bénéficiaires</b></small></th>
+                                <th scope="col"><small><b>Lot</b></small></th>
+                                <th scope="col"><small><b>Action</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in lotdistributions %}
+                            <tr>
+                                <td scope="row"><small>{{ l.id }}</small></td>
+                                <td scope="row"><small>{{ l.meeting.MeetingAt | date('d/m/Y') }}</small></td>
+                                <td><small>{{ l.beneficiaires }}</small></td>
+                                <td><small>{{ l.amount }}</small></td>
+                                <td>
+                                   <a href="{{ path('finances_lot-distributions_delete', {'id': l.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>	
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}

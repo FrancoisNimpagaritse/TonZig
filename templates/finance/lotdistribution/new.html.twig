@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Attribuer Lot{% endblock %}
+
+{% block body %}
+{#{ include("partials/_title_section.html.twig", {'name': 'Attribuer Lot'}) }#}
+<div class="container">
+     <div class="login_register_wrap section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-md-10">
+                    <div class="login_wrap">
+                        <div class="padding_eight_all bg-white">
+                            <div class="heading_s1 mt-5 mb-5">
+                                <h5 class="text-center">Attribuer le lot</h5>
+                            </div>
+                            <div class="message-flash">
+                                {% for flashError in app.flashes('verify_email_error') %}
+                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                                {% endfor %}
+                            </div>
+                            {{ form_start(form) }}
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.beneficiaire1) }}
+                                        </div>
+                                    </div>
+                                     <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.beneficiaire2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.beneficiaires) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                     <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.amount) }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form_row(form.meeting) }}
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="input-group">
+                                    <input type="submit" value="Valider" class="btn btn-success d-block btn-sm ml-auto">
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
