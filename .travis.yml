@@ -31,7 +31,7 @@ security-checker:
 phpcs:
   stage: CodingStandards
   script:
-    - phpcs -V --standard=PSR12 ignore=.src/Kernel.php ./src
+    - phpcs -V --standard=PSR12 --ignore=.src/Kernel.php ./src
   allow_failure: false
 
 phpstan:
