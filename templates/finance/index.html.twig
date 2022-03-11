@@ -207,58 +207,27 @@
 							<table class="table table-bordered table-sm table-hover">
 								<thead>
 									<tr>
-										<th scope="col"><small>Pris lé</small></th>
-										<th scope="col"><small>Montant crédit</small></th>
-										<th scope="col"><small>Solde Crédit</small></th>
-										<th scope="col"><small>Solde Intérêts</small></th>
-										<th scope="col"><small>Total Restant</small></th>
-										<th scope="col"><small>Status</small></th>
-										<th scope="col"><small>Action</small></th>
+										<th scope="col"><small><b>ID</b></small></th>
+										<th scope="col"><small><b>Date</b></small></th>
+										<th scope="col"><small><b>Bénéficiaires</b></small></th>
+										<th scope="col"><small><b>Lot</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
 									</tr>
 								</thead>
 								<tbody>									
+									{% for l in stats.lotdistributions %}
 									<tr>
-										<td scope="row"><small>12/10/2021</small></td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-dark text-white"><small>Encours</small></span></td>
+										<td scope="row"><small>{{ l.id }}</small></td>
+										<td scope="row"><small>{{ l.meeting.MeetingAt | date('d/m/Y') }}</small></td>
+										<td><small>{{ l.beneficiaires }}</small></td>
+										<td><small>{{ l.amount }}</small></td>
 										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> 
+										<a href="{{ path('finances_lot-distributions_delete', {'id': l.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+												<i class="fa fa-trash"></i>
 											</a>
 										</td>
 									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-success text-white"><small>Terminé</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
-                                    <tr>
-										<td scope="row"><small>12/10/202</small>1</td>
-										<td><small>5 000 000</small></td>
-										<td><small>3 500 000</small></td>
-										<td><small>160 000</small></td>
-										<td><small>4 600 000</small></td>
-										<td><span class="badge rounded-pill bg-danger text-white"><small>En retard</small></span></td>
-										<td>
-										<!-- Button trigger modal -->
-											<a href="{{ path('app_register') }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-											<i class="fa fa-eye"></i> Modal
-											</a>
-										</td>
-									</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>
