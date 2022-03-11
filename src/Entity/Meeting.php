@@ -40,7 +40,7 @@ class Meeting
      */
     private $round;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity=Cotisation::class, mappedBy="meeting", orphanRemoval=true)
      */
     private $cotisations;
@@ -50,7 +50,7 @@ class Meeting
      */
     private $caisseSociales;
 
-   /**
+    /**
      * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="meeting", orphanRemoval=true)
      */
     private $loans;
@@ -194,7 +194,7 @@ class Meeting
         }
 
         return $this;
-    }   
+    }
 
     /**
      * @return Collection|Loan[]
@@ -299,6 +299,6 @@ class Meeting
 
     public function __toString()
     {
-        return 'Rencontre du: ' . $this->getMeetingAt()->format('d-m-Y');
+        return 'Rencontre du: '.$this->getMeetingAt()->format('d-m-Y');
     }
 }

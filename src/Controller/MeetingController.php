@@ -6,10 +6,10 @@ use App\Entity\Meeting;
 use App\Form\MeetingType;
 use App\Repository\MeetingRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MeetingController extends AbstractController
 {
@@ -17,11 +17,11 @@ class MeetingController extends AbstractController
      * @Route("/admin/meetings", name="admin_meetings_index")
      */
     public function index(MeetingRepository $meetingRepo): Response
-    {        
+    {
         $meetings = $meetingRepo->findAll(); //only show for open round wth findBy
 
-        return $this->render('meeting/index.html.twig', [            
-            'meetings'  =>  $meetings,
+        return $this->render('meeting/index.html.twig', [
+            'meetings' => $meetings,
         ]);
     }
 
@@ -33,18 +33,18 @@ class MeetingController extends AbstractController
         $form = $this->createForm(MeetingType::class, $meeting);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($meeting);
             $manager->flush();
 
-            $this->addFlash('success', 'La rencontre N° <strong>' . $meeting->getId() . '</strong>, modifiée avec succès !');
+            $this->addFlash('success', 'La rencontre N° <strong>'.$meeting->getId().'</strong>, modifiée avec succès !');
 
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('meeting/edit.html.twig', [
             'form' => $form->createView(),
-            'meeting'   => $meeting
+            'meeting' => $meeting,
         ]);
     }
 }

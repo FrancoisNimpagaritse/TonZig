@@ -3,15 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Loan;
-use App\Entity\User;
 use App\Entity\Meeting;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LoanType extends AbstractType
 {
@@ -19,24 +19,24 @@ class LoanType extends AbstractType
     {
         $builder
             ->add('disbursedAt', DateType::class, [
-                'label' =>  'Date début',
-                'widget'    =>  'single_text',
-                'attr'  =>  [
-                    'placeholder'   =>  'Date de la 1ère rencontre'
-                ]
+                'label' => 'Date début',
+                'widget' => 'single_text',
+                'attr' => [
+                    'placeholder' => 'Date de la 1ère rencontre',
+                ],
             ])
             ->add('amount', TextType::class)
             ->add('member', EntityType::class, [
                 'label' => 'Bénéficiaire',
                 'class' => User::class,
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
                 ])
             ->add('meeting', EntityType::class, [
                 'label' => 'Rencontre',
                 'class' => Meeting::class,
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
                 ])
             ->add('status', ChoiceType::class, [
                 'label' => 'Etat',

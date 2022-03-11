@@ -23,16 +23,22 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
-        <include>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+            <exclude>
+                    <directory>src/DataFixtures</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-
+    
+    <logging>
+        <log type="coverage-html" target="coverage"/>
+    </logging>
     <!-- Run `composer require symfony/panther` before enabling this extension -->
     <!--
     <extensions>
