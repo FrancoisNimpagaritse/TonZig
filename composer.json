@@ -89,6 +89,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "phpstan":
+        [
+            "php -d memory_limit=-1 vendor/bin/phpstan analyse ./src ./tests --level=5"
         ]
     },
     "conflict": {
