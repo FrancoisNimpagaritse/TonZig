@@ -71,4 +71,29 @@ class MemStats
     {
         return $this->manager->createQuery('SELECT SUM(a.amount) FROM App\Entity\Assistance a')->getSingleScalarResult();
     }
+
+
+    public function getLoanNextDue($loan)
+    {
+        $today = (new \DateTime())->format('Y-m-d');
+        $qb = $this->manager->createQuery("SELECT d.dueDate, d.principal, d.interest, d.penality
+        FROM App\Entity\LoanDue d JOIN App\Entity\Loan l 
+         
+        WHERE d.loan = :id AND d.dueDate >=  :today");
+
+        return $qb->setParameters(['id'=> $loan, 'today' => $today])->setMaxResults(1)->getResult();
+    }
+
+    public function getNextMeeting()
+    {
+        $today = (new \DateTime())->format('Y-m-d');
+        
+        //$meetDay = $this->meetingRepo->findBy(["meetingAt" => ">$today"], [], 1, null);
+        $qb = $this->manager->createQuery("SELECT m.meetingAt 
+        FROM App\Entity\Meeting m 
+        WHERE m.meetingAt > :today");
+    
+        return $qb->setParameter('today', $today)->setMaxResults(1)->getResult();
+        //return $meetDay;
+    }
 }

@@ -39,10 +39,8 @@ class MeetingLotDistributionController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-           $lotdist->setBeneficiaires($form->get('beneficiaire1')->getData() . ' et ' . $form->get('beneficiaire2')->getData());
-           
+           $lotdist->setBeneficiaires($form->get('beneficiaire1')->getData() . ' et ' . $form->get('beneficiaire2')->getData());           
             $manager->persist($lotdist);
-
             $manager->flush();
 
             $this->addFlash('success', "Le lot a été enregistré avec succès !");
@@ -63,7 +61,6 @@ class MeetingLotDistributionController extends AbstractController
     public function delete(MeetingLotDistribution $lotdis, EntityManagerInterface $manager): Response
     {
         $manager->remove($lotdis);
-
         $manager->flush();
 
         $this->addFlash('success', "Le lot de <strong> {$lotdis->getBeneficiaires()} </strong>, a été supprimé avec succès !");

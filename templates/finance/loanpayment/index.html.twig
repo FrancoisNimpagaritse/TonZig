@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Remboursements{% endblock %}
+
+{% block body %}
+    <!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="register-head pb-2">
+                        <h6 class="card-title">Rembourser un crédit</h6>
+                        <a href="{{ path('finances_loanpayments_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                    </div>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small><b>ID</b></small></th>
+                                <th scope="col"><small><b>Date paiement</b></small></th>
+                                <th scope="col"><small><b>Principal</b></small></th>
+                                <th scope="col"><small><b>Intérêts</b></small></th>
+                                <th scope="col"><small><b>Pénalités</b></small></th>
+                                <th scope="col"><small><b>Action</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in loanpayments %}
+                            <tr>
+                                <td scope="row"><small>{{ l.id }}</small></td>
+                                <td scope="row"><small>{{ l.paidDate | date('d/m/Y') }}</small></td>
+                                <td><small>{{ l.principal }}</small></td>
+                                <td><small>{{ l.interest }}</small></td>
+                                <td><small>{{ l.penality }}</small></td>
+                                <td>
+                                    <a href="{{ path('finances_loanpayments_edit', {'id': l.id}) }}" class="btn btn-outline-warning rounded-btn btn-sm">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ path('finances_loanpayments_delete', {'id': l.id}) }}" class="btn btn-outline-danger rounded-btn btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>	
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}

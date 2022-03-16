@@ -73,7 +73,7 @@
 					<li><a href="{{ path('finances_caissesociales_index') }}">Caisse sociale</a></li>
 					<li><a href="{{ path('finances_lot-distributions_index') }}">Lots</a></li>
 					<li><a href="{{ path('admin_members_index') }}">Crédits</a></li>
-					<li><a href="{{ path('admin_members_index') }}">Remboursement</a></li>
+					<li><a href="{{ path('finances_loanpayments_index') }}">Remboursements</a></li>
 					<li><a href="{{ path('finances_sanctions_index') }}"> Amendes</a></li>
 					<li><a href="{{ path('admin_members_index') }}">Mouvements Caisse</a></li>
 				</ul>
@@ -108,9 +108,7 @@
 							<div class="footer-widget">
 								<h2>Accueil</h2>
 								<ul>
-									<li><a href="">Our Story</a></li>
-									<li><a href="">Sol Music Blog</a></li>
-									<li><a href="">History</a></li>
+									<li><a href="{{ path('app_home') }}">Accueil membre</a></li>
 								</ul>
 							</div>
 						</div>
@@ -118,10 +116,10 @@
 							<div class="footer-widget">
 								<h2>Administration</h2>
 								<ul>
-									<li><a href="">Music</a></li>
-									<li><a href="">Subscription</a></li>
-									<li><a href="">Custom Music</a></li>
-									<li><a href="">Footage</a></li>
+									<li><a href="{{ path('admin_rounds_index') }}">Tontine</a></li>
+									<li><a href="{{ path('admin_rounds_index') }}">Rounds</a></li>
+									<li><a href="{{ path('admin_meetings_index') }}">Rencontres</a></li>
+									<li><a href="{{ path('admin_members_index') }}">Membres</a></li>
 								</ul>
 							</div>
 						</div>
@@ -129,10 +127,10 @@
 							<div class="footer-widget">
 								<h2>Finances</h2>
 								<ul>
-									<li><a href="">Newsletter</a></li>
-									<li><a href="">Careers</a></li>
-									<li><a href="">Press</a></li>
-									<li><a href="">Contact</a></li>
+									<li><a href="{{ path('finances_index') }}">dashboard</a></li>
+									<li><a href="{{ path('finances_loanpayments_index') }}">Crédits octroyés</a></li>
+									<li><a href="{{ path('finances_loanpayments_index') }}">Remboursements</a></li>
+									<li><a href="{{ path('finances_loanpayments_index') }}">Mouvements caisse</a></li>
 								</ul>
 							</div>
 						</div>

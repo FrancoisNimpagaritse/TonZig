@@ -55,7 +55,6 @@ class MemberController extends AbstractController
     public function delete(User $member, EntityManagerInterface $manager): Response
     {
         $manager->remove($member);
-
         $manager->flush();
 
         $this->addFlash('success', 'Le membre <strong>'.$member->getLastname().' '.$member->getFirstname().'</strong>, supprimé avec succès !');
