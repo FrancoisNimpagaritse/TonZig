@@ -28,7 +28,7 @@ class FinanceController extends AbstractController
         $newloan = new Loan();
 
         $form = $this->createForm(LoanType::class, $newloan, [
-            'action' => $this->generateUrl('finance_loan_create'),
+            'action' => $this->generateUrl('finances_loans_create'),
             'method' => 'GET',
         ]);
 
@@ -43,7 +43,7 @@ class FinanceController extends AbstractController
     /**
      * Permet de créer un crédit.
      *
-     * @Route("/finance/loan/new", name="finance_loan_create")
+     * @Route("/finances/loan/new", name="finances_loans_create")
      */
     public function create(Request $request, EntityManagerInterface $manager): Response
     {

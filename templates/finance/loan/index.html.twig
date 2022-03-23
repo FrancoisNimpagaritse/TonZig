@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Crédits{% endblock %}
+
+{% block body %}
+    <!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+			<div class="row mb-2">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="register-head pb-2">
+								<h6 class="card-title">Crédits octroyés</h6>
+								<a href="{{ path('finances_loans_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+							</div>
+							<table class="table table-bordered table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col"><small><b>Pris le</b></small></th>
+										<th scope="col"><small><b>Membre</b></small></th>
+										<th scope="col"><small><b>Montant</b></small></th>
+										<th scope="col"><small><b>I attendus</b></small></th>
+										<th scope="col"><small><b>P payé</b></small></th>
+										<th scope="col"><small><b>I payé</b></small></th>
+										<th scope="col"><small><b>Solde P(v1)</b></small></th>
+										<th scope="col"><small><b>Solde P(v2)</b></small></th>
+										<th scope="col"><small><b>Solde I</b></small></th>
+										<th scope="col"><small><b>Solde pénalités</b></small></th>
+										<th scope="col"><small><b>Tot Restant</b></small></th>
+										<th scope="col"><small><b>Status</b></small></th>
+										<th scope="col"><small><b>Action</b></small></th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for loan in allLoans %}					
+									<tr>
+										<td scope="row"><small>{{ loan.disbursedAt | date('d/m/y') }}</small></td>
+										<td><small>{{ loan.firstname }} {{ loan.lastname }}</small></td>
+										<td><small>{{ loan.amount }}</small></td>
+										<td><small>{{ loan.totalInterestDue }}</small></td>
+										<td><small>{{ loan.totalPrincipalPaid }}</small></td>
+										<td><small>{{ loan.totalInteretPaid }}</small></td>
+										<td><small>{{ loan.soldePrincipal1 }}</small></td>
+										<td><small>{{ loan.soldePrincipal2 }}</small></td>
+										<td><small>{{ loan.soldeInterest }}</small></td>
+										<td><small>{{ loan.soldePenality }}</small></td>
+										<td><small>{{ loan.soldeTotal }}</small></td>
+                                        {% if loan.status != 'encours' %}
+										<td><span class="badge rounded-pill bg-info text-white"><small>{{ loan.status }}</small></span></td>
+										<td>
+                                        {% else %}
+                                        <td><span class="badge rounded-pill bg-danger text-white"><small>{{ loan.status }}</small></span></td>
+										<td>
+                                        {% endif %}
+										<!-- Button trigger modal -->
+											<a href="{{ path('finances_loanpayments_pay', {'id' : loan.id}) }}" class="btn btn-outline-info rounded-btn btn-sm">
+											</i> <small>Payer</small>
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-warning rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-pencil"></i> 
+											</a>
+											<a href="{{ path('app_register') }}" class="btn btn-outline-danger rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
+											<i class="fa fa-trash"></i> 
+											</a>
+										</td>
+									</tr>									
+								{% endfor %}                                   
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}

@@ -90,4 +90,16 @@ class Assistance
 
         return $this;
     }
+
+    public function getOriginCode(): ?string
+    {
+        return $this->originCode;
+    }
+
+    public function setOriginCode(?string $originCode): self
+    {
+        $this->originCode = $originCode;
+
+        return $this;
+    }
 }

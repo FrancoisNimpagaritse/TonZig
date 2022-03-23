@@ -38,6 +38,11 @@ class MouvementCaisse
      */
     private $Amount;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $originCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class MouvementCaisse
     public function setAmount(float $Amount): self
     {
         $this->Amount = $Amount;
+
+        return $this;
+    }
+
+    public function getOriginCode(): ?string
+    {
+        return $this->originCode;
+    }
+
+    public function setOriginCode(?string $originCode): self
+    {
+        $this->originCode = $originCode;
 
         return $this;
     }
