@@ -20,7 +20,7 @@ class Loan
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $disbursedAt;
 
@@ -55,6 +55,11 @@ class Loan
      * @ORM\Column(type="string", length=255)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $duration;
 
     public function __construct()
     {
@@ -190,5 +195,17 @@ class Loan
     public function __toString()
     {
         return $this->getId() . '-' . $this->getMember() . ' : ' . $this->getAmount();
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
     }
 }

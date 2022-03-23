@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GeTon - Suivi caisses{% endblock %}
+
+{% block body %}
+    <!-- Intro section -->
+	<section class="intro-section spad">
+		<div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="register-head pb-2">
+                        <h6 class="card-title">Transactions de caisse durant ce round</h6>
+                        <a href="{{ path('finances_assistances_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                    </div>
+                    <table class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><small><b>ID</b></small></th>
+                                <th scope="col"><small><b>Code</b></small></th>
+                                <th scope="col"><small><b>Date transaction</b></small></th>
+                                <th scope="col"><small><b>Compte</b></small></th>
+                                <th scope="col"><small><b>Montant</b></small></th>
+                                <th scope="col"><small><b>Description</b></small></th>
+                                <th scope="col"><small><b>Action</b></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in mouvements %}                                    									
+                            <tr>
+                                <td scope="row"><small>{{ m.id }}</small></td>
+                                <td scope="row"><small>{{ m.originCode }}</small></td>
+                                <td scope="row"><small>{{ m.transactionDate | date('d/m/Y H:i:s') }}</small></td>
+                                <td><small>{{ m.account.number }} - {{ m.account.label }}</small></td>
+                                <td><small>{{ m.amount }}</small></td>
+                                <td><small>{{ m.type }}</small></td>
+                                <td>
+                                <!-- Button action -->
+                                    <a href="{{ path('finances_assistances_edit', {'id': m.id}) }} " title="delete" onclick="return confirm('Attention! Etes-vous sûr de vouloir modifier?');" class="btn btn-outline-warning rounded-btn btn-sm">
+                                    <i class="fa fa-pencil"></i> 
+                                    </a>
+                                    <a href="{{ path('finances_assistances_delete', {'id': m.id}) }}" title="delete" class="btn btn-outline-danger rounded-btn btn-sm" onclick="return confirm('Attention! Etes-vous sûr de vouloir supprimer?')">
+                                    <i class="fa fa-trash"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>	
+		</div>
+	</section>
+	<!-- Intro section end -->
+{% endblock %}
+

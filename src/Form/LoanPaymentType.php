@@ -19,13 +19,13 @@ class LoanPaymentType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('principal', TextType::class, [
-                'label' =>  'Montant crédit'
+                'label' =>  'Crédit payé'
             ])
             ->add('interest', TextType::class, [
-                'label' =>  'Montant Intérêts'
+                'label' =>  'Intérêts payés'
             ])
             ->add('penality', TextType::class, [
-                'label' =>  'Montant pénalités'
+                'label' =>  'Pénalités payées'
             ])
             ->add('loan',null, [
             'label' =>  'Crédit à payer'])

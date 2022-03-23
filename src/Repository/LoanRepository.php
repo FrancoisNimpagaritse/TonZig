@@ -49,6 +49,25 @@ class LoanRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function getAllLoansBalance()
+    {
+        return $this->createQueryBuilder('l')
+                    ->select('l.id, l.disbursedAt, l.amount, l.status')
+                    ->addSelect('u.firstname, u.lastname')
+                    ->addSelect('SUM(d.principal) AS totalPrincipalDue, SUM(d.interest) as totalInterestDue')
+                    ->addSelect('SUM(p.principal) AS totalPrincipalPaid, SUM(p.interest) as totalInteretPaid')
+                    ->addSelect('(l.amount - SUM(p.principal)) AS soldePrincipal1, (SUM(d.principal) - SUM(p.principal)) as soldePrincipal2, (SUM(d.interest) - SUM(p.interest)) as soldeInterest, (SUM(d.penality) - SUM(p.penality)) AS soldePenality')
+                    ->addSelect('(l.amount + SUM(d.interest) + SUM(d.penality) - SUM(p.principal)- SUM(p.interest) - SUM(p.penality)) AS soldeTotal')
+                    ->leftJoin('l.payments', 'p', 'WITH', 'p.loan = l')
+                    ->leftJoin('l.dues', 'd', 'WITH', 'd.loan = l')
+                    ->innerJoin('l.member', 'u', 'WITH', 'l.member = u')
+                    //->setParameter('status', $status)//to be passed as parameter
+                    ->groupBy('l.id, l.disbursedAt, l.amount, u.firstname, u.lastname, l.status')
+                    ->orderBy('l.disbursedAt', 'DESC')
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Loan[] Returns an array of Loan objects
     //  */
