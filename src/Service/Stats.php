@@ -81,4 +81,10 @@ class Stats
     {
         return $this->manager->createQuery('SELECT SUM(a.amount) FROM App\Entity\Assistance a')->getSingleScalarResult();
     }
+
+    public function getSoldeCaisse(): float
+    {
+        return $this->manager->createQuery('SELECT SUM(m.amount) FROM App\Entity\MouvementCaisse m')->getSingleScalarResult();
+    }
 }
+

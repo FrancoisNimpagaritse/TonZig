@@ -120,6 +120,11 @@ class User implements UserInterface
      */
     private $sanctions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $userRoles;
+
     public function __construct()
     {
         $this->cotisations = new ArrayCollection();
@@ -129,6 +134,7 @@ class User implements UserInterface
         $this->hostedTwoMeetings = new ArrayCollection();
         $this->assistances = new ArrayCollection();
         $this->sanctions = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,11 +169,13 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        $roles = $this->userRoles->map(function($role){
+            return $role->getTitle();
+        })->toArray();
+        
         $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        
+        return $roles;
     }
 
     public function setRoles(array $roles): self
@@ -518,6 +526,33 @@ class User implements UserInterface
             if ($sanction->getMember() === $this) {
                 $sanction->setMember(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUser($this);
         }
 
         return $this;

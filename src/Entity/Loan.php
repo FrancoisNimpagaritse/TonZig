@@ -208,4 +208,26 @@ class Loan
 
         return $this;
     }
+
+    //Method to calculate total principal payments made so far
+    public function getTotalPrincipalPaid(): float
+    {
+        $totalPrincipalPaid = 0;
+        foreach($this->payments as $payment){
+            $totalPrincipalPaid+= $payment->getprincipal();
+        }
+
+        return $totalPrincipalPaid;
+    }
+
+    //Method to calculate total interest payments made so far
+    public function getTotalInterestPaid(): float
+    {
+        $totalInterestPaid = 0;
+        foreach($this->payments as $payment){
+            $totalInterestPaid+= $payment->getInterest();
+        }
+
+        return $totalInterestPaid;
+    }
 }

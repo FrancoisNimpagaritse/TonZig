@@ -31,17 +31,22 @@ class MouvementCaisse
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $description;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $Amount;
+    private $amount;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $originCode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -72,26 +77,26 @@ class MouvementCaisse
         return $this;
     }
 
-    public function getType(): ?string
+    public function getDescription(): ?string
     {
-        return $this->type;
+        return $this->description;
     }
 
-    public function setType(string $type): self
+    public function setDescription(string $description): self
     {
-        $this->type = $type;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getAmount(): ?float
     {
-        return $this->Amount;
+        return $this->amount;
     }
 
-    public function setAmount(float $Amount): self
+    public function setAmount(float $amount): self
     {
-        $this->Amount = $Amount;
+        $this->amount = $amount;
 
         return $this;
     }
@@ -104,6 +109,18 @@ class MouvementCaisse
     public function setOriginCode(?string $originCode): self
     {
         $this->originCode = $originCode;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

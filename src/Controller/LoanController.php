@@ -8,10 +8,12 @@ use App\Form\LoanType;
 use App\Service\Stats;
 use App\Entity\LoanDue;
 use App\Repository\LoanRepository;
+use App\Event\Loan\LoanEditedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoanController extends AbstractController
@@ -35,7 +37,7 @@ class LoanController extends AbstractController
      * 
      * @Route("/finances/loans/new", name="finances_loans_create")
      */
-    public function create(Request $request, EntityManagerInterface $manager): Response
+    public function create(Request $request, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $manager): Response
     {
         $loan = new Loan();
         $form = $this->createForm(LoanType::class, $loan);
@@ -59,12 +61,14 @@ class LoanController extends AbstractController
                         ->setPenality(0)
                         ->setLoan($loan);
 
-                //dd($installment);
                 $manager->persist($installment);
-            }
-
+            }            
             $manager->persist($loan);
             $manager->flush();
+            //Evénement créé
+			$loanAddedEvent = (new LoanEditedEvent($loan));
+            //Dispatcher ou propager l'événement tout en définissant son nom utilisé dans la propagation de cet événement
+            $eventDispatcher->dispatch($loanAddedEvent, 'loan.added');
 
             $this->addFlash('success', "Le crédit de {$loan->getMember()} pour un montant de {$loan->getAmount()} a été enregistré avec succès !");
 

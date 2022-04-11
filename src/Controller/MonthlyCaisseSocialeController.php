@@ -3,14 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\CaisseSociale;
-use App\Form\CaisseSocialeAmountType;
-use App\Repository\CaisseSocialeRepository;
+use App\Entity\MouvementCaisse;
 use App\Repository\UserRepository;
+use App\Form\CaisseSocialeAmountType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CaisseSocialeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Event\CaisseSociale\CaisseSocialeEditedEvent;
+use App\Repository\AccountRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MonthlyCaisseSocialeController extends AbstractController
 {
@@ -31,7 +35,7 @@ class MonthlyCaisseSocialeController extends AbstractController
      *
      * @Route("/finances/caissesociales/new", name="finances_caissesociales_create")
      */
-    public function create(UserRepository $memberRepo, Request $request, EntityManagerInterface $manager): Response
+    public function create(UserRepository $memberRepo, AccountRepository $accountRepo, EventDispatcherInterface $eventDispatcher, Request $request, EntityManagerInterface $manager): Response
     {
         //1. Find all active members
         $activeMembers = $memberRepo->findBy(['status' => 'actif']);
@@ -43,7 +47,9 @@ class MonthlyCaisseSocialeController extends AbstractController
             //2. Find current round's cotistion amount from a created form for that purpose only
             $meeting = $form->get('meeting')->getData();
             $amount = $form->get('meeting')->getData()->getRound()->getMonthlyCotisation();
-            $note = $form->get('note')->getData();
+            $note = $form->get('note')->getData();            
+
+            $totalCotisation = 0;
 
             for ($i = 0; $i < count($activeMembers); ++$i) {
                 //3. Create a new cotisation for each active member
@@ -55,14 +61,25 @@ class MonthlyCaisseSocialeController extends AbstractController
                     ->setMember($member)
                     ->setAmount($amount)
                     ->setNote($note);
-
+                
                 //5. Persist each cotisation
                 $manager->persist($caissesoc);
+                $totalCotisation+= $caissesoc->getAmount();
             }
+            $mvntCaisse = new MouvementCaisse();
+            $mvtAccount = $accountRepo->findOneBy(['number' =>  '101']);
+            
+            $mvntCaisse->setAccount($mvtAccount)
+                        ->setAmount($totalCotisation)
+                        ->setTransactionDate($meeting->getMeetingAt())
+                        ->setType($note)
+                        ->setOriginCode('CaiSoc_Renco_' . $meeting->getId());
+                        
+            $manager->persist($mvntCaisse);
 
             $manager->flush();
 
-            $this->addFlash('success', "La caisse sociale de tous les membres pour la rencontre du {$caissesoc->getMeeting()->getMeetingAt()->format('d/m/Y')} </strong> a été enregistrée avec succès !");
+            $this->addFlash('success', "La caisse sociale de {$totalCotisation} pour tous les membres pour la rencontre du {$caissesoc->getMeeting()->getMeetingAt()->format('d/m/Y')} </strong> a été enregistrée avec succès !");
 
             return $this->redirectToRoute('finances_index');
         }
