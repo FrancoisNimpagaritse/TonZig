@@ -26,6 +26,7 @@
                         <h6 class="card-title text-center"><span class="material-icons-sharp bg-danger rounded-circle text-white">bar_chart</span> Attendu prochaine rencontre</h6>
                         <small>Cotisation:</small> <span class="badge rounded-pill bg-primary text-white">{{ activeRound.monthlyCotisation | number_format(2, ',', ' ') }}</span><br>
                         <small>Caisse sociale:</small> <span class="badge rounded-pill bg-success text-white">{{ activeRound.monthlyCaisseSociale | number_format(2, ',', ' ') }}</span><br>
+						{% if nextDue %}
                         <small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">{{ nextDue.principal | number_format(2, ',', ' ') }}</span><br>
                         <small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">{{ nextDue.interest | number_format(2, ',', ' ') }}</span><br>
                         <small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">{{ nextDue.penality | number_format(2, ',', ' ') }}</span><br>
@@ -33,6 +34,15 @@
 						{% set totalAttendu = (activeRound.monthlyCotisation + activeRound.monthlyCaisseSociale + nextDue.principal + nextDue.interest + nextDue.penality) | number_format(2, ',', ' ') %}
                             <small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white"> {{totalAttendu}}</span><br>
                         </div>
+						{% else %}
+						 <small>Principal:</small> <span class="badge rounded-pill bg-dark text-white">0,00</span><br>
+                        <small>Intérêts:</small> <span class="badge rounded-pill bg-secondary text-white">0,00</span><br>
+                        <small>Pénalités:</small> <span class="badge rounded-pill bg-danger text-white">0,00</span><br>
+                        <div class="bg-light rounded text-center p-2">
+						{% set totalAttendu = (activeRound.monthlyCotisation + activeRound.monthlyCaisseSociale) | number_format(2, ',', ' ') %}
+                            <small>Total attendu pour moi: </small> <span class="badge rounded-pill bg-info text-white"> {{totalAttendu}}</span><br>
+                        </div>
+						{% endif %}
                     </div>
                 </div>
 				</div>
@@ -74,9 +84,9 @@
 									<tr>
 										<th scope="col"><small><b>Pris le</b></small></th>
 										<th scope="col"><small><b>Montant crédit</b></small></th>
+										<th scope="col"><small><b>Montant intérêts</b></small></th>
 										<th scope="col"><small><b>Solde Crédit</b></small></th>
 										<th scope="col"><small><b>Solde Intérêts</b></small></th>
-										<th scope="col"><small><b>Total Restant</b></small></th>
 										<th scope="col"><small><b>Actions</b></small></th>
 									</tr>
 								</thead>
@@ -85,9 +95,9 @@
 									<tr>
 										<td scope="row"><small>{{ l.disbursedAt | date('d/m/y') }}</small></td>
 										<td><small>{{ l.amount | number_format(2, ',', ' ') }}</small></td>
-										<td><small>{{((1 * l.amount) / (100 * 6)) | number_format(2, ',', ' ') }}</small></td>
-										<td><small>{{((1 * l.amount * 6) / 100) | number_format(2, ',', ' ') }}</small></td>
-										<td><small>4 600 000</small></td>
+										<td><small>{{(0.01 * l.amount * l.duration) | number_format(2, ',', ' ') }}</small></td>
+										<td><small>{{ (l.amount - totalPrincipalPaid) | number_format(2, ',', ' ') }}</small></td>
+										<td><small>{{((0.01 * l.amount * l.duration) - totalInterestPaid) | number_format(2, ',', ' ') }}</small></td>
 										<td>
 										<!-- Button trigger modal -->
 											<a href="{{ path('app_register') }}" class="btn btn-outline-info rounded-btn btn-sm" data-toggle="modal" data-target="#exampleModal">
@@ -101,7 +111,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-6 pt-2">
                     <div class="card">
 						<div class="card-body">
                             <h6 class="card-title">Calendrier rencontres</h6>

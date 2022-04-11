@@ -41,7 +41,8 @@ class AssistanceEditedSubscriber implements EventSubscriberInterface
         $mvtCaisse->setAccount($mvtAccount)
                   ->setTransactionDate($assistAdded->getDistributedDate())
                   ->setAmount((-1) * $assistAdded->getAmount())
-                  ->setType('Assistance sociale accordée à ' . $assistAdded->getBeneficiary() . ' pour ' . $assistAdded->getReason())
+                  ->setDescription('Assistance sociale accordée à ' . $assistAdded->getBeneficiary() . ' pour ' . $assistAdded->getReason())
+                  ->setType('entrée')
                   ->setOriginCode('Assist_' . $assistAdded->getId());
 
         $this->manager->persist($mvtCaisse);
@@ -56,6 +57,7 @@ class AssistanceEditedSubscriber implements EventSubscriberInterface
         
         $mvtCaisseToEdit->setTransactionDate($assistEdited->getDistributedDate())
                   ->setAmount((-1) * $assistEdited->getAmount())
+                  ->setDescription('Assistance sociale accordée à ' . $assistEdited->getBeneficiary())
                   ->setType('Assistance sociale accordée à ' . $assistEdited->getBeneficiary());
 
         $this->manager->flush();

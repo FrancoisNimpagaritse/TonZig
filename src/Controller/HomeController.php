@@ -23,11 +23,13 @@ class HomeController extends AbstractController
         
         $nextDue = $memstat->getLoanNextDue($currentMemberActiveLoan);
         $nextMeeting = $memstat->getNextMeeting(); //can i use this in the home template as next meeting?
+        //dd($nextDue);
+        //dd($nextMeeting);
         
         //prochaine due date
-        $date1 = new \DateTime($nextDue[0]['dueDate']->format('d-m-Y'));
+      //  $date1 = new \DateTime($nextDue[0]['dueDate']->format('d-m-Y'));
         //prochaine meeting date
-        $date2 = new \DateTime($nextMeeting[0]['meetingAt']->format('d-m-Y'));
+      //  $date2 = new \DateTime($nextMeeting[0]['meetingAt']->format('d-m-Y'));
      /*  echo 'nextDue: ' . $nextDue[0]['dueDate']->format('d-m-Y');
        echo "<br>";
        echo 'next meeting: ' . $nextMeeting[0]['meetingAt']->format('d-m-Y');
@@ -41,15 +43,17 @@ class HomeController extends AbstractController
        
 
         $activeRound = $roundRepo->findOneBy(['status' => 'open']);
-
+        //dd($currentMemberActiveLoan);
         return $this->render('home/index.html.twig', [
             'activeRound' => $activeRound,
-            'currentMemberActiveLoan' => $currentMemberActiveLoan,
+            'currentMemberActiveLoan' => $currentMemberActiveLoan ?? null,
             'meetings' => $meetings,
             'memberLoans' => $memberLoans,
             'memberLoanDues' => $memberLoanDues,
             'memberLoanPymnts' => $memberLoanPymnts,
-            'nextDue'    =>  $nextDue[0],
+            'nextDue'    =>  $nextDue[0] ?? null,
+            'totalPrincipalPaid'  =>  ($currentMemberActiveLoan != null) ?  $currentMemberActiveLoan->getTotalPrincipalPaid() : null,
+            'totalInterestPaid'  =>  ($currentMemberActiveLoan != null) ?  $currentMemberActiveLoan->getTotalInterestPaid() : null,
         ]);
     }
 }

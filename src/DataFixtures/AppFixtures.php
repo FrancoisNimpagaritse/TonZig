@@ -13,6 +13,7 @@ use App\Entity\LoanPayment;
 use App\Entity\Meeting;
 use App\Entity\MeetingLotDistribution;
 use App\Entity\MouvementCaisse;
+use App\Entity\Role;
 use App\Entity\Round;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -54,6 +55,52 @@ class AppFixtures extends Fixture
 
         $manager->persist($round);
 
+        //Ici nous gérons les rôles Admin
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+
+        $manager->persist($adminRole);
+
+         //Ici nous gérons les rôles Finance
+         $finaRole = new Role();
+         $finaRole->setTitle('ROLE_FINANCE');
+ 
+         $manager->persist($finaRole);
+
+        //Ici nous gérons le user qui a le rôle Admin
+        $adminUser = new User();
+        $hash = $this->encoder->encodePassword($adminUser, 'password');
+
+            $adminUser->setFirstname($faker->firstName())
+                ->setLastname($faker->lastName)
+                ->setEmail($faker->email)
+                ->setPassword($hash)
+                ->setRegisteredAt($faker->dateTimeBetween('-5 years', '-1 years'))
+                ->setAddress($faker->streetAddress)
+                ->setPhone($faker->phoneNumber)
+                ->setIsVerified(false)
+                ->setStatus('actif')
+                ->addUserRole($adminRole);
+
+            $manager->persist($adminUser);
+
+         //Ici nous gérons le user qui a le rôle Finance
+         $finaUser = new User();
+         $hash = $this->encoder->encodePassword($finaUser, 'password');
+ 
+             $finaUser->setFirstname($faker->firstName())
+                 ->setLastname($faker->lastName)
+                 ->setEmail($faker->email)
+                 ->setPassword($hash)
+                 ->setRegisteredAt($faker->dateTimeBetween('-5 years', '-1 years'))
+                 ->setAddress($faker->streetAddress)
+                 ->setPhone($faker->phoneNumber)
+                 ->setIsVerified(false)
+                 ->setStatus('actif')
+                 ->addUserRole($finaRole);
+ 
+             $manager->persist($finaUser);
+
         //Ici nous gérons les membres
         $members = [];
         for ($i = 0; $i < 20; ++$i) {
@@ -82,7 +129,6 @@ class AppFixtures extends Fixture
             $meeting = new Meeting();
 
             $meeting->setMeetingAt($faker->dateTimeBetween('0 years', '1 years'))
-                    ->setStatus('future')
                     ->setRemainingMeetings(9 - $i)
                     ->setRound($round)
                     ->setHostOne($members[mt_rand(0, 9)])
@@ -149,6 +195,7 @@ class AppFixtures extends Fixture
             $meet = $meetings[mt_rand(0, 5)];
 
             $loan->setDisbursedAt($meet->getMeetingAt())
+                ->setDuration(mt_rand(1, 6))
                 ->setAmount(1000000)
                 ->setMeeting($meetings[mt_rand(0, 5)])
                 ->setMember($members[mt_rand(0, 9)])
@@ -226,7 +273,8 @@ class AppFixtures extends Fixture
             $mvt->setTransactionDate($faker->dateTimeBetween('0 years', '1 years'))
             ->setAmount(1000000)
             ->setType($mvtTypes[mt_rand(0, 7)])
-            ->setAccount($accounts[mt_rand(0, 1)]);
+            ->setAccount($accounts[mt_rand(0, 1)])
+            ->setOriginCode(substr($mvtTypes[mt_rand(0, 7)], 0, 6) . mt_rand(1, 500));
 
             $manager->persist($mvt);
         }

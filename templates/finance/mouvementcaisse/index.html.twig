@@ -9,8 +9,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="register-head pb-2">
-                        <h6 class="card-title">Transactions de caisse durant ce round</h6>
-                        <a href="{{ path('finances_assistances_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
+                        <h6 class="card-title">Transactions de caisse</h6>
+                        <button class="badge badge-danger"><small>Solde: {{ soldeCaisse|number_format(2, ',', ' ') }}</small></button>
+                        <a href="{{ path('finances_mouvementcaisses_create') }}" class="bg-light text-danger"><b>+</b>Nouveau</a>
                     </div>
                     <table class="table table-bordered table-sm table-hover">
                         <thead>
@@ -20,6 +21,7 @@
                                 <th scope="col"><small><b>Date transaction</b></small></th>
                                 <th scope="col"><small><b>Compte</b></small></th>
                                 <th scope="col"><small><b>Montant</b></small></th>
+                                <th scope="col"><small><b>Nature</b></small></th>
                                 <th scope="col"><small><b>Description</b></small></th>
                                 <th scope="col"><small><b>Action</b></small></th>
                             </tr>
@@ -33,6 +35,7 @@
                                 <td><small>{{ m.account.number }} - {{ m.account.label }}</small></td>
                                 <td><small>{{ m.amount }}</small></td>
                                 <td><small>{{ m.type }}</small></td>
+                                <td><small>{{ m.description }}</small></td>
                                 <td>
                                 <!-- Button action -->
                                     <a href="{{ path('finances_assistances_edit', {'id': m.id}) }} " title="delete" onclick="return confirm('Attention! Etes-vous sûr de vouloir modifier?');" class="btn btn-outline-warning rounded-btn btn-sm">
