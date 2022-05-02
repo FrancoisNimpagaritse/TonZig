@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class AssistanceUnitTest extends TestCase
 {
+    /** @var Assistance */
     private $assist;
     private $member;
     private $date;
@@ -50,6 +51,7 @@ class AssistanceUnitTest extends TestCase
     {
         $this->assist = new Assistance();
 
+        $this->assertEmpty($this->assist->getId());
         $this->assertEmpty($this->assist->getDistributedDate());
         $this->assertEmpty($this->assist->getAmount());
         $this->assertEmpty($this->assist->getBeneficiary());

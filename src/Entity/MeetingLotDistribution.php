@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MeetingLotDistributionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MeetingLotDistributionRepository::class)
@@ -19,11 +20,14 @@ class MeetingLotDistribution
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant attribué est obligatoire")
+     * @Assert\Positive
      */
     private $amount;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Les bénéficiaires doivent être renseignés")
      */
     private $beneficiaires;
 

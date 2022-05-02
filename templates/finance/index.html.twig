@@ -13,21 +13,21 @@
 					<div class="middle">
 						<div class="left">
 							<h3>Total crédits encours</h3>
-							<h2>24 500 200</h2>
+							<h2>{{ stats.principalOutstandingBalance|number_format(0, '', ' ') }}</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Crédits restants dûs</small>
+					<small class="text-muted text-center">Crédits restants dûs</small>
 				</div>
 				<!-- END OF SALES -->
 				<div class="expenses">
 					<span class="material-icons-sharp  bg-danger text-white">bar_chart</span>
 					<div class="middle">
 						<div class="left">
-							<h3>Total intérêts restants dûs</h3>
-							<h2>1 880 500</h2>
+							<h3>Total intérêts encours</h3>
+							<h2>{{ stats.interestOutstandingBalance|number_format(0, '', ' ') }}</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Intérêts non encore payés sur crédits encours</small>
+					<small class="text-muted text-center">Intérêts non encore payés</small>
 				</div>
 				<!-- END OF EXPENSES -->
 				<div class="expenses">
@@ -38,7 +38,7 @@
 							<h2>{{ stats.totalLoans|number_format(0, '', ' ') }}</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Crédits depuis début round</small>
+					<small class="text-muted  text-center">Total crédits depuis le début du round</small>
 				</div>
 				<!-- END OF EXPENSES -->
 				<div class="income">
@@ -46,10 +46,10 @@
 					<div class="middle">
 						<div class="left">
 							<h3>Total Intérêts du cycle</h3>
-							<h2>7 845 000</h2>
+							<h2>{{ stats.totalInterestCollected|number_format(0, '', ' ') }}</h2>
 						</div>						
 					</div>
-					<small class="text-muted">Intérêts encaissés (issue de mvt caisse)</small>
+					<small class="text-muted text-center">Intérêts encaissés depuis le début du round</small>
 				</div>
 				<!-- END OF INCOME -->
 			</div>

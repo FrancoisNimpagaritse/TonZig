@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CaisseSocialeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CaisseSocialeRepository::class)
@@ -19,11 +20,14 @@ class CaisseSociale
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant est obligatoire")
+     * @Assert\Positive
      */
     private $amount;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Une description est obligatoire")
      */
     private $note;
 

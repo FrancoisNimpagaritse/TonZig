@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h4 class="text-black section-title text-uppercase">Oups ! La page que vous recherchez n'existe pas!</h4>
+                <p>On a du mal vous renseigner ! Pas de soucis, vous pouvez allez à la page d'accueil du site !</p>
+
+                <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+            </div>    
+        </div>
+</div>
+{% endblock %}

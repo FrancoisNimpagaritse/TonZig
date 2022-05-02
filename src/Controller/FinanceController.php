@@ -69,11 +69,5 @@ class FinanceController extends AbstractController
         $this->addFlash('success', 'Crédit <strong>'.$loan->getMember().'</strong>, enregistré avec succès !');
 
         return $this->redirectToRoute('finance_index');
-        /*
-
-         dd('here');
-         return $this->render('loan/index.html.twig', [
-             'form' => $form->createView(),
-         ]);  */
     }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AssistanceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AssistanceRepository::class)
@@ -19,6 +20,7 @@ class Assistance
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="La date d'octroi est obligatoire")
      */
     private $distributedDate;
 
@@ -30,11 +32,14 @@ class Assistance
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant accordé est obligatoire")
+     * @Assert\Positive
      */
     private $amount;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le motif de l'assistance est obligatoire")
      */
     private $reason;
 
@@ -87,18 +92,6 @@ class Assistance
     public function setReason(string $reason): self
     {
         $this->reason = $reason;
-
-        return $this;
-    }
-
-    public function getOriginCode(): ?string
-    {
-        return $this->originCode;
-    }
-
-    public function setOriginCode(?string $originCode): self
-    {
-        $this->originCode = $originCode;
 
         return $this;
     }

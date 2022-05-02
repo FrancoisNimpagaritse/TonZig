@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LoanPaymentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LoanPaymentRepository::class)
@@ -19,16 +20,21 @@ class LoanPayment
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="La date est obligatoire")
      */
     private $PaidDate;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le monent du crédit payé est obligatoire")
+     * @Assert\Positive
      */
     private $principal;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant des intérêts payé est obligatoire")
+     * @Assert\Positive
      */
     private $interest;
 

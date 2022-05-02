@@ -14,12 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class TontineController extends AbstractController
 {
     /**
-     * @Route("/tontine", name="tontine")
+     * @Route("/admin/tontine", name="admin_tontine_index")
      */
-    public function index(): Response
+    public function index(TontineRepository $repo): Response
     {
+        $tontines = $repo->findAll();
+        
         return $this->render('tontine/index.html.twig', [
-            'controller_name' => 'TontineController',
+            'tontines' => $tontines,
         ]);
     }
 

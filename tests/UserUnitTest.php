@@ -2,6 +2,12 @@
 
 namespace App\Tests;
 
+use App\Entity\AppliedSanction;
+use App\Entity\Assistance;
+use App\Entity\CaisseSociale;
+use App\Entity\Cotisation;
+use App\Entity\Loan;
+use App\Entity\Meeting;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 use DateTime;
@@ -65,14 +71,115 @@ class UserUnitTest extends TestCase
     {
         $user = new User();
 
+        $this->assertEmpty($user->getId());
         $this->assertEmpty($user->getEmail());
         $this->assertEmpty($user->getFirstname());
         $this->assertEmpty($user->getLastname());
-        //$this->assertEmpty($user->getPassword());
         $this->assertEmpty($user->getAddress());
         $this->assertEmpty($user->getPhone());
         $this->assertEmpty($user->getRegisteredAt());
         $this->assertEmpty($user->getStatus());
         $this->assertEmpty($user->getSuspendedAt());
+        $this->assertEmpty($user->getUsername());
+        $this->assertNull($user->getSalt());
+        $this->assertEquals(1, count($user->getRoles()));
+    }
+
+    public function testAddGetRemoveCotisation()
+    {
+        $member = new User();
+        $cotisation = new Cotisation();
+
+        $this->assertEmpty($member->getCotisations());
+
+        $member->addCotisation($cotisation);
+        $this->assertContains($cotisation, $member->getCotisations());
+
+        $member->removeCotisation($cotisation);
+        $this->assertEmpty($member->getCotisations());
+    }
+
+    public function testAddGetRemoveCaisse()
+    {
+        $member = new User();
+        $caisse = new CaisseSociale();
+
+        $this->assertEmpty($member->getCaisseSociales());
+
+        $member->addCaisseSociale($caisse);
+        $this->assertContains($caisse, $member->getCaisseSociales());
+
+        $member->removeCaisseSociale($caisse);
+        $this->assertEmpty($member->getCaisseSociales());
+    }
+
+    public function testAddGetRemoveLoan()
+    {
+        $member = new User();
+        $loan= new Loan();
+
+        $this->assertEmpty($member->getLoans());
+
+        $member->addLoan($loan);
+        $this->assertContains($loan, $member->getLoans());
+
+        $member->removeLoan($loan);
+        $this->assertEmpty($member->getLoans());
+    }
+
+    public function testAddGetRemoveAssistance()
+    {
+        $member = new User();
+        $assistance = new Assistance();
+
+        $this->assertEmpty($member->getAssistances());
+
+        $member->addAssistance($assistance);
+        $this->assertContains($assistance, $member->getAssistances());
+
+        $member->removeAssistance($assistance);
+        $this->assertEmpty($member->getAssistances());
+    }
+
+    public function testAddGetRemoveSanction()
+    {
+        $member = new User();
+        $sanction = new AppliedSanction();
+
+        $this->assertEmpty($member->getSanctions());
+
+        $member->addSanction($sanction);
+        $this->assertContains($sanction, $member->getSanctions());
+
+        $member->removeSanction($sanction);
+        $this->assertEmpty($member->getSanctions());
+    }
+
+    public function testAddGetRemoveHostedOneMeeting()
+    {
+        $member = new User();
+        $meeting = new Meeting();
+
+        $this->assertEmpty($member->getHostedOneMeetings());
+
+        $member->addHostedOneMeeting($meeting);
+        $this->assertContains($meeting, $member->getHostedOneMeetings());
+
+        $member->removeHostedOneMeeting($meeting);
+        $this->assertEmpty($member->getHostedOneMeetings());
+    }
+
+    public function testAddGetRemoveHostedTwoMeeting()
+    {
+        $member = new User();
+        $meeting = new Meeting();
+
+        $this->assertEmpty($member->getSanctions());
+
+        $member->addHostedTwoMeeting($meeting);
+        $this->assertContains($meeting, $member->getHostedTwoMeetings());
+
+        $member->removeHostedTwoMeeting($meeting);
+        $this->assertEmpty($member->getHostedTwoMeetings());
     }
 }

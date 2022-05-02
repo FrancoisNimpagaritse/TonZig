@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AppliedSanctionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AppliedSanctionRepository::class)
@@ -19,11 +20,13 @@ class AppliedSanction
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le type de sanction est obligatoire")
      */
     private $sanctionType;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant de la sanction est obligatoire")
      */
     private $amount;
 
