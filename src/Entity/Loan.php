@@ -6,6 +6,7 @@ use App\Repository\LoanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LoanRepository::class)
@@ -21,11 +22,15 @@ class Loan
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="La date est obligatoire")
+     * 
      */
     private $disbursedAt;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant est obligatoire")
+     * @Assert\Positive
      */
     private $amount;
 
@@ -58,6 +63,12 @@ class Loan
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="La duréé du crédit est obligatoire")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 6,
+     *      notInRangeMessage = "La durée du crédit doit être entre {{ min }}mois et {{ max }}mois",
+     * )
      */
     private $duration;
 

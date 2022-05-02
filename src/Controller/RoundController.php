@@ -55,7 +55,6 @@ class RoundController extends AbstractController
                 $meetingDate = date('Y-m-d', strtotime($text.'+ '.($i * $ecart).' days'));
 
                 $meeting->setMeetingAt(new DateTime($meetingDate))
-                        ->setStatus('future')
                         ->setRemainingMeetings($effectif - $i - 1)
                         ->setRound($round);
 
@@ -87,7 +86,7 @@ class RoundController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($round); //not sure if we need to persist it
+            $manager->persist($round);
             $manager->flush();
 
             $this->addFlash('success', 'Round N° <strong>'.$round->getRoundNumber().'</strong>, modifié avec succès !');

@@ -35,42 +35,49 @@ class Round
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le montant de la cotisation mensuelle du membre est obligatoire")
+     * @Assert\Positive
      */
     private $monthlyCotisation;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Le montant de la caisse sociale mensuelle du membre est obligatoire")
+     * @Assert\Positive
      */
     private $monthlyCaisseSociale;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="Veuillez indiquer la durée de remboursement du crédit")
+     * @Assert\Positive
      */
     private $loanMonthsDuration;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Veuillez indiquer lepourcentage des intérêts sur crédit")
+     * @Assert\Positive
      */
     private $loanMonthlyInterestPercentage;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="Veuillez indiquer la durée avant le remboursement du crédit")
+     * @Assert\Positive
      */
     private $loanPrincipalGracePeriod;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="Veuillez indiquer la durée avant le remboursement des intérêts sur crédit")
+     * @Assert\Positive
      */
     private $loanInterestGracePeriod;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de pénalité sur le crédit en retard")
+     * @Assert\Positive
      */
     private $principalLatePenalityPercentage;
 
@@ -83,12 +90,14 @@ class Round
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Veuillez indiquer le montant de pénalité den cas de retard à la rencontre")
+     * @Assert\Positive
      */
     private $meetingLatePenalityAmount;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Veuillez indiquer le montant de pénalité den cas d'absebce à la rencontre")
+     * @Assert\Positive
      */
     private $meetingAbsencePenalityAmount;
 

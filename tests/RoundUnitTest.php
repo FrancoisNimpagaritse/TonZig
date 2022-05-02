@@ -2,19 +2,23 @@
 
 namespace App\Tests;
 
+use App\Entity\Meeting;
 use DateTime;
 use App\Entity\Round;
 use PHPUnit\Framework\TestCase;
 
 class RoundUnitTest extends TestCase
 {
+    /** @var Round */
     private $round;
     private $date;
+    private $closingDate;
 
     public function setUp(): void
     {
         $this->round = new Round();
         $this->date = new DateTime();
+        $this->closingDate = new DateTime();
 
         $this->round->setRoundNumber(1)
              ->setRoundStartDate($this->date)
@@ -29,7 +33,9 @@ class RoundUnitTest extends TestCase
              ->setMeetingAbsencePenalityAmount(5000)
              ->setMeetingFrequency('30')
              ->setMeetingStartHour('15:00')
-             ->setStatus('future');
+             ->setStatus('future')
+             ->setTotalMeetings(10)
+             ->setRoundClosingDate($this->closingDate);
     }
 
     public function testIsTrue()
@@ -48,6 +54,8 @@ class RoundUnitTest extends TestCase
         $this->assertTrue($this->round->getMeetingFrequency() === '30');
         $this->assertTrue($this->round->getMeetingStartHour() === '15:00');
         $this->assertTrue( $this->round->getStatus() === 'future');
+        $this->assertTrue( $this->round->getTotalMeetings() === 10);
+        $this->assertTrue( $this->round->getRoundClosingDate() === $this->closingDate);
     }
     
     public function testIsFalse()
@@ -65,7 +73,9 @@ class RoundUnitTest extends TestCase
              ->setMeetingAbsencePenalityAmount(5000)
              ->setMeetingFrequency(30)
              ->setMeetingStartHour('15:00')
-             ->setStatus('future');
+             ->setStatus('future')
+             ->setTotalMeetings(10)
+             ->setRoundClosingDate(null);
 
         $this->assertFalse($this->round->getRoundNumber() === 0);
         $this->assertFalse($this->round->getRoundStartDate() != $this->date);
@@ -80,13 +90,16 @@ class RoundUnitTest extends TestCase
         $this->assertFalse($this->round->getMeetingAbsencePenalityAmount() === 5500);
         $this->assertFalse($this->round->getMeetingFrequency() === 33);
         $this->assertFalse($this->round->getMeetingStartHour() === '15:10');
-        $this->assertFalse( $this->round->getStatus() === 'futur');
+        $this->assertFalse($this->round->getStatus() === 'futur');
+        $this->assertFalse($this->round->getTotalMeetings() === 5);
+        $this->assertFalse($this->round->getRoundClosingDate() === $this->closingDate);
     }
 
     public function testIsEmpty()
     {
         $this->round = new Round();
 
+        $this->assertEmpty($this->round->getId());
         $this->assertEmpty($this->round->getRoundNumber());
         $this->assertEmpty($this->round->getRoundStartDate());
         $this->assertEmpty($this->round->getMonthlyCotisation());
@@ -101,5 +114,21 @@ class RoundUnitTest extends TestCase
         $this->assertEmpty($this->round->getMeetingFrequency());
         $this->assertEmpty($this->round->getMeetingStartHour());
         $this->assertEmpty( $this->round->getStatus());       
+        $this->assertEmpty( $this->round->getTotalMeetings());      
+        $this->assertEmpty( $this->round->getRoundClosingDate());      
+    }
+
+    public function testAddGetRemoveMeeting()
+    {
+        $this->round = new Round();
+        $meeting = new Meeting();
+
+        $this->assertEmpty($this->round->getmeetings());
+
+        $this->round->addMeeting($meeting);
+        $this->assertContains($meeting, $this->round->getMeetings());
+
+        $this->round->removeMeeting($meeting);
+        $this->assertEmpty($this->round->getMeetings());
     }
 }

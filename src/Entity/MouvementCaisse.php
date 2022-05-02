@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MouvementCaisseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MouvementCaisseRepository::class)
@@ -19,6 +20,7 @@ class MouvementCaisse
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="La date est obligatoire")
      */
     private $transactionDate;
 
@@ -30,11 +32,14 @@ class MouvementCaisse
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La description est obligatoire")
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Le montant est obligatoire")
+     * 
      */
     private $amount;
 
@@ -45,6 +50,7 @@ class MouvementCaisse
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Le type de mouvement est obligatoire")
      */
     private $type;
 

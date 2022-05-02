@@ -73,12 +73,12 @@ class AppFixtures extends Fixture
 
             $adminUser->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName)
-                ->setEmail($faker->email)
+                ->setEmail('admin@test.com')
                 ->setPassword($hash)
                 ->setRegisteredAt($faker->dateTimeBetween('-5 years', '-1 years'))
                 ->setAddress($faker->streetAddress)
                 ->setPhone($faker->phoneNumber)
-                ->setIsVerified(false)
+                ->setIsVerified(true)
                 ->setStatus('actif')
                 ->addUserRole($adminRole);
 
@@ -90,12 +90,12 @@ class AppFixtures extends Fixture
  
              $finaUser->setFirstname($faker->firstName())
                  ->setLastname($faker->lastName)
-                 ->setEmail($faker->email)
+                 ->setEmail('fina@test.com')
                  ->setPassword($hash)
                  ->setRegisteredAt($faker->dateTimeBetween('-5 years', '-1 years'))
                  ->setAddress($faker->streetAddress)
                  ->setPhone($faker->phoneNumber)
-                 ->setIsVerified(false)
+                 ->setIsVerified(true)
                  ->setStatus('actif')
                  ->addUserRole($finaRole);
  
@@ -268,13 +268,14 @@ class AppFixtures extends Fixture
         //Ici nous gérons les mouvements caisses
         for ($i = 0; $i < 50; ++$i) {
             $mvt = new MouvementCaisse();
-            $mvtTypes = ['amende', 'assistance', 'caisse sociale', 'cotisation mensuelle', 'crédit', 'remboursement crédit', 'distribution lot', 'opérations diverses'];
+            $mvtTypes = ['amende', 'assistance', 'caisse sociale', 'crédit', 'remboursement crédit', 'opérations diverses'];
 
             $mvt->setTransactionDate($faker->dateTimeBetween('0 years', '1 years'))
             ->setAmount(1000000)
-            ->setType($mvtTypes[mt_rand(0, 7)])
+            ->setType($mvtTypes[mt_rand(0, 5)])
             ->setAccount($accounts[mt_rand(0, 1)])
-            ->setOriginCode(substr($mvtTypes[mt_rand(0, 7)], 0, 6) . mt_rand(1, 500));
+            ->setOriginCode(substr($mvtTypes[mt_rand(0, 5)], 0, 6) . mt_rand(1, 500))
+            ->setDescription('Un mouvement de caisse normal');
 
             $manager->persist($mvt);
         }

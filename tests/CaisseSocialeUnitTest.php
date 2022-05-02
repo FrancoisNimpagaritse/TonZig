@@ -50,6 +50,7 @@ class CaisseSocialeUnitTest extends TestCase
     {
         $this->caisse = new CaisseSociale();
 
+        $this->assertEmpty($this->caisse->getId());
         $this->assertEmpty($this->caisse->getAmount());
         $this->assertEmpty($this->caisse->getMember());
         $this->assertEmpty($this->caisse->getMeeting());

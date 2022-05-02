@@ -55,16 +55,29 @@ class Stats
         $repayments = $this->repayRepo->findAll();
         $members = $this->memRepo->findAll();
         $totalLoans = $this->getTotalLoans();
+        $totalInterest = $this->getTotalInterest();
         $totalRepays = $this->getTotalRepays();
         $totalInterestCollected = $this->getTotalInterestCollected();
         $totalAssistances = $this->getTotalAssistances();
 
-        return compact('meetings', 'cotisations', 'caissesociales', 'lotdistributions', 'sanctions', 'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected', 'totalAssistances');
+        //encours crédits
+        $principalOutstandingBalance = $totalLoans - $totalRepays;
+        $interestOutstandingBalance = $totalInterest - $totalInterestCollected;
+
+        return compact('meetings', 'cotisations', 'caissesociales', 'lotdistributions', 'sanctions',
+         'assistances', 'loans', 'repayments', 'members', 'totalLoans', 'totalRepays', 'totalInterestCollected',
+          'totalAssistances', 'principalOutstandingBalance', 'interestOutstandingBalance');
     }
 
+    //Figure out how to consider only current cycle loans
     public function getTotalLoans(): float
     {
         return $this->manager->createQuery('SELECT SUM(l.amount) FROM App\Entity\Loan l')->getSingleScalarResult();
+    }
+
+    public function getTotalInterest(): float
+    {
+        return $this->manager->createQuery('SELECT SUM(d.interest) FROM App\Entity\LoanDue d')->getSingleScalarResult();
     }
 
     public function getTotalRepays(): float
